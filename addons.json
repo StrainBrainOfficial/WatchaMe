@@ -1,0 +1,156 @@
+{
+  "_comment": "mirror = packaged into this repo from upstream GitHub (missing from the official Kodi repo, or official is stale). official = installed by id from Kodi's own repo by the toolbox add-on. external = better served by the vendor's own repository.",
+  "mirror": [
+    {
+      "id": "service.subtitles.a4ksubtitles",
+      "name": "a4kSubtitles",
+      "category": "subtitles",
+      "why": "Multi-source subtitle search (OpenSubtitles, Addic7ed, Podnapisi, SubDL, SubSource) in one addon. Not in the official repo.",
+      "github": "a4k-openproject/a4kSubtitles",
+      "track": "release"
+    },
+    {
+      "id": "script.black.bars.never",
+      "name": "BlackBarsNever",
+      "category": "playback",
+      "why": "Detects and removes black bars, including hardcoded ones, during playback.",
+      "github": "osumoclement/script.black.bars.never",
+      "track": "release"
+    },
+    {
+      "id": "script.service.janitor",
+      "name": "Janitor",
+      "category": "cleanup",
+      "why": "Deletes watched video files on a schedule to reclaim disk. Not in the official repo.",
+      "github": "Anthirian/script.filecleaner",
+      "track": "branch"
+    }
+  ],
+  "official": [
+    {
+      "id": "script.trakt",
+      "name": "Trakt",
+      "category": "tracking",
+      "why": "Scrobbling, watched-state sync and lists across devices."
+    },
+    {
+      "id": "service.upnext",
+      "name": "Up Next",
+      "category": "playback",
+      "why": "Netflix-style auto-play of the next episode."
+    },
+    {
+      "id": "script.globalsearch",
+      "name": "Global Search",
+      "category": "tools",
+      "why": "Search the whole library and addons from one dialog."
+    },
+    {
+      "id": "script.skinshortcuts",
+      "name": "Skin Shortcuts",
+      "category": "skinning",
+      "why": "Menu customisation; required by most good skins."
+    },
+    {
+      "id": "script.keymap",
+      "name": "Keymap Editor",
+      "category": "tools",
+      "why": "Remap remote and keyboard buttons from the GUI."
+    },
+    {
+      "id": "script.cu.lrclyrics",
+      "name": "CU LRC Lyrics",
+      "category": "music",
+      "why": "Synced lyrics during music playback."
+    },
+    {
+      "id": "script.extendedinfo",
+      "name": "ExtendedInfo Script",
+      "category": "metadata",
+      "why": "Deep cast, similar-title and trailer browsing."
+    },
+    {
+      "id": "script.embuary.helper",
+      "name": "Embuary Helper",
+      "category": "skinning",
+      "why": "Widget and skin helper used by many modern skins."
+    },
+    {
+      "id": "script.embuary.info",
+      "name": "Embuary Info",
+      "category": "metadata",
+      "why": "Rich info dialogs for movies, shows and people."
+    },
+    {
+      "id": "inputstream.adaptive",
+      "name": "InputStream Adaptive",
+      "category": "playback",
+      "why": "DASH/HLS/Smooth playback; required by most streaming addons."
+    },
+    {
+      "id": "inputstream.ffmpegdirect",
+      "name": "InputStream FFmpegDirect",
+      "category": "playback",
+      "why": "Timeshift and better handling of live streams."
+    },
+    {
+      "id": "plugin.video.youtube",
+      "name": "YouTube",
+      "category": "video",
+      "why": "The maintained YouTube client."
+    },
+    {
+      "id": "script.kodi.loguploader",
+      "name": "Kodi Logfile Uploader",
+      "category": "tools",
+      "why": "One-click log upload when you need support."
+    },
+    {
+      "id": "plugin.program.autocompletion",
+      "name": "Autocompletion",
+      "category": "tools",
+      "why": "Search suggestions in Kodi's on-screen keyboard."
+    },
+    {
+      "id": "skin.copacetic",
+      "name": "Copacetic",
+      "category": "skin",
+      "why": "Fast, clean, actively maintained modern skin.",
+      "optional": true
+    },
+    {
+      "id": "script.plexmod",
+      "name": "Plex for Kodi",
+      "category": "library",
+      "why": "Plex media server integration.",
+      "optional": true
+    },
+    {
+      "id": "pvr.iptvsimple",
+      "name": "PVR IPTV Simple Client",
+      "category": "pvr",
+      "why": "Play your own M3U playlists as live TV channels.",
+      "optional": true
+    }
+  ],
+  "external": [
+    {
+      "name": "TheMovieDb Helper (6.x)",
+      "why": "Newer than the official repo's 5.x, but hard-requires script.module.pil, a compiled module no official repo ships. Upstream's own repo resolves it.",
+      "url": "https://jurialmunkey.github.io/repository.jurialmunkey/",
+      "addons": [
+        "plugin.video.themoviedb.helper",
+        "script.skinvariables",
+        "skin.arctic.horizon.2"
+      ]
+    },
+    {
+      "name": "Jellyfin for Kodi",
+      "why": "Generates its addon.xml at release time and publishes an auto-updating repo.",
+      "url": "https://repo.jellyfin.org/files/client/kodi/",
+      "addons": [
+        "plugin.video.jellyfin"
+      ]
+    }
+  ]
+}

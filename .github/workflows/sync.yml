@@ -1,0 +1,53 @@
+name: Sync repository
+
+on:
+  schedule:
+    # 05:15 UTC daily. GitHub delays scheduled runs under load; that is fine here.
+    - cron: "15 5 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "addons.json"
+      - "repo.config.json"
+      - "src/**"
+      - "scripts/**"
+      - ".github/workflows/sync.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-repository
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build repository
+        env:
+          # Raises the GitHub API rate limit for the upstream version lookups.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/build_repo.py
+
+      - name: Verify every dependency resolves
+        run: python3 scripts/check_deps.py
+
+      - name: Commit changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs src
+          if git diff --cached --quiet; then
+            echo "No upstream changes."
+            exit 0
+          fi
+          git commit -m "chore(repo): sync add-ons $(date -u +%Y-%m-%d)"
+          git push

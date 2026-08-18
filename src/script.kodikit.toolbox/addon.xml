@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.kodikit.toolbox" name="KodiKit Toolbox" version="1.0.0" provider-name="StrainBrainOfficial">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_gb">One-click setup, cleanup and tuning for Kodi</summary>
+    <description lang="en_gb">Installs a curated set of Kodi tools in one pass, then keeps the install healthy: clear the package and thumbnail caches, purge old logs, clean the library of missing files, and apply sensible streaming cache settings. Everything is opt-in and shows you exactly what it will touch before it touches it.</description>
+    <platform>all</platform>
+    <license>GPL-3.0-or-later</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.png</fanart>
+    </assets>
+  </extension>
+</addon>
