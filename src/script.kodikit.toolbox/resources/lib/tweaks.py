@@ -9,11 +9,34 @@ import xbmcgui
 from .common import NAME, confirm, log, notify, path
 
 # Kodi allocates roughly 3x memorysize, so keep the per-profile figure modest.
+# The fourth field adds the constrained-device block below: capped artwork
+# resolution, dirty-region redraw and shorter network timeouts. Those matter on
+# a streaming stick, where 8 GB of flash fills with texture cache long before
+# RAM becomes the problem.
 PROFILES = [
-    ("Low memory  (~20 MB buffer, for old boxes)", 20 * 1024 * 1024, 4),
-    ("Balanced  (~64 MB buffer, recommended)", 64 * 1024 * 1024, 8),
-    ("Large  (~128 MB buffer, 4 GB+ RAM)", 128 * 1024 * 1024, 20),
+    ("Fire TV Stick  (~40 MB buffer + artwork caps, 1-2 GB)", 40 * 1024 * 1024, 4, True),
+    ("Low memory  (~20 MB buffer + artwork caps, old boxes)", 20 * 1024 * 1024, 4, True),
+    ("Balanced  (~64 MB buffer, recommended)", 64 * 1024 * 1024, 8, False),
+    ("Large  (~128 MB buffer, 4 GB+ RAM)", 128 * 1024 * 1024, 20, False),
 ]
+
+CONSTRAINED = """
+  <!-- Redraw only changed screen regions; a large win on weak GPUs. -->
+  <gui>
+    <algorithmdirtyregions>3</algorithmdirtyregions>
+  </gui>
+
+  <!-- Cap cached artwork. The highest-leverage setting for storage on a
+       stick: the flash is 8 GB no matter how much RAM the model has. -->
+  <imageres>540</imageres>
+  <fanartres>720</fanartres>
+
+  <!-- Fail fast on dead sources instead of hanging the UI. -->
+  <network>
+    <curlclienttimeout>20</curlclienttimeout>
+    <curllowspeedtime>15</curllowspeedtime>
+  </network>
+"""
 
 TEMPLATE = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <advancedsettings>
@@ -23,7 +46,7 @@ TEMPLATE = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <memorysize>{memorysize}</memorysize>
     <readfactor>{readfactor}</readfactor>
   </cache>
-</advancedsettings>
+{extra}</advancedsettings>
 """
 
 
@@ -35,7 +58,7 @@ def run():
     choice = xbmcgui.Dialog().select("Streaming cache profile", [p[0] for p in PROFILES])
     if choice < 0:
         return
-    label, memorysize, readfactor = PROFILES[choice]
+    label, memorysize, readfactor, constrained = PROFILES[choice]
     target = _target()
 
     message = "Write advancedsettings.xml with the '%s' profile?" % label.split("  ")[0]
@@ -56,7 +79,9 @@ def run():
 
     try:
         with open(target, "w", encoding="utf-8") as handle:
-            handle.write(TEMPLATE.format(memorysize=memorysize, readfactor=readfactor))
+            handle.write(TEMPLATE.format(memorysize=memorysize,
+                                         readfactor=readfactor,
+                                         extra=CONSTRAINED if constrained else ""))
     except OSError as exc:
         log("write failed: %s" % exc, xbmc.LOGERROR)
         notify("Could not write advancedsettings.xml", xbmcgui.NOTIFICATION_ERROR)

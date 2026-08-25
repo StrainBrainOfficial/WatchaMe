@@ -53,7 +53,7 @@
     		<news>Updated the addon to use new addon.xml metadata</news>
     	</extension>
     </addon>
-    <addon id="script.kodikit.toolbox" name="KodiKit Toolbox" version="1.0.0" provider-name="StrainBrainOfficial">
+    <addon id="script.kodikit.toolbox" name="KodiKit Toolbox" version="1.1.0" provider-name="StrainBrainOfficial">
       <requires>
         <import addon="xbmc.python" version="3.0.0" />
       </requires>

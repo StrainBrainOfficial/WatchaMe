@@ -52,7 +52,7 @@ Direct zip link: `https://raw.githubusercontent.com/StrainBrainOfficial/kodi-rep
 | Install curated add-ons | Multi-select install of the whole list below. Already-installed add-ons are filtered out; optional ones are unticked by default. |
 | Storage report | Shows exactly how much each cache is costing you, changing nothing. |
 | Clean up caches | Package cache, temp files, thumbnails, texture DB, logs 7+ days old. Pick per item, see sizes first. Never touches media or settings. |
-| Apply streaming cache tuning | Writes `advancedsettings.xml` with a low/balanced/large buffer profile. Backs up any existing file with a timestamp first. |
+| Apply streaming cache tuning | Writes `advancedsettings.xml` from a device profile — Fire TV Stick, low-memory, balanced or large. The two constrained profiles also cap cached artwork resolution, enable dirty-region redraw and shorten network timeouts. Backs up any existing file with a timestamp first. |
 | Clean video/music library | Removes library entries whose files are gone. Deletes no media. |
 
 It can also be driven directly, e.g. from a keymap or another script:
