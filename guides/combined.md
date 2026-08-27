@@ -178,15 +178,33 @@ git add -A && git commit -m "Configure repository identity"
 
 Do this once. After it, everything is automatic.
 
-**3.1 Create the repository.** It must be public — Kodi cannot authenticate.
+**3.1 Point the local repository at GitHub.** It must be public — Kodi cannot authenticate. Which route depends on whether the repository exists yet.
+
+**Route A — it does not exist yet.** One command creates it and wires up the remote:
 
 ```
 gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
 ```
 
-`YOURNAME` is the owner and `YOURREPO` the repository name — the same two values as `github_user` and `github_repo` in 2.2. This command adds no README, .gitignore or license, which is what you want: any of them would create an initial commit and make the first push a merge.
+`YOURNAME` is the owner and `YOURREPO` the repository name — the same two values as `github_user` and `github_repo` in 2.2. It adds no README, .gitignore or license, which is what you want: any of them creates an initial commit and turns your first push into a merge.
 
-> If that reports `remote origin already exists`, the directory is already pointed somewhere. Check with `git remote -v`, then either use that target or repoint it: `git remote set-url origin URL`.
+**Route B — you already created it in the browser** (Appendix D.1, or github.com/new). Do not run the command above; it will fail. Just add the remote:
+
+```
+git remote add origin https://github.com/YOURNAME/YOURREPO.git
+```
+
+**Check either route:**
+
+```
+git remote -v
+```
+
+Both lines must show your repository's URL.
+
+> **`GraphQL: Name already exists on this account (createRepository)`** means the repository is already there — you are on Route B. Nothing is broken and nothing was changed; add the remote and carry on to 3.2.
+>
+> **`remote origin already exists`** means the remote is set already. Confirm it points where you expect with `git remote -v`, or repoint it: `git remote set-url origin URL`.
 
 **3.2 Push.**
 
@@ -490,6 +508,8 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 |---|---|---|
 | `gh auth login` opens no browser | Headless machine | Use the token method in the 1.4 note |
 | `git push` asks for a password | Not authenticated, or using a password | Redo 1.4, or paste a personal access token |
+| `Name already exists on this account` | The repository was already created, probably in the browser | Skip to 3.1 Route B |
+| `destination path already exists and is not an empty directory` | Cloning on top of the local repository you already have | Do not clone. Use 3.1 Route B to attach it to GitHub. |
 | Commits show the wrong author | `user.email` not your GitHub address | Redo 1.3 |
 | Build stops: `content changed without a version bump` | The working case, caught | Bump the version in `src/<addon>/addon.xml`, rebuild |
 | `check_deps` reports an unresolvable import | A dependency nobody publishes | Move the add-on to `external` and document the vendor repo |
