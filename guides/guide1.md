@@ -154,15 +154,25 @@ python3 scripts/check_deps.py
 ```
 git add -A && git commit -m "Configure repository identity"
 ```
+
 # Part 3 — Choose your add-ons
 
 **Where:** terminal and a text editor. No browser.
 
-Do this before you publish, and again any time you want to change what the repository carries.
+This is where you decide what your repository carries. Do it before you publish, and again whenever you want to change the set.
 
-Fill in one file, run one command. **`addons.wishlist.txt`** in the repository root is that file — a plain list of what you want, with comments explaining the format. `scripts/plan_addons.py` reads it, checks each add-on against Kodi's official repository, works out which section it belongs in, and writes the entries for you.
+You fill in one file and run one command. The whole part is:
 
-**3.0 Fill in the wishlist.** Open `addons.wishlist.txt` and list what you want, one per line:
+```
+1  edit addons.wishlist.txt          list what you want
+2  python3 scripts/plan_addons.py    check it
+3  ...fix anything it flags
+4  python3 scripts/plan_addons.py --apply
+5  ...write a "why" for each new entry
+6  build, check, push
+```
+
+**3.1 List what you want.** Open **`addons.wishlist.txt`** in the repository root. One add-on per line:
 
 ```
 script.trakt
@@ -170,15 +180,21 @@ service.subtitles.a4ksubtitles   a4k-openproject/a4kSubtitles
 script.plexmod                                          optional
 ```
 
-The add-on **id** is the only required field. Add a GitHub `owner/repo` only for add-ons that are not in Kodi's official repository — you do not need to know which those are in advance; the planner tells you. Append `optional` to leave an entry unticked in the Toolbox picker.
+| Field | Required | Meaning |
+|---|---|---|
+| add-on id | **Yes** | The real id, not the display name. Find it in the add-on's own `addon.xml`, or as the folder name under `~/.kodi/addons/`. |
+| `owner/repo` | Only sometimes | Its GitHub slug. Needed only for add-ons **not** in Kodi's official repository — you do not have to know which those are; step 3.2 tells you. |
+| `optional` | No | Leaves the entry **unticked** in the Toolbox picker. Use it for anything needing credentials, a subscription, or extra hardware. |
 
-**3.0b Run the planner.**
+Everything after a `#` is a comment, so the instructions already in the file can stay.
+
+**3.2 Check the list.**
 
 ```
 python3 scripts/plan_addons.py
 ```
 
-It reports one line per add-on:
+It reads your wishlist, checks every id against Kodi's official Omega and Piers indexes, and prints one line each:
 
 ```
   --  service.subtitles.a4ksubtitles    already in addons.json
@@ -187,49 +203,77 @@ It reports one line per add-on:
   !!  script.something                  NOT in the official repo, and no owner/repo given
 ```
 
-Fix any `!!` lines by adding a GitHub slug to the wishlist, then run it again. When it is clean:
+| Marker | Meaning | Do |
+|---|---|---|
+| `--` | Already carried | Nothing |
+| `ok … official` | Kodi ships it; it will be installed by id and stay on its maintainer's update channel | Nothing |
+| `ok … mirror` | Not in Kodi's repo; it will be packaged into yours from GitHub | Nothing |
+| `!!` | Not in Kodi's repo, and you gave no GitHub slug | Step 3.3 |
+
+**3.3 Resolve anything marked `!!`.** The add-on has to come from somewhere, so find its source and add the slug to the wishlist:
+
+```
+script.something   owner/repo
+```
+
+To find it, search GitHub for the exact add-on id — most Kodi add-ons use their id as the repository name. Then re-run 3.2 until no `!!` lines remain.
+
+If the add-on has no GitHub repository at all and installs only from a vendor's own Kodi repository, it belongs in the `external` section instead. Add it by hand using the `external` shape at the end of this part, and it is documented rather than installed.
+
+**3.4 Apply.**
 
 ```
 python3 scripts/plan_addons.py --apply
 ```
 
-That writes the entries into `addons.json` **and bumps the Toolbox version for you** — the step that otherwise means no device ever sees your change.
+This changes two files:
 
-**3.0c Edit each `why`.** The planner leaves `"why": "TODO: ..."` on every entry. Replace it with one sentence; it ends up in the README and is the only record of why an add-on earned its slot.
+- **`addons.json`** — your entries are appended to the right sections.
+- **`src/script.watchame.toolbox/addon.xml`** — the Toolbox's version is bumped for you.
 
-Then go to 3.5 to build and check. The rest of this part explains what the planner is doing, and is the manual route if you would rather write entries by hand.
+> The version bump is not cosmetic. The curated list ships *inside* the Toolbox, so without it the published index is byte-identical and **no device ever fetches your new list**, while every build reports success. The planner does it so you cannot forget; `build_repo.py` refuses to finish if it is ever missed.
 
-**3.1 Find the add-on's ID.** Not its display name. Any one of:
-
-| Source | Where to look |
-|---|---|
-| Its GitHub repo | `addon.xml` → the `id=` attribute of the root `<addon>` element |
-| An installed copy | The folder name under `~/.kodi/addons/`, e.g. `script.trakt/` |
-| Kodi | Add-ons → the add-on → Information |
-
-**3.2 Decide which section it goes in.** Run this, with your IDs in the `probe` list:
+**3.5 Write a `why` for each new entry.** The planner leaves a placeholder:
 
 ```
-python3 - <<'EOF'
-import gzip, re, urllib.request
-url = "https://mirrors.kodi.tv/addons/omega/addons.xml.gz"
-req = urllib.request.Request(url, headers={"User-Agent": "watchame"})
-raw = gzip.decompress(urllib.request.urlopen(req, timeout=60).read()).decode("utf-8", "replace")
-ids = set(re.findall(r'<addon\s+id="([^"]+)"', raw))
-for probe in ["script.trakt", "service.vpn.manager"]:
-    print("%-34s %s" % (probe, "IN official" if probe in ids else "NOT in official"))
-EOF
+"why": "TODO: one sentence on why this earned a slot."
 ```
 
-| Result | Section | Why |
-|---|---|---|
-| `IN official` | `official` | Installed by ID; stays on the maintainer's update channel |
-| `NOT in official` | `mirror` | Packaged into your repo from its GitHub source |
-| Installs only from a vendor's own repo | `external` | Documented, never auto-installed — see Appendix A |
+Open `addons.json` and replace every `TODO`. This text ends up in the README and is the only record of why an add-on is there. It also guesses `name` and `category` from the id — correct those at the same time.
 
-**3.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
+**3.6 Build and check.**
 
-For `mirror`:
+```
+python3 scripts/build_repo.py && python3 scripts/check_deps.py
+```
+
+**Check:** the build ends with an add-on count and an md5, and the dependency check says `all dependencies resolve`.
+
+If it reports an unresolvable import, that add-on needs a dependency nobody publishes — move it to the `external` section (see the end of this part) rather than shipping something that cannot install.
+
+**3.7 Commit and push.**
+
+```
+git add -A && git commit -m "Add <what you added>" && git push
+```
+
+Skip the push if you have not done Part 4 yet; just commit and carry on.
+
+**3.8 Confirm it landed.**
+
+```
+grep -o 'id="[^"]*" name="[^"]*" version="[^"]*"' docs/addons.xml
+```
+
+**Check:** every add-on you added appears with a version. On a device, Toolbox → *Install curated add-ons* shows the new entries, unticked if you marked them `optional`.
+
+## Writing entries by hand
+
+The planner exists so you do not have to, but the entries are plain JSON and you can add them directly. `addons.template.json` in the repository root holds all three shapes ready to paste.
+
+`addons.json` has three sections. An entry goes in exactly one.
+
+**`mirror`** — packaged into your repo from GitHub:
 
 ```
 {
@@ -243,7 +287,7 @@ For `mirror`:
 }
 ```
 
-For `official` — no `github`, no `track`:
+**`official`** — installed by id from Kodi's own repo. No `github`, no `track`:
 
 ```
 {
@@ -254,7 +298,7 @@ For `official` — no `github`, no `track`:
 }
 ```
 
-For `external` — different shape entirely: no `id`, a vendor `url`, and the add-ons it provides:
+**`external`** — documented, never auto-installed. No `id`; a vendor `url` and the add-ons it provides:
 
 ```
 {
@@ -265,8 +309,6 @@ For `external` — different shape entirely: no `id`, a vendor `url`, and the ad
 }
 ```
 
-Field reference:
-
 | Field | Sections | Meaning |
 |---|---|---|
 | `id` | mirror, official | Must match the add-on's own `addon.xml` exactly |
@@ -276,29 +318,9 @@ Field reference:
 | `github` | mirror | `owner/repo` |
 | `track` | mirror | `release` (newest release, falling back to branch head) or `branch` |
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
-| `optional` | mirror, official | `true` leaves it **unticked** in the picker |
+| `optional` | mirror, official | `true` leaves it unticked in the picker |
 
-**3.4 Bump the Toolbox version.** Open `src/script.watchame.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
-
-> **Do not skip this.** The curated list ships *inside* the Toolbox. Change the list without changing the version and the published index stays byte-identical, so no device ever fetches your new list — while the build looks completely successful. `build_repo.py` refuses to finish in that state and names the stale add-on.
-
-**3.5 Build and check.**
-
-```
-python3 scripts/build_repo.py && python3 scripts/check_deps.py
-```
-
-**Check:** exit code 0, and `all dependencies resolve`. If the build stops with `content changed without a version bump`, you missed 3.4.
-
-**3.6 Push.**
-
-```
-git add -A && git commit -m "Add <addon-id>" && git push
-```
-
-**Check:** run the verification in Part 9. On a first run you have not published yet — carry straight on to Part 4.
-
-\pagebreak
+Adding entries by hand means **bumping the Toolbox version yourself** (step 3.4 explains why), then continuing from 3.6.
 
 # Part 4 — Publish to GitHub
 
@@ -624,7 +646,7 @@ The third URL is also the one you enter in Book Two, step 17 — minus the filen
 
 ## D.6 Add or remove an add-on
 
-1. Click **`addons.template.json`** and copy the block you need (Part 3 explains which).
+1. Click **`addons.template.json`** and copy the block you need — Part 3's *Writing entries by hand* section explains which, and D.8 covers deciding `official` versus `mirror` without a terminal.
 2. Click **`addons.json`** → **pencil** → paste your entry into the matching section → **Commit changes**.
 
 ## D.7 Bump the Toolbox version — the step that matters
@@ -638,7 +660,7 @@ Do D.6 and D.7 as two commits or one, but never D.6 alone: the curated list ship
 
 ## D.8 Deciding `official` versus `mirror` without a terminal
 
-Part 3.2 uses a command to query Kodi's official index. In the browser, check on the device instead:
+Step 3.2 runs the planner, which queries Kodi's official index for you. Without a terminal you cannot run it, so check on the device instead:
 
 **Add-ons → Install from repository → Kodi Add-on repository →** browse the category and look for the add-on by name.
 

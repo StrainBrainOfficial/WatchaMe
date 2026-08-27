@@ -18,7 +18,7 @@ Fill these in once, in Book One, Part 1.
 
 ## 2. Add-ons you want
 
-You can fill this in on paper, or skip it and type straight into **`addons.wishlist.txt`** in the repository root, which the planner in step 3.0 reads directly. Same information either way.
+You can fill this in on paper, or skip it and type straight into **`addons.wishlist.txt`** in the repository root, which the planner in step 3.2 reads directly. Same information either way.
 
 | Display name | Add-on ID | GitHub `owner/repo` (if any) | `optional`? | Added |
 |---|---|---|---|---|
@@ -53,12 +53,14 @@ Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no de
 
 **Part 3 — Choose your add-ons** *(before publishing)*
 
-- [ ] 3.0 `addons.wishlist.txt` filled in
-- [ ] 3.0b Planner run clean, then `--apply`
-- [ ] 3.0c Every `why` field written
-- [ ] 3.4 Toolbox version bumped (the planner does this)
-- [ ] 3.5 Build and dependency check both clean
-- [ ] 3.6 Committed
+- [ ] 3.1 `addons.wishlist.txt` filled in
+- [ ] 3.2 Planner run — no `!!` lines left
+- [ ] 3.3 GitHub slugs added for anything flagged
+- [ ] 3.4 `--apply` run (writes entries, bumps the Toolbox)
+- [ ] 3.5 Every `why`, `name` and `category` corrected
+- [ ] 3.6 Build and dependency check both clean
+- [ ] 3.7 Committed
+- [ ] 3.8 Add-ons confirmed in `docs/addons.xml`
 
 **Part 4 — Publish**
 
