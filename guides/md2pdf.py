@@ -59,10 +59,22 @@ def esc(t):
 
 def inline(t):
     t = esc(t)
-    t = re.sub(r'`([^`]+)`', r'<font face="Courier" size="8.9" backColor="#eef0f3">\1</font>', t)
+    # Pull code spans out first. Their contents are literal -- a '*' inside
+    # `script.module.*` is not an italic marker, and letting the emphasis
+    # patterns see it produces tags that straddle the code span and fail to parse.
+    spans = []
+
+    def _stash(m):
+        spans.append(m.group(1))
+        return '\x00%d\x00' % (len(spans) - 1)
+
+    t = re.sub(r'`([^`]+)`', _stash, t)
     t = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', t)
     t = re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)', r'<i>\1</i>', t)
     t = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<link href="\2" color="#1f4e79"><u>\1</u></link>', t)
+    t = re.sub(r'\x00(\d+)\x00',
+               lambda m: '<font face="Courier" size="8.9" backColor="#eef0f3">%s</font>'
+                         % spans[int(m.group(1))], t)
     return t
 
 
