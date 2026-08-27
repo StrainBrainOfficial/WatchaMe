@@ -1,19 +1,39 @@
 # ============================================================================
-# REPOSITORY URLS -- paste the repositories your add-ons come from, one per line.
+# REPOSITORY URLS
+#
+# Paste the repositories your add-ons come from into the slots at the BOTTOM
+# of this file -- look for the line that says PASTE YOUR URLS BELOW.
 #
 # Then run:
 #     python3 scripts/plan_addons.py --discover
 #
-# It reads this file, visits every repository, follows their indexes, and
-# prints each add-on served with the source path already formatted for
-# addons.wishlist.txt. Copy the lines you want into the wishlist slots.
+# It visits every repository listed, follows their indexes, and prints each
+# add-on served with the source path already formatted for the wishlist.
+# Copy the lines you want into addons.wishlist.txt.
 #
-# Paste whichever URL you have -- all of these work:
+# Any URL shape works -- paste whichever one you have:
 #     https://example.github.io                       a landing page
 #     https://example.github.io/repo/                 a directory listing
 #     https://example.com/repository.example-1.0.zip  a repository zip
 #     https://host/path/zips                          a folder with addons.xml
 #
-# Anything after a # is ignored.
+# Anything after a # is ignored. Untouched slots are ignored too.
 # ============================================================================
 
+
+# vvvvvvvvvvvvvvvvvvvvvvv  PASTE YOUR URLS BELOW  vvvvvvvvvvvvvvvvvvvvvvvvvvvv
+# Replace each REPLACE_WITH_REPO_URL_nn with a real URL. Add more lines if you
+# need them; delete the ones you do not use, or just leave them alone.
+
+REPLACE_WITH_REPO_URL_01
+REPLACE_WITH_REPO_URL_02
+REPLACE_WITH_REPO_URL_03
+REPLACE_WITH_REPO_URL_04
+REPLACE_WITH_REPO_URL_05
+REPLACE_WITH_REPO_URL_06
+REPLACE_WITH_REPO_URL_07
+REPLACE_WITH_REPO_URL_08
+REPLACE_WITH_REPO_URL_09
+REPLACE_WITH_REPO_URL_10
+REPLACE_WITH_REPO_URL_11
+REPLACE_WITH_REPO_URL_12

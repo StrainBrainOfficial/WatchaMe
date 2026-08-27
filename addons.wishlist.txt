@@ -27,6 +27,11 @@
 #     python3 scripts/plan_addons.py --apply    write into addons.json
 # ============================================================================
 
+
+# vvvvvvvvvvvvvvvvvv  FILL IN YOUR ADD-ONS BELOW  vvvvvvvvvvvvvvvvvvvvvvvvvvvv
+# Replace REPLACE_ID_nn with the add-on id, and REPLACE_SOURCE_nn with where it
+# comes from -- or delete that word if Kodi's official repo has the add-on.
+
 REPLACE_ID_01    REPLACE_SOURCE_01
 REPLACE_ID_02    REPLACE_SOURCE_02
 REPLACE_ID_03    REPLACE_SOURCE_03

@@ -194,12 +194,17 @@ def main():
             if not REPOS.is_file():
                 sys.exit("no %s -- create it and paste your repository urls in"
                          % REPOS.name)
-            urls = [l.split("#")[0].strip()
-                    for l in REPOS.read_text().splitlines()]
-            urls = [u for u in urls if u]
+            raw_lines = [l.split("#")[0].strip()
+                         for l in REPOS.read_text().splitlines()]
+            raw_lines = [u for u in raw_lines if u]
+            blank = sum(1 for u in raw_lines if "REPLACE_WITH_REPO_URL" in u)
+            urls = [u for u in raw_lines if "REPLACE_WITH_REPO_URL" not in u]
+            if blank:
+                print("(%d empty slot%s in %s -- ignored)"
+                      % (blank, "" if blank == 1 else "s", REPOS.name))
             if not urls:
-                sys.exit("no urls in %s yet -- paste them in, one per line"
-                         % REPOS.name)
+                sys.exit("Nothing pasted yet. Replace the REPLACE_WITH_REPO_URL "
+                         "slots in %s with your repository urls." % REPOS.name)
             print("reading %d repository url(s) from %s\n" % (len(urls), REPOS.name))
         rc, seen = 0, {}
         for n, url in enumerate(urls):
