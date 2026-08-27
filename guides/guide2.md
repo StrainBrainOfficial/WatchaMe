@@ -32,7 +32,7 @@ The curated set from Book One, Part 4, minus what this hardware cannot afford.
 
 **Install:** the repository, the Toolbox, `inputstream.adaptive`, `inputstream.ffmpegdirect`, `service.subtitles.a4ksubtitles`, `script.black.bars.never`, `service.upnext`, `script.kodi.loguploader`, and `plugin.video.youtube`.
 
-**Consider:** `script.trakt` if you want watched-state sync — it is a background service, but a light one. `script.service.janitor` only if the stick stores local recordings, which it usually does not.
+**Consider:** `script.trakt` if you want watched-state sync — it is a background service, but a light one. `script.service.janitor` only if the stick stores local recordings, which it usually does not. `service.vpn.manager` is in the repository and unticked by default; see the VPN decision in Part 4 before ticking it on this hardware.
 
 **Leave out on a stick:**
 
@@ -75,11 +75,30 @@ Follow Book One, Part 10 exactly. Condensed, with the choices for this device:
 | 4 | Install `repository.kodikit.zip` | From the source you just added |
 | 5 | Install **KodiKit Toolbox** from the repository | |
 | 6 | Toolbox → **Install curated add-ons** | Untick the skin and any optional entry from Part 2 |
-| 7 | Toolbox → **Apply streaming cache tuning** | Choose **Fire TV Stick**. Restart when prompted. |
-| 8 | Settings → Player → Language → subtitle service | Set a4kSubtitles as the default — it does nothing until you do |
-| 9 | Toolbox → **Clean up caches** | Clears install debris |
+| 7 | **Decide on the VPN** | Mandatory decision, not a mandatory install — read the box below before ticking it |
+| 8 | Toolbox → **Apply streaming cache tuning** | Choose **Fire TV Stick**. Restart when prompted. |
+| 9 | Settings → Player → Language → subtitle service | Set a4kSubtitles as the default — it does nothing until you do |
+| 10 | Toolbox → **Clean up caches** | Clears install debris |
 
 The tuning profile in step 7 writes a 40 MB buffer plus the artwork caps and dirty-region redraw described in Appendix A. Do not use *Balanced* here: its 64 MB buffer becomes roughly 192 MB resident, which does not fit alongside Fire OS on 1.5 GB.
+
+## The VPN decision (step 7)
+
+VPN Manager for OpenVPN ships in the repository and appears in the Toolbox picker **unticked**. Unticked is not the same as unimportant: decide now, because connecting a VPN after you have signed in to services means redoing those sign-ins. Device-code and OAuth flows bind a session to the address that completed them.
+
+> **This is the step where the Fire TV Stick differs from every other Kodi box.** VPN Manager works by executing an OpenVPN binary and bringing up a tunnel from inside Kodi. On LibreELEC, Linux or Windows that is fine. On Android and Fire OS, an ordinary app cannot control the system VPN, so the add-on generally cannot establish a tunnel on this hardware — verify on the device before relying on it.
+
+The practical options for this stick, best first:
+
+| Option | How | Covers |
+|---|---|---|
+| **Your provider's Android app** | Install the provider's own Fire TV app from the Amazon appstore, sign in, connect. Leave Kodi alone. | The whole device |
+| **Router-level VPN** | Configure the tunnel on the router the stick uses | Every device on the network |
+| **VPN Manager add-on** | Tick it in the picker, add credentials in its settings | Kodi only, *if* it can connect on your device |
+
+The first is what most Fire TV setups use, and it is strictly better than the add-on route here: it covers everything on the stick rather than Kodi alone. Tick VPN Manager in the picker only if you have verified it connects, or if you also run Kodi on a Linux or LibreELEC box where it works properly and want the same repository set everywhere.
+
+If you decide against a VPN entirely, that is a legitimate answer — just make it deliberately, and before step 9's sign-ins.
 
 ## Playback settings
 

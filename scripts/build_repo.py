@@ -281,6 +281,9 @@ def build_repo_addon(cfg):
     return cfg["repo_version"]
 
 
+STALE_LOCAL = []
+
+
 def build_local_addons(cfg):
     built = {}
     if not SRC.is_dir():
@@ -301,7 +304,15 @@ def build_local_addons(cfg):
         make_zip(addon_dir, addon_id, version, out_dir)
         changed = existing != zip_path.read_bytes()
         prune(out_dir, addon_id, cfg.get("keep_versions", 2))
-        log(f"  - {addon_id} {version}" + ("  <-- UPDATED" if changed else ""))
+        # Zips are byte-reproducible, so changed bytes at an unchanged version
+        # means the content moved without the version moving. Kodi keys updates
+        # off the version in addons.xml, so no device would ever fetch this.
+        stale = existing is not None and changed
+        log(f"  - {addon_id} {version}"
+            + ("  <-- CONTENT CHANGED, VERSION NOT BUMPED" if stale
+               else "  <-- UPDATED" if changed else ""))
+        if stale:
+            STALE_LOCAL.append((addon_id, version))
         built[addon_id] = version
     return built
 
@@ -418,6 +429,13 @@ def main():
     if failures:
         log(f"\nWARNING: {len(failures)} mirror(s) failed and kept their previous zip: "
             + ", ".join(failures))
+    if STALE_LOCAL:
+        log("\nERROR: content changed without a version bump:")
+        for addon_id, version in STALE_LOCAL:
+            log(f"  {addon_id} is still {version}; devices on {version} will keep "
+                f"the old copy because addons.xml is unchanged.")
+        log("Bump the version in src/<addon>/addon.xml and rebuild.")
+        return 1
     return 0
 
 

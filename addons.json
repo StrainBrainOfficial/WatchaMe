@@ -24,6 +24,15 @@
       "why": "Deletes watched video files on a schedule to reclaim disk. Not in the official repo.",
       "github": "Anthirian/script.filecleaner",
       "track": "branch"
+    },
+    {
+      "id": "service.vpn.manager",
+      "name": "VPN Manager for OpenVPN",
+      "category": "privacy",
+      "why": "Connects and maintains an OpenVPN tunnel from inside Kodi, with per-addon connection rules and a visible external-IP readout. Not in the official repo. Left unticked in the installer because it needs your provider's credentials and an OpenVPN binary on the platform.",
+      "github": "Zomboided/service.vpn.manager",
+      "track": "release",
+      "optional": true
     }
   ],
   "official": [

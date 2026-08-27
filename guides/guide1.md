@@ -116,35 +116,151 @@ Add-ons reach a device by one of three routes, and the distinction matters:
 
 > **Why route 2 exists.** Mirroring an add-on that Kodi's official repo already carries would fork it onto your update channel and make you responsible for tracking it. Installing by ID keeps it on the maintainer's channel. Only mirror what is genuinely unavailable.
 
-# Part 5 — Adding or removing an add-on
+# Part 5 — Adding an add-on
 
-One entry in `addons.json`:
+This is the procedure for putting any add-on you want into the repository. Six steps, and step 2 is the one that silently breaks things if you skip it.
+
+## 5.1 Decide which route it takes
+
+Every add-on reaches a device by exactly one of three routes. Picking the wrong one either forks maintenance onto you or ships something that cannot install.
+
+```
+Is it already in Kodi's official repo?
+  YES -> "official"   installed by ID; stays on the maintainer's update channel
+  NO  |
+      Does it install cleanly with only dependencies that exist somewhere?
+        YES -> "mirror"     packaged into this repo from its GitHub source
+        NO  -> "external"   documented only; the vendor's own repo resolves it
+```
+
+Answer the first question with a command rather than a guess:
+
+```
+python3 - <<'EOF'
+import gzip, re, urllib.request
+url = "https://mirrors.kodi.tv/addons/omega/addons.xml.gz"
+req = urllib.request.Request(url, headers={"User-Agent": "kodikit"})
+raw = gzip.decompress(urllib.request.urlopen(req, timeout=60).read()).decode("utf-8", "replace")
+ids = set(re.findall(r'<addon\s+id="([^"]+)"', raw))
+for probe in ["script.trakt", "service.vpn.manager"]:
+    print("%-34s %s" % (probe, "IN official" if probe in ids else "NOT in official"))
+EOF
+```
+
+Put your candidate IDs in the `probe` list. `IN official` means use the `official` section — mirroring it would fork an add-on onto your update channel and make you responsible for tracking it, for no benefit.
+
+> **The `external` route is not a failure.** It exists for add-ons whose dependencies no official repo ships. TheMovieDb Helper 6.x hard-requires `script.module.pil`, a compiled Pillow build nobody publishes; mirroring it would ship an add-on that cannot install. The dependency checker in Part 6 is what tells you this, before your users find out.
+
+## 5.2 Find the add-on ID
+
+The ID is not the display name, and getting it wrong is the most common mistake. Three reliable sources:
+
+| Where | How |
+|---|---|
+| The source repo | Open its `addon.xml` and read the `id=` attribute of the root `<addon>` element |
+| An installed copy | The folder name under `~/.kodi/addons/`, e.g. `script.trakt/` |
+| Kodi itself | Add-ons → the add-on → Information |
+
+The ID in `addons.json` must match the `id=` in the add-on's own `addon.xml` exactly. For mirrored add-ons the builder uses it to *find* the add-on inside the upstream tarball, so a wrong ID means the sync reports it as missing.
+
+## 5.3 The three entry shapes
+
+`addons.json` has three sections. Add your entry to exactly one.
+
+**`mirror`** — packaged into this repo from GitHub:
 
 ```
 {
-  "id": "script.example",
-  "name": "Example",
-  "category": "tools",
-  "why": "What it does and why it earned a slot.",
-  "github": "owner/repo",
-  "track": "release"
+  "id": "service.vpn.manager",
+  "name": "VPN Manager for OpenVPN",
+  "category": "privacy",
+  "why": "Connects and maintains an OpenVPN tunnel from inside Kodi.",
+  "github": "Zomboided/service.vpn.manager",
+  "track": "release",
+  "optional": true
 }
 ```
 
-| Field | Meaning |
-|---|---|
-| `id` | The add-on ID. Must match the `id=` in its own `addon.xml`. |
-| `why` | Prose. Forces a justification for every slot; it also ends up in the README. |
-| `github` | `owner/repo` — omit for an add-on installed from the official repo by ID. |
-| `track` | `release` (newest published release, falling back to the default branch) or `branch` (always the branch head). |
-| `ref` | Pin to a specific branch, e.g. `"ref": "matrix"`. |
-| `optional` | `true` leaves it unticked in the Toolbox's multi-select. |
+**`official`** — installed by ID from Kodi's own repo. No `github`, no `track`:
 
-The builder locates the add-on inside the downloaded tarball by **scanning for an `addon.xml` whose `id` matches**, so it copes with any upstream repo layout — nested folders, differently named directories, monorepos. You do not repack anything by hand.
+```
+{
+  "id": "script.trakt",
+  "name": "Trakt",
+  "category": "tracking",
+  "why": "Scrobbling, watched-state sync and lists across devices."
+}
+```
 
-To remove one, delete its entry and rebuild. Its zips stay in `docs/zips/` until pruned; installed copies on devices remain but stop receiving updates.
+**`external`** — documented, never auto-installed. Different shape: no `id`, a vendor repo `url`, and the add-ons it provides:
 
-\pagebreak
+```
+{
+  "name": "TheMovieDb Helper (6.x)",
+  "why": "Hard-requires script.module.pil, which no official repo ships.",
+  "url": "https://jurialmunkey.github.io/repository.jurialmunkey/",
+  "addons": ["plugin.video.themoviedb.helper", "script.skinvariables"]
+}
+```
+
+| Field | Applies to | Meaning |
+|---|---|---|
+| `id` | mirror, official | The add-on ID. Must match its `addon.xml`. |
+| `name` | all | Display name in the Toolbox picker |
+| `category` | mirror, official | Free-form grouping; sorts the picker. In use: `subtitles`, `playback`, `tracking`, `tools`, `interface`, `privacy`. |
+| `why` | all | Prose justification. Ends up in the README — write it for your future self. |
+| `github` | mirror | `owner/repo` |
+| `track` | mirror | `release` (newest release, falling back to the branch head) or `branch` (always the head) |
+| `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
+| `optional` | mirror, official | `true` leaves it **unticked** in the picker. Use for anything needing credentials, a subscription, or extra hardware. |
+
+## 5.4 The procedure
+
+1. **Edit `addons.json`.** Add the entry to the right section.
+2. **Bump the Toolbox version** in `src/script.kodikit.toolbox/addon.xml` — patch for adding or dropping an entry, minor for a behaviour change.
+3. **Build:** `python3 scripts/build_repo.py`
+4. **Check dependencies:** `python3 scripts/check_deps.py`
+5. **Commit and push.** CI re-runs both and commits the regenerated `docs/`.
+6. **Verify** with 5.5.
+
+> **Why step 2 is mandatory, and what happens without it.** The curated list ships *inside* the Toolbox — the builder copies `addons.json` into the add-on when it packages it. So adding an entry changes the Toolbox's contents but not its version, and Kodi keys updates off the version in `addons.xml`. The index stays byte-identical, its checksum does not change, and **no device ever fetches the new list.** The build looks perfectly successful.
+>
+> `build_repo.py` refuses to finish in this state: if a local add-on's zip contents change while its version does not, it names the stale add-on and exits non-zero. If you see that error, bump the version and rebuild — that is the whole fix.
+
+Adding to `mirror` also publishes the add-on itself, so devices can install it directly. The version bump is what makes it *appear in the Toolbox picker*.
+
+## 5.5 Verify it landed
+
+```
+# The add-on is in the published index
+grep -o 'id="service.vpn.manager" [^>]*version="[^"]*"' docs/addons.xml
+
+# Its zip exists and is Kodi-shaped (id/addon.xml at the root)
+unzip -l docs/zips/service.vpn.manager/*.zip | head -5
+
+# The Toolbox carries the new list
+python3 -c "import zipfile,json,glob; z=sorted(glob.glob('docs/zips/script.kodikit.toolbox/*.zip'))[-1]; \
+m=json.loads(zipfile.ZipFile(z).read('script.kodikit.toolbox/resources/addons.json')); \
+print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
+```
+
+On a device: Toolbox → Install curated add-ons. The new entry appears in the picker, unticked if you marked it `optional`.
+
+## 5.6 When a mirror sync fails
+
+The builder keeps the previous zip and reports the failure rather than publishing something broken.
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
+| Add-on not found in the tarball | `id` does not match the upstream `addon.xml` | Correct the `id` |
+| Sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
+| `check_deps.py` reports an unresolvable import | A dependency nobody publishes | Move it to `external` and document the vendor repo |
+| Upstream is a monorepo | — | Not a problem; the builder scans for the matching `addon.xml` at any depth |
+
+## 5.7 Removing an add-on
+
+Delete its entry, bump the Toolbox version, rebuild, push. Its zips remain in `docs/zips/` until pruned by `keep_versions`, and copies already installed on devices keep working but stop receiving updates. To force one off a device, uninstall it there — a repository cannot retract an add-on.
 
 # Part 6 — The build pipeline
 
@@ -276,10 +392,17 @@ Open the Toolbox → **Install curated add-ons**. It multi-selects the whole set
 
 | # | Step |
 |---|---|
-| 7 | Toolbox → **Apply streaming cache tuning** → pick your device profile → restart |
-| 8 | Set the subtitle default: Settings → Player → Language → a4kSubtitles. **An unset default is why "subtitles don't work".** |
-| 9 | Toolbox → **Clean up caches** to clear install debris |
-| 10 | Optional: enable Settings → Services → Control → Allow remote control via HTTP, for remote diagnosis |
+| 7 | **Decide on the VPN.** VPN Manager ships in the repository and appears in the picker unticked. Either tick it and configure it now, or consciously decide against it. Do not leave it undecided — see below. |
+| 8 | Toolbox → **Apply streaming cache tuning** → pick your device profile → restart |
+| 9 | Set the subtitle default: Settings → Player → Language → a4kSubtitles. **An unset default is why "subtitles don't work".** |
+| 10 | Toolbox → **Clean up caches** to clear install debris |
+| 11 | Optional: enable Settings → Services → Control → Allow remote control via HTTP, for remote diagnosis |
+
+**On the VPN step.** It is unticked in the installer because it needs your provider's credentials and an OpenVPN binary on the platform — it cannot be a silent default. It is a mandatory *decision* because retrofitting it later means redoing any account authorization you did on the wrong address: device-code and OAuth flows bind a session to the address that completed them, so connect the VPN **before** signing in to anything.
+
+If you tick it: Toolbox picker → VPN Manager → then VPN Manager's own settings → provider → credentials → connect, and confirm its external-IP readout changes.
+
+> **Platform check before you rely on it.** VPN Manager brings up an OpenVPN tunnel from inside Kodi, which requires an OpenVPN binary the add-on can execute. That is straightforward on LibreELEC, Linux and Windows. On Android and Fire OS a Kodi add-on generally cannot control the system VPN, so verify it actually connects on your device rather than assuming. On a Fire TV Stick the reliable route is your provider's own Android app installed on the stick, with Kodi left alone — the tunnel then covers everything on the device, not just Kodi.
 
 That is the whole deployment. Book Two applies it to a Fire TV Stick with device-specific numbers.
 
