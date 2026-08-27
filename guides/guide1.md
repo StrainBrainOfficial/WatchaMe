@@ -293,7 +293,9 @@ This changes two files:
 "why": "TODO: one sentence on why this earned a slot."
 ```
 
-Open `addons.json` and replace every `TODO`. This text ends up in the README and is the only record of why an add-on is there. It also guesses `name` and `category` from the id — correct those at the same time.
+Open `addons.json` and replace every `TODO`. This text ends up in the README and is the only record of why an add-on is there.
+
+`name` and `category` you can normally leave alone — the planner reads them from the add-on's own metadata: Kodi's official index for `official` entries, the repository's `addons.xml` for `repo_url` entries, and the `addon.xml` at the GitHub repo root otherwise. Only add-ons no index carries fall back to a name derived from the id. Both fields show in the Toolbox picker, so they are worth a glance.
 
 **3.6 Build and check.**
 
@@ -372,6 +374,7 @@ The planner exists so you do not have to, but the entries are plain JSON and you
 | `github` | mirror | `owner/repo`. One of `github`, `repo_url` or `zip_url` is required. |
 | `repo_url` | mirror | Directory holding another Kodi repo's `addons.xml`; the newest version is taken automatically |
 | `zip_url` | mirror | A fixed zip URL. Pinned — only changes when that URL's contents change. |
+| `datadir` | mirror | Optional, with `repo_url`. Where that repository keeps its zips, when it is not the same folder as its `addons.xml`. Symptom of needing it: the version resolves but the download fails. |
 | `track` | mirror | With `github`: `release` (newest release, falling back to branch head) or `branch` |
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
 | `optional` | mirror, official | `true` leaves it unticked in the picker |
@@ -617,6 +620,7 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 | `check_deps` reports an unresolvable import | A dependency nobody publishes | Move the add-on to `external` and document the vendor repo |
 | Mirror sync: `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
 | Mirror sync: add-on not found in the tarball | `id` does not match upstream's `addon.xml` | Correct the `id` |
+| Mirror sync: version resolves, then `download failed` | That repo serves zips from a different path than its index | Add a `datadir` to the entry |
 | Mirror sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
 | Actions run but the commit step fails `403` | Workflow permissions set to read-only | Do 4.5 |
 | Actions never run at all | Workflows disabled (usual on a fork) | Actions tab → enable them |
