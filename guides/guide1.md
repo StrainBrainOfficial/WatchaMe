@@ -1,12 +1,12 @@
 Every section here is a numbered procedure. Run the steps in order; each one is a command to type or a control to click. Lines marked **Check** tell you what success looks like — if you do not see it, stop there rather than continuing.
 
-Start at Part 1 if you have never set up GitHub on this machine. If `gh auth status` already reports you as logged in, skip to Part 2.
+Start at Part 1 if you have never set up GitHub on this machine. If `gh auth status` already reports you as logged in, skip to Part 2. **Prefer not to use a terminal at all?** Appendix D is the same work done entirely in a web browser.
 
 Background and troubleshooting live in the appendices, so the procedures stay short.
 
 # Part 1 — GitHub setup
 
-**Where:** terminal on your computer, plus a browser for 1.1 and the sign-in approval in 1.4.
+**Where:** terminal on your computer, plus a browser for 1.1 and the sign-in approval in 1.4. Skip this part entirely if you are using the browser-only route in Appendix D.
 
 Do this once per machine.
 
@@ -461,3 +461,90 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 | Kodi: "Dependency not met" | Unresolvable `<import>` | Run 2.4 |
 | An add-on never updates on one device | Per-add-on auto-update set to Never | Add-on info → Auto-update → On |
 | Updates appear only after a restart | Normal 24-hour poll cycle | Force a check on the device, or wait |
+
+\pagebreak
+
+# Appendix D — The browser-only route
+
+Everything in Parts 2 to 7 can be done in a web browser, without a terminal, because **the build runs on GitHub rather than on your machine.** You edit a file, GitHub rebuilds the repository and commits the result, and your devices pick it up. This appendix is the parallel path.
+
+## D.1 Getting the files onto GitHub
+
+This is the one step where the browser is clumsy — 49 files, 27 MB. Two ways:
+
+**Route A — seed once, then never touch a terminal again.** Have someone run the single `git push` from Part 3, or do it yourself once. Everything from D.2 onward is pure browser. This is the recommended route.
+
+**Route B — no terminal at all.**
+
+1. Go to **github.com/new**. Name the repository, choose **Public**, do not add a README or .gitignore, click **Create repository**.
+2. On the empty repository page, click **uploading an existing file**.
+3. Drag the whole project folder onto the page. Wait for all 49 files to list.
+4. Type a commit message and click **Commit changes**.
+5. **Check the `.github/workflows/` folder arrived.** Hidden folders sometimes do not survive a drag from Finder or Explorer. If it is missing: **Add file → Create new file**, type the path `.github/workflows/sync.yml` — typing slashes creates the folders — paste the workflow contents, and commit.
+
+Nothing in the repository exceeds GitHub's 25 MB web-upload limit.
+
+## D.2 Set the workflow permission
+
+**Settings** → **Actions** → **General** → scroll to **Workflow permissions** → **Read and write permissions** → **Save**.
+
+Without this the build runs and then fails at the final commit with a `403`. It is the same as step 3.5.
+
+## D.3 Set your identity
+
+1. Click **`repo.config.json`** in the file list.
+2. Click the **pencil** icon (*Edit this file*).
+3. Set `github_user`, `github_repo`, `repo_name` and `provider` as in step 2.2.
+4. Scroll down, click **Commit changes**.
+
+The commit triggers a build automatically, because the workflow watches `repo.config.json`.
+
+## D.4 Run or watch the build
+
+The workflow runs on any commit touching `addons.json`, `repo.config.json`, `src/` or `scripts/`, and daily at 05:15 UTC. To run it by hand:
+
+**Actions** tab → **Sync repository** in the left sidebar → **Run workflow** button → **Run workflow**.
+
+**Check:** the run appears with a green tick. Click it to read the log — it is the same output as the terminal commands in 2.3 and 2.4.
+
+A red cross reading `content changed without a version bump` means D.6 was done without D.7.
+
+## D.5 Verify what Kodi will see
+
+Open these three in a browser tab, substituting your values:
+
+```
+https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/addons.xml
+https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/addons.xml.md5
+https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/repository.kodikit.zip
+```
+
+**Check:** the first shows XML listing your add-ons; the second shows a single 32-character hash; the third downloads a file. A **404** on any means the values in D.3 do not match the repository's actual address.
+
+The third URL is also the one you enter in Book Two, step 17 — minus the filename.
+
+## D.6 Add or remove an add-on
+
+1. Click **`addons.template.json`** and copy the block you need (Part 4 explains which).
+2. Click **`addons.json`** → **pencil** → paste your entry into the matching section → **Commit changes**.
+
+## D.7 Bump the Toolbox version — the step that matters
+
+1. Navigate to **`src`** → **`script.kodikit.toolbox`** → **`addon.xml`**.
+2. Click the **pencil**.
+3. Increase the version, e.g. `version="1.2.1"` → `version="1.2.2"`.
+4. **Commit changes.**
+
+Do D.6 and D.7 as two commits or one, but never D.6 alone: the curated list ships inside the Toolbox, so without a version bump no device ever fetches your change. The build will stop with a red cross if you forget.
+
+## D.8 Deciding `official` versus `mirror` without a terminal
+
+Part 4.2 uses a command to query Kodi's official index. In the browser, check on the device instead:
+
+**Add-ons → Install from repository → Kodi Add-on repository →** browse the category and look for the add-on by name.
+
+Found there, it goes in `official`. Not found, it goes in `mirror`.
+
+## D.9 What you give up
+
+Only local testing. Running the build on your own machine catches a mistake in seconds; via the browser you find out when the Actions run goes red a minute later. The checks are identical either way — `build_repo.py` and `check_deps.py` run in both places, so nothing broken reaches a device.
