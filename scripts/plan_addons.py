@@ -29,13 +29,31 @@ def official_ids():
     ids = set()
     for version in KODI_VERSIONS:
         url = "https://mirrors.kodi.tv/addons/%s/addons.xml.gz" % version
-        req = urllib.request.Request(url, headers={"User-Agent": "watchame-planner"})
-        try:
-            raw = gzip.decompress(urllib.request.urlopen(req, timeout=60).read())
-        except Exception as exc:
-            print("  ! could not read the %s index (%s)" % (version, exc), file=sys.stderr)
+        raw = None
+        # The mirror drops connections intermittently. Retry, because a failure
+        # here makes every add-on look absent from the official repo, which
+        # would push you to mirror things Kodi already ships.
+        for attempt in range(3):
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "watchame-planner"})
+                raw = gzip.decompress(urllib.request.urlopen(req, timeout=60).read())
+                break
+            except Exception as exc:
+                last = exc
+        if raw is None:
+            print("  ! could not read the %s index after 3 tries (%s)" % (version, last),
+                  file=sys.stderr)
+            print("  ! add-ons may be wrongly reported as NOT in the official repo",
+                  file=sys.stderr)
             continue
-        ids |= set(re.findall(r'<addon\s+id="([^"]+)"', raw.decode("utf-8", "replace")))
+        try:
+            parsed = _parse_index(raw)
+        except Exception:
+            parsed = {}
+        for aid, (nm, ver, cat) in parsed.items():
+            _OFFICIAL_META.setdefault(aid, (nm, cat))
+        ids |= set(parsed) or set(
+            re.findall(r'<addon\s+id="([^"]+)"', raw.decode("utf-8", "replace")))
     return ids
 
 
@@ -96,6 +114,136 @@ def _find_repo_zip(page_url):
     repo_links.sort(key=_vkey)
     return urllib.parse.urljoin(page_url if page_url.endswith("/") else page_url + "/",
                                 repo_links[-1])
+
+
+# ---------------------------------------------------------------- metadata
+
+_REPO_CACHE = {}      # base url -> {id: (name, version, category)}
+_OFFICIAL_META = {}   # id -> (name, category)
+
+
+ID_CATEGORIES = (
+    ("script.module.",  "library"),
+    ("resource.",       "resource"),
+    ("skin.",           "interface"),
+    ("webinterface.",   "interface"),
+    ("pvr.",            "pvr"),
+    ("inputstream.",    "playback"),
+    ("plugin.video.",   "video"),
+    ("plugin.audio.",   "audio"),
+    ("plugin.image.",   "images"),
+    ("screensaver.",    "screensaver"),
+    ("context.",        "tools"),
+)
+
+
+def category_from_id(aid):
+    for prefix, cat in ID_CATEGORIES:
+        if aid.startswith(prefix):
+            return cat
+    return None
+
+
+def category_from(addon):
+    """Derive a picker category from an add-on's own extension points."""
+    aid = addon.get("id", "")
+    by_id = category_from_id(aid)
+    if by_id in ("library", "resource", "interface", "pvr", "playback", "screensaver"):
+        return by_id
+    points = [e.get("point", "") for e in addon.findall("extension")]
+    provides = " ".join(e.findtext("provides", "") or "" for e in addon.findall("extension"))
+    if any(p.startswith("xbmc.gui.skin") for p in points):
+        return "interface"
+    if any(p.startswith("xbmc.subtitle") for p in points):
+        return "subtitles"
+    if any(p.startswith("xbmc.metadata") for p in points):
+        return "metadata"
+    if any(p.startswith("pvr.") or p == "xbmc.pvrclient" for p in points):
+        return "pvr"
+    if any("inputstream" in p for p in points):
+        return "playback"
+    # What an add-on *provides* beats the fact that it also runs a service:
+    # plugin.video.youtube declares both, and it is a video add-on.
+    if "video" in provides:
+        return "video"
+    if "audio" in provides or "music" in provides:
+        return "audio"
+    if "image" in provides:
+        return "images"
+    if any(p == "xbmc.service" for p in points):
+        return "service"
+    if any(p == "xbmc.python.script" for p in points):
+        return "tools"
+    return by_id or "tools"
+
+
+def _parse_index(raw):
+    root = ET.fromstring(raw.decode("utf-8-sig", "replace"))
+    out = {}
+    for addon in root.findall("addon"):
+        aid = addon.get("id")
+        if not aid:
+            continue
+        prev = out.get(aid)
+        ver = addon.get("version") or "0"
+        if prev is None or _vkey(ver) > _vkey(prev[1]):
+            out[aid] = (addon.get("name") or aid, ver, category_from(addon))
+    return out
+
+
+def repo_meta(base):
+    """Everything a Kodi repository advertises, fetched once per base url."""
+    base = base.rstrip("/")
+    if base in _REPO_CACHE:
+        return _REPO_CACHE[base]
+    data = {}
+    for name in ("addons.xml", "addons.xml.gz"):
+        try:
+            req = urllib.request.Request(f"{base}/{name}",
+                                         headers={"User-Agent": "watchame-planner"})
+            raw = urllib.request.urlopen(req, timeout=45).read()
+            if name.endswith(".gz"):
+                raw = gzip.decompress(raw)
+            data = _parse_index(raw)
+            break
+        except Exception:
+            continue
+    _REPO_CACHE[base] = data
+    return data
+
+
+def github_meta(slug):
+    """An add-on's own addon.xml from its GitHub repo, if it sits somewhere obvious."""
+    for path in ("addon.xml",):
+        for branch in ("HEAD",):
+            url = f"https://raw.githubusercontent.com/{slug}/{branch}/{path}"
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "watchame-planner"})
+                raw = urllib.request.urlopen(req, timeout=30).read()
+                addon = ET.fromstring(raw.decode("utf-8-sig", "replace"))
+                return addon.get("name") or None, category_from(addon)
+            except Exception:
+                continue
+    return None, None
+
+
+def describe(item):
+    """(name, category) from the add-on's own metadata, falling back to a guess."""
+    addon_id = item["id"]
+    if item["kind"] == "repo_url":
+        hit = repo_meta(item["source"]).get(addon_id)
+        if hit:
+            return hit[0], hit[2]
+    elif item["kind"] == "github":
+        name, cat = github_meta(item["source"])
+        if name:
+            return name, cat
+    elif not item["kind"]:
+        hit = _OFFICIAL_META.get(addon_id)
+        if hit:
+            return hit
+    guessed = addon_id.split(".")[-1].replace("-", " ").title()
+    return guessed, category_from_id(addon_id) or "tools"
 
 
 def _vkey(v):
@@ -190,21 +338,8 @@ def advertised_version(item):
     """Version a source currently offers, or None when it cannot be known cheaply."""
     if item["kind"] != "repo_url":
         return None
-    base = item["source"].rstrip("/")
-    for name in ("addons.xml", "addons.xml.gz"):
-        try:
-            req = urllib.request.Request(f"{base}/{name}",
-                                         headers={"User-Agent": "watchame-planner"})
-            raw = urllib.request.urlopen(req, timeout=45).read()
-            if name.endswith(".gz"):
-                raw = gzip.decompress(raw)
-            root = ET.fromstring(raw.decode("utf-8-sig", "replace"))
-            vs = [a.get("version") for a in root.findall("addon")
-                  if a.get("id") == item["id"]]
-            return max(vs, key=_vkey) if vs else None
-        except Exception:
-            continue
-    return None
+    hit = repo_meta(item["source"]).get(item["id"])
+    return hit[1] if hit else None
 
 
 def resolve_duplicates(wanted):
@@ -325,18 +460,20 @@ def main():
             print("  --  %-42s already in addons.json" % addon_id)
             continue
         if addon_id in official and not item["kind"]:
+            nm, cat = describe(item)
             entry = collections.OrderedDict([
-                ("id", addon_id), ("name", addon_id.split(".")[-1].title()),
-                ("category", "tools"), ("why", "TODO: one sentence on why this earned a slot."),
+                ("id", addon_id), ("name", nm), ("category", cat),
+                ("why", "TODO: one sentence on why this earned a slot."),
             ])
             if item["optional"]:
                 entry["optional"] = True
             plan.append(("official", entry))
             print("  ok  %-42s official  (installed by id)" % addon_id)
         elif item["kind"]:
+            nm, cat = describe(item)
             entry = collections.OrderedDict([
-                ("id", addon_id), ("name", addon_id.split(".")[-1].title()),
-                ("category", "tools"), ("why", "TODO: one sentence on why this earned a slot."),
+                ("id", addon_id), ("name", nm), ("category", cat),
+                ("why", "TODO: one sentence on why this earned a slot."),
             ])
             if item["kind"] == "github":
                 entry["github"] = item["source"]
