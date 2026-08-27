@@ -40,11 +40,16 @@ def official_ids():
 def read_wishlist():
     if not WISHLIST.is_file():
         sys.exit("no %s -- create it and list what you want" % WISHLIST.name)
-    wanted = []
+    wanted, untouched = [], 0
     for n, line in enumerate(WISHLIST.read_text().splitlines(), 1):
         line = line.split("#")[0].strip()
         if not line:
             continue
+        # Slots still holding their placeholders are simply not filled in yet.
+        if "REPLACE_ID_" in line:
+            untouched += 1
+            continue
+        line = " ".join(w for w in line.split() if not w.startswith("REPLACE_SOURCE_"))
         parts = line.split()
         addon_id = parts[0]
         rest = [p for p in parts[1:] if p.lower() != "optional"]
@@ -66,6 +71,9 @@ def read_wishlist():
                 continue
         wanted.append({"id": addon_id, "source": source, "kind": kind,
                        "optional": optional})
+    if untouched:
+        print("(%d slot%s still blank -- ignored)\n"
+              % (untouched, "" if untouched == 1 else "s"))
     return wanted
 
 
@@ -146,7 +154,8 @@ def main():
 
     wanted = read_wishlist()
     if not wanted:
-        sys.exit("wishlist is empty -- add some add-on ids to %s" % WISHLIST.name)
+        sys.exit("Nothing filled in yet. Overwrite the REPLACE_ placeholders in %s"
+                 % WISHLIST.name)
 
     manifest = json.loads(MANIFEST.read_text(), object_pairs_hook=collections.OrderedDict)
     have = {e["id"] for s in ("mirror", "official") for e in manifest[s] if "id" in e}

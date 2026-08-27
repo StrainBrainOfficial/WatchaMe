@@ -172,13 +172,23 @@ You fill in one file and run one command. The whole part is:
 6  build, check, push
 ```
 
-**3.1 List what you want.** Open **`addons.wishlist.txt`** in the repository root. One add-on per line:
+**3.1 List what you want.** Open **`addons.wishlist.txt`** in the repository root. It ships with 22 blank slots, each holding two placeholders:
+
+```
+REPLACE_ID_01    REPLACE_SOURCE_01
+REPLACE_ID_02    REPLACE_SOURCE_02
+```
+
+Overwrite them in place. Replace `REPLACE_ID_nn` with the add-on's id, and `REPLACE_SOURCE_nn` with where it comes from — or **delete that word entirely** if the add-on is in Kodi's official repository:
 
 ```
 script.trakt
 service.subtitles.a4ksubtitles   a4k-openproject/a4kSubtitles
-script.plexmod                                          optional
+script.skinvariables             https://raw.githubusercontent.com/owner/repo/master/omega/zips
+script.plexmod                                                        optional
 ```
+
+Slots you have not touched are ignored, so fill in as many as you need and leave the rest — the planner reports how many are still blank. Need more than 22? Copy a slot line.
 
 | Field | Required | Meaning |
 |---|---|---|

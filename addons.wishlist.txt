@@ -1,73 +1,51 @@
 # ============================================================================
 # WISHLIST -- the add-ons you want your repository to carry.
 #
-#   1. Fill in the slots below (one add-on per line).
-#   2. python3 scripts/plan_addons.py            check it
-#   3. python3 scripts/plan_addons.py --apply    write it into addons.json
+# Each slot below is two placeholders. Overwrite them in place:
 #
-# Anything after a # is ignored, so leave these notes in place if you like.
-# ============================================================================
+#     REPLACE_ID_01        ->  the add-on's id     e.g.  plugin.video.example
+#     REPLACE_SOURCE_01    ->  where it comes from  (see below), or DELETE the
+#                              word entirely if Kodi's official repo has it
 #
-# FORMAT      <addon-id>    <source>    [optional]
+# Slots you have not touched are ignored, so fill in as many as you need and
+# leave the rest alone. Add more lines by copying a slot.
 #
-# <addon-id>  Required. The add-on's real id, not its display name.
-#             e.g. plugin.video.example  --  never "Example Video Add-on".
-#             Find it in the add-on's own addon.xml, or as the folder name
-#             under ~/.kodi/addons/ on a box where it is installed.
+# SOURCE is one of:
+#     owner/repo                     a GitHub repository
+#     https://host/path/zips         another Kodi repo (the folder with its addons.xml)
+#     https://host/thing-1.2.3.zip   a fixed zip file
+#     (delete it)                    the add-on is in Kodi's official repo
 #
-# <source>    Where it comes from. Leave BLANK only if the add-on is in
-#             Kodi's official repository -- the planner checks and will tell
-#             you if you guessed wrong. Otherwise one of these three:
+# Add the word  optional  at the end of a line to leave that add-on UNTICKED
+# in the Toolbox picker (for anything needing a login, subscription or hardware).
 #
-#             owner/repo                        a GitHub repository
-#             https://host/path/zips            another Kodi repo's index
-#             https://host/thing-1.2.3.zip      a fixed zip file
+# Know the repository but not the ids?
+#     python3 scripts/plan_addons.py --discover https://that-repo/...
 #
-# [optional]  Add the word "optional" to leave the add-on UNTICKED in the
-#             Toolbox picker. Use it for anything needing a login, a paid
-#             subscription, or extra hardware.
-#
-# ----------------------------------------------------------------------------
-# DON'T KNOW THE IDs, BUT KNOW THE REPOSITORY?
-#
-#   python3 scripts/plan_addons.py --discover https://that-repo/...
-#
-# Give it the repository's base URL or its repository zip URL. It follows the
-# indexes and prints every add-on served, already formatted for this file --
-# copy the lines you want straight in.
-# ----------------------------------------------------------------------------
-#
-# EXAMPLES (delete these -- they are only here to show the shapes)
-#
-# script.trakt
-# service.subtitles.a4ksubtitles     a4k-openproject/a4kSubtitles
-# plugin.video.themoviedb.helper     https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/nexusrepo/zips
-# script.plexmod                                                                 optional
-#
-# ============================================================================
-# YOUR ADD-ONS -- fill these in. Add or delete lines freely.
+# Then:
+#     python3 scripts/plan_addons.py            check
+#     python3 scripts/plan_addons.py --apply    write into addons.json
 # ============================================================================
 
-#  1
-#  2
-#  3
-#  4
-#  5
-#  6
-#  7
-#  8
-#  9
-# 10
-# 11
-# 12
-# 13
-# 14
-# 15
-# 16
-# 17
-# 18
-# 19
-# 20
-# 21
-# 22
-
+REPLACE_ID_01    REPLACE_SOURCE_01
+REPLACE_ID_02    REPLACE_SOURCE_02
+REPLACE_ID_03    REPLACE_SOURCE_03
+REPLACE_ID_04    REPLACE_SOURCE_04
+REPLACE_ID_05    REPLACE_SOURCE_05
+REPLACE_ID_06    REPLACE_SOURCE_06
+REPLACE_ID_07    REPLACE_SOURCE_07
+REPLACE_ID_08    REPLACE_SOURCE_08
+REPLACE_ID_09    REPLACE_SOURCE_09
+REPLACE_ID_10    REPLACE_SOURCE_10
+REPLACE_ID_11    REPLACE_SOURCE_11
+REPLACE_ID_12    REPLACE_SOURCE_12
+REPLACE_ID_13    REPLACE_SOURCE_13
+REPLACE_ID_14    REPLACE_SOURCE_14
+REPLACE_ID_15    REPLACE_SOURCE_15
+REPLACE_ID_16    REPLACE_SOURCE_16
+REPLACE_ID_17    REPLACE_SOURCE_17
+REPLACE_ID_18    REPLACE_SOURCE_18
+REPLACE_ID_19    REPLACE_SOURCE_19
+REPLACE_ID_20    REPLACE_SOURCE_20
+REPLACE_ID_21    REPLACE_SOURCE_21
+REPLACE_ID_22    REPLACE_SOURCE_22
