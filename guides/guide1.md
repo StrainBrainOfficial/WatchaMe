@@ -6,6 +6,8 @@ Background and troubleshooting live in the appendices, so the procedures stay sh
 
 # Part 1 — GitHub setup
 
+**Where:** terminal on your computer, plus a browser for 1.1 and the sign-in approval in 1.4.
+
 Do this once per machine.
 
 **1.1 Create a GitHub account** — skip if you have one.
@@ -100,6 +102,8 @@ cd ~/Dev/kodi-repo && git init -b main
 
 # Part 2 — Configure the repository
 
+**Where:** terminal and a text editor. No browser.
+
 **2.1 Open the repository directory.**
 
 ```
@@ -141,6 +145,8 @@ git add -A && git commit -m "Configure repository identity"
 
 # Part 3 — Publish to GitHub
 
+**Where:** terminal, except 3.5 which is a browser setting.
+
 Do this once. After it, everything is automatic.
 
 **3.1 Create the repository.** It must be public — Kodi cannot authenticate.
@@ -178,9 +184,11 @@ curl -sI  $BASE/repository.kodikit.zip | head -1    # expect: HTTP/2 200
 
 **Check:** all three as described. A 404 on the first two means 2.2 does not match where you actually pushed.
 
-**3.5 Enable the scheduled sync.** Open the repository on github.com → **Actions** tab → if prompted, click **I understand my workflows, go ahead and enable them**.
+**3.5 Confirm Actions can write back.** *(Browser.)* The sync job commits the regenerated `docs/` to your repository, so it needs write permission. On a repo you own, Actions are enabled automatically — the "enable workflows" prompt only appears on forks — but the write permission is a separate setting that will fail the job if it is wrong.
 
-**Check:** the **Sync** workflow is listed and not disabled.
+Open the repository on github.com → **Settings** → **Actions** → **General** → scroll to **Workflow permissions** → select **Read and write permissions** → Save.
+
+**Check:** the **Sync repository** workflow appears under the Actions tab, and the run from 3.3 shows a commit step that succeeded. A `403` or `permission denied` on the push step means this setting is still read-only.
 
 **3.6 Write down the install URL.** This is what you type into Kodi in Book Two, step 17:
 
@@ -193,6 +201,8 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 \pagebreak
 
 # Part 4 — Add an add-on
+
+**Where:** terminal and a text editor. No browser.
 
 The repeatable procedure. Six steps.
 
@@ -299,6 +309,8 @@ git add -A && git commit -m "Add <addon-id>" && git push
 
 # Part 5 — Remove an add-on
 
+**Where:** terminal and a text editor.
+
 **5.1** Delete its entry from `addons.json`.
 
 **5.2** Bump the Toolbox version in `src/script.kodikit.toolbox/addon.xml`.
@@ -316,6 +328,8 @@ git add -A && git commit -m "Remove <addon-id>" && git push
 
 # Part 6 — Change the Toolbox itself
 
+**Where:** terminal and a text editor.
+
 **6.1** Edit the code under `src/script.kodikit.toolbox/`.
 
 **6.2** Bump the version in its `addon.xml` — patch for a fix, minor for new behaviour.
@@ -328,6 +342,8 @@ git add -A && git commit -m "Toolbox: <what changed>" && git push
 ```
 
 # Part 7 — Change the repository's identity or URLs
+
+**Where:** terminal and a text editor, then each device.
 
 Only when moving the repo or renaming it.
 
@@ -342,6 +358,8 @@ Only when moving the repo or renaming it.
 > Because of 7.4, get `github_user` and `github_repo` right in Part 2 and leave them alone.
 
 # Part 8 — Daily operation
+
+**Where:** nowhere — it runs itself.
 
 Nothing to do. For reference, the scheduled job at 05:15 UTC:
 
@@ -361,6 +379,8 @@ gh workflow run sync.yml && gh run watch
 \pagebreak
 
 # Part 9 — Health check
+
+**Where:** terminal, plus the device for 9.6.
 
 Run after any push, or whenever something looks wrong.
 
@@ -433,7 +453,8 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 | Mirror sync: `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
 | Mirror sync: add-on not found in the tarball | `id` does not match upstream's `addon.xml` | Correct the `id` |
 | Mirror sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
-| Actions never run | Workflows not enabled on a new repo | Do 3.5 |
+| Actions run but the commit step fails `403` | Workflow permissions set to read-only | Do 3.5 |
+| Actions never run at all | Workflows disabled (usual on a fork) | Actions tab → enable them |
 | Kodi: "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | Re-run 3.4; confirm the repo is public |
 | Kodi: repository installs but lists nothing | Index empty, or checksum stale | Re-run 2.3; never hand-edit `docs/` |
 | Kodi: "Failed to install add-on" | Zip name does not match `id-version.zip` | Re-run 2.3; the builder names them |

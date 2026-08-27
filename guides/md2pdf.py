@@ -281,6 +281,7 @@ def render(md, out, title, subtitle, footer_text):
             frame = Frame(self.leftMargin, self.bottomMargin, self.width, self.height, id='normal')
             self.addPageTemplates([PageTemplate(id='main', frames=[frame], onPage=deco)])
             self._bm = 0
+            self._seen_top = False
 
         def afterFlowable(self, flowable):
             toc = getattr(flowable, '_toc', None)
@@ -290,7 +291,12 @@ def render(md, out, title, subtitle, footer_text):
             key = 'bm%d' % self._bm
             self._bm += 1
             self.canv.bookmarkPage(key)
-            self.canv.addOutlineEntry(text, key, level=level, closed=(level == 0))
+            # A sub-heading before the first top-level one (front matter) cannot
+            # be an outline child of anything -- reportlab rejects the jump.
+            if level == 0 or self._seen_top:
+                self.canv.addOutlineEntry(text, key, level=level, closed=(level == 0))
+                if level == 0:
+                    self._seen_top = True
             CAPTURED.append((level, text, self.page))
 
     doc = Doc(out, pagesize=LETTER,

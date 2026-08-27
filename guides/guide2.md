@@ -25,6 +25,8 @@ Doing Stage A step 3 (ADB) costs a minute and saves more than that later — ste
 
 # Stage A — Prepare the stick (steps 1–5)
 
+**Where:** the TV, with the Fire TV remote. Step 5 is your computer's terminal.
+
 **1.** On the stick: Settings → My Fire TV → About → click **Fire TV Stick** seven times to reveal Developer Options.
 
 **2.** Settings → My Fire TV → Developer Options → **Apps from Unknown Sources → On**.
@@ -42,6 +44,8 @@ adb connect STICK-IP:5555
 **Check:** `connected to STICK-IP:5555`. Accept the prompt on the TV if one appears.
 
 # Stage B — Install Kodi (steps 6–8)
+
+**Where:** the TV, or your computer's terminal for route B.
 
 **6.** Install Kodi. Pick one route.
 
@@ -64,6 +68,8 @@ adb install -r kodi-21.1-Omega-armeabi-v7a.apk
 **8.** Skip Kodi's setup wizard if offered. Leave the skin as Estuary.
 
 # Stage C — Set up Surfshark (steps 9–13)
+
+**Where:** the TV. Step 13 is your computer's terminal.
 
 Do this **before** any sign-in inside Kodi. Sign-ins bind to the address that completed them, so doing this later means redoing them.
 
@@ -88,6 +94,8 @@ adb shell ip addr show tun0
 \pagebreak
 
 # Stage D — Install the repository (steps 14–20)
+
+**Where:** the TV, inside Kodi. Step 17 is far quicker from your terminal.
 
 **14.** Kodi → Settings (gear) → System → Add-ons → **Unknown sources → On**. Accept the warning.
 
@@ -123,6 +131,8 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 
 # Stage E — Install the add-ons (steps 21–23)
 
+**Where:** the TV, inside Kodi.
+
 **21.** Open **KodiKit Toolbox** → **Install curated add-ons**.
 
 **22.** In the picker, untick anything you do not want. For this stick:
@@ -142,6 +152,8 @@ Leave ticked: InputStream Adaptive and FFmpeg Direct, a4kSubtitles, Black Bars N
 **Check:** the Toolbox reports what installed. Anything already present is skipped automatically.
 
 # Stage F — Configure (steps 24–30)
+
+**Where:** the TV, inside Kodi.
 
 **24.** Toolbox → **Apply streaming cache tuning** → select **Fire TV Stick** → Write → **Restart** when prompted.
 
@@ -166,6 +178,8 @@ Leave ticked: InputStream Adaptive and FFmpeg Direct, a4kSubtitles, Black Bars N
 \pagebreak
 
 # Stage G — Verify (steps 31–34)
+
+**Where:** your computer's terminal, except step 34 at the TV.
 
 **31.** Reboot the stick, then leave Kodi sitting on the home screen for a minute.
 
