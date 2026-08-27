@@ -20,7 +20,7 @@ gh --version          # optional, only for Part 2
 cd ~/Dev/kodi-repo
 ```
 
-**1.3 Set your identity.** Open `repo.config.json` and set these four fields:
+**1.3 Set your identity.** Open `repo.config.json` and set these four fields. Record them in the worksheet (Book Three) as you go — the install URL in Part 2 is built from them.
 
 | Field | Set it to |
 |---|---|
@@ -134,7 +134,7 @@ EOF
 | `NOT in official` | `mirror` | Packaged into your repo from its GitHub source |
 | Installs only from a vendor's own repo | `external` | Documented, never auto-installed — see Appendix A |
 
-**3.3 Add the entry to `addons.json`.** Copy the matching shape.
+**3.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
 
 For `mirror`:
 
@@ -321,6 +321,7 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 | Path | Purpose | Edit? |
 |---|---|---|
 | `addons.json` | The curated list | **Yes — this is the control surface** |
+| `addons.template.json` | Copy-paste entry templates; never read by the build | Reference |
 | `repo.config.json` | Repo identity, hosting, versions | Yes |
 | `src/` | Add-ons you maintain | Yes |
 | `scripts/build_repo.py` | The builder | Rarely |

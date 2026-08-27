@@ -1,8 +1,10 @@
-Two procedures. **Book One** sets up and runs the repository — the thing that keeps add-ons updating by themselves. **Book Two** takes a Fire TV Stick from factory state to a finished box in 34 numbered steps.
+Two procedures and a worksheet. **Book One** sets up and runs the repository — the thing that keeps add-ons updating by themselves. **Book Two** takes a Fire TV Stick from factory state to a finished box in 34 numbered steps. **Book Three** is a worksheet to fill in as you go.
 
 If the repository is already published, you only need Book Two.
 
 Everything is written as steps to follow in order. Each step is one command to type or one control to click, and lines marked **Check** tell you what success looks like — if you do not see it, stop there rather than continuing. Background, file maps and troubleshooting live in the appendices so the procedures stay short.
+
+Two files in the repository root pair with these instructions: **`addons.template.json`** holds the three add-on entry shapes ready to paste, and **`repo.config.json`** is the identity you set in Part 1.
 
 \toc
 
@@ -30,7 +32,7 @@ gh --version          # optional, only for Part 2
 cd ~/Dev/kodi-repo
 ```
 
-**1.3 Set your identity.** Open `repo.config.json` and set these four fields:
+**1.3 Set your identity.** Open `repo.config.json` and set these four fields. Record them in the worksheet (Book Three) as you go — the install URL in Part 2 is built from them.
 
 | Field | Set it to |
 |---|---|
@@ -144,7 +146,7 @@ EOF
 | `NOT in official` | `mirror` | Packaged into your repo from its GitHub source |
 | Installs only from a vendor's own repo | `external` | Documented, never auto-installed — see Appendix A |
 
-**3.3 Add the entry to `addons.json`.** Copy the matching shape.
+**3.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
 
 For `mirror`:
 
@@ -331,6 +333,7 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 | Path | Purpose | Edit? |
 |---|---|---|
 | `addons.json` | The curated list | **Yes — this is the control surface** |
+| `addons.template.json` | Copy-paste entry templates; never read by the build | Reference |
 | `repo.config.json` | Repo identity, hosting, versions | Yes |
 | `src/` | Add-ons you maintain | Yes |
 | `scripts/build_repo.py` | The builder | Rarely |
@@ -657,3 +660,82 @@ adb shell "cd /sdcard/Android/data/org.xbmc.kodi/files/.kodi && \
 ```
 
 Install the repository afterwards so the cloned devices resume receiving updates.
+
+\book BOOK THREE || Worksheet
+
+# Worksheet
+
+Fill this in as you follow the guide. Every blank is used by a numbered step, and the step is named beside it.
+
+## 1. Your values
+
+Fill these in once, in Book One, Part 1.
+
+| What | Used by | Your value |
+|---|---|---|
+| GitHub username or org | 1.3 `github_user` | |
+| Repository name | 1.3 `github_repo` | |
+| Repository display name | 1.3 `repo_name` | |
+| Provider / author name | 1.3 `provider` | |
+| **Install URL** | 2.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
+| Fire TV Stick IP address | Book Two steps 4, 5 | |
+| Kodi version on the stick | Book Two step 6 | |
+
+## 2. Add-ons you want
+
+One row per add-on. Fill the first two columns, run the probe in step 3.2, then complete the rest.
+
+| Display name | Add-on ID | Probe result | Section | `optional`? | Added |
+|---|---|---|---|---|---|
+| | | IN / NOT in official | mirror / official / external | yes / no | [ ] |
+| | | | | | [ ] |
+| | | | | | [ ] |
+| | | | | | [ ] |
+| | | | | | [ ] |
+| | | | | | [ ] |
+| | | | | | [ ] |
+| | | | | | [ ] |
+
+Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no device will ever see them.
+
+## 3. Book One checklist
+
+**Part 1 — First-time setup**
+
+- [ ] 1.1 Tools verified (`python3`, `git`)
+- [ ] 1.2 In the repository directory
+- [ ] 1.3 Four identity fields set in `repo.config.json`
+- [ ] 1.4 `build_repo.py` ran; served-from URL matches your values
+- [ ] 1.5 `check_deps.py` says *all dependencies resolve*
+- [ ] 1.6 Committed
+
+**Part 2 — Publish**
+
+- [ ] 2.1 `gh auth login`
+- [ ] 2.2 Repository created, public
+- [ ] 2.3 Pushed
+- [ ] 2.4 Actions run green
+- [ ] 2.5 All three URLs verified (200 / 32-char hash / 200)
+- [ ] 2.6 Install URL written into section 1 above
+
+## 4. Book Two checklist
+
+- [ ] **Stage A** (1–5) Developer options on, unknown sources on, IP noted
+- [ ] **Stage B** (6–8) Kodi installed (`armeabi-v7a`), launched once, quit
+- [ ] **Stage C** (9–13) Surfshark installed, auto-connect on, `tun0` confirmed
+- [ ] **Stage D** (14–20) Auto-update set *before* add-ons, source added, repository and Toolbox installed
+- [ ] **Stage E** (21–23) Curated add-ons installed, unwanted entries unticked
+- [ ] **Stage F** (24–30) Cache profile applied, subtitle default set, MediaCodec Surface on
+- [ ] **Stage G** (31–34) Rebooted, memory and disk within targets, `addonupdates` = `0`, playback clean
+
+## 5. Measured results
+
+From Book Two, step 32. Compare against the targets in the same step.
+
+| Metric | Target (Stick 4K) | Measured |
+|---|---|---|
+| TOTAL PSS idle | under 600 MB | |
+| `.kodi/` on disk | under 500 MB | |
+| Cold start | under 18 s | |
+| Background services | 6 or fewer | |
+| `general.addonupdates` | `0` | |

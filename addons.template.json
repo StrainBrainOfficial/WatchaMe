@@ -1,0 +1,48 @@
+{
+  "_comment": "COPY-PASTE TEMPLATES for addons.json. This file is never read by the build -- it exists so you do not have to retype JSON out of the guide. See Book One, Part 3.",
+  "_step_1_find_the_id": "The add-on ID is not its display name. Read the id= attribute in the add-on's own addon.xml, or use the folder name under ~/.kodi/addons/.",
+  "_step_2_choose_a_section": "Run the probe command in guide step 3.2. IN official -> use official_template. NOT in official -> use mirror_template. Installs only from a vendor's own repo -> use external_template.",
+  "_step_3_paste": "Copy ONE template below (without its _hint line), paste it into the matching section of addons.json, and fill in the CAPITALISED values.",
+  "mirror_template": {
+    "_hint": "Not in Kodi's official repo. Packaged into your repo from GitHub, re-synced daily.",
+    "id": "plugin.video.EXAMPLE",
+    "name": "Display Name",
+    "category": "tools",
+    "why": "One sentence: what it does and why it earned a slot.",
+    "github": "OWNER/REPO",
+    "track": "release",
+    "optional": false
+  },
+  "official_template": {
+    "_hint": "Already in Kodi's official repo. Installed by id, stays on the maintainer's update channel. No github, no track.",
+    "id": "script.EXAMPLE",
+    "name": "Display Name",
+    "category": "tools",
+    "why": "One sentence: what it does and why it earned a slot.",
+    "optional": false
+  },
+  "external_template": {
+    "_hint": "Dependencies nobody publishes, or the vendor runs their own repo. Documented only, never auto-installed. Note the different shape: no id, no github.",
+    "name": "Vendor Add-on Name",
+    "why": "Why it cannot be mirrored -- usually a dependency no official repo ships.",
+    "url": "https://VENDOR.github.io/repository.VENDOR/",
+    "addons": [
+      "plugin.video.EXAMPLE",
+      "script.module.EXAMPLE"
+    ]
+  },
+  "_field_reference": {
+    "id": "mirror + official. Must match the add-on's own addon.xml exactly.",
+    "name": "all. Display name in the Toolbox picker.",
+    "category": "mirror + official. Groups and sorts the picker. In use: subtitles, playback, tracking, tools, interface, privacy.",
+    "why": "all. Your justification. Ends up in the README.",
+    "github": "mirror only. owner/repo.",
+    "track": "mirror only. 'release' (newest release, falling back to branch head) or 'branch' (always the head).",
+    "ref": "mirror only, optional. Pin a branch, e.g. matrix.",
+    "optional": "mirror + official. true leaves it UNTICKED in the picker. Use for anything needing credentials, a subscription or extra hardware.",
+    "url": "external only. The vendor's repository URL.",
+    "addons": "external only. The add-on ids that repo provides."
+  },
+  "_step_4_dont_forget": "Bump the version in src/script.kodikit.toolbox/addon.xml, or no device will ever see your change. The build will stop you if you forget.",
+  "_step_5_build": "python3 scripts/build_repo.py && python3 scripts/check_deps.py"
+}

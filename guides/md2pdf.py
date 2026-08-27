@@ -232,10 +232,18 @@ def render(md, out, title, subtitle, footer_text):
             for kind, txt in items:
                 if kind == 'i':
                     n += 1
-                    bullet = ('%d.' % n) if ordered else '\u2022'
-                    tb = Table([[Paragraph('<b>%s</b>' % bullet if ordered else bullet, S['bullet']),
-                                 Paragraph(inline(txt), S['bullet'])]],
-                               colWidths=[0.30*inch, 6.25*inch])
+                    if txt.startswith('[ ] '):
+                        # Checklist item: the box IS the bullet. Courier so it
+                        # renders everywhere -- U+2610 is absent from Helvetica
+                        # and comes out as a filled black square.
+                        mark = Paragraph('<font face="Courier">[&nbsp;&nbsp;]</font>', S['bullet'])
+                        body = Paragraph(inline(txt[4:]), S['bullet'])
+                        tb = Table([[mark, body]], colWidths=[0.34*inch, 6.21*inch])
+                    else:
+                        bullet = ('%d.' % n) if ordered else '\u2022'
+                        tb = Table([[Paragraph('<b>%s</b>' % bullet if ordered else bullet, S['bullet']),
+                                     Paragraph(inline(txt), S['bullet'])]],
+                                   colWidths=[0.30*inch, 6.25*inch])
                 else:
                     tb = Table([['', Paragraph('\u2013 ' + inline(txt), S['bullet'])]],
                                colWidths=[0.62*inch, 5.93*inch])
