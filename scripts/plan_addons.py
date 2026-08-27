@@ -21,6 +21,7 @@ WISHLIST = ROOT / "addons.wishlist.txt"
 REPOS = ROOT / "addons.repos.txt"
 MANIFEST = ROOT / "addons.json"
 CONFIG = ROOT / "repo.config.json"
+DUPES = {}   # addon id -> repositories that also serve it, but older
 KODI_VERSIONS = ("omega", "piers")
 
 
@@ -163,19 +164,25 @@ def discover(url, seen=None):
                 found[aid] = (ver, base)
 
     if not found:
-        print("no add-ons found -- the repository's own index url did not "
+        print("  no add-ons found -- the repository's own index url did not "
               "respond (see the ! line above, if any)")
         return 1
-    print("%d add-on(s) served -- paste the lines you want into %s:\n"
-          % (len(found), WISHLIST.name))
-    for aid in sorted(found):
-        ver, base = found[aid]
-        note = ""
-        if seen is not None:
-            if aid in seen and seen[aid] != base:
-                note = "   # ALSO served by an earlier repo -- pick one"
-            seen.setdefault(aid, base)
-        print("%-46s %s        # v%s%s" % (aid, base, ver, note))
+    print("  %d add-on(s) served" % len(found))
+    if seen is None:
+        for aid in sorted(found):
+            ver, base = found[aid]
+            print("%-46s %s        # v%s" % (aid, base, ver))
+        return 0
+    # Collecting across repositories: keep one entry per id, newest version wins.
+    for aid, (ver, base) in found.items():
+        prev = seen.get(aid)
+        if prev is None:
+            seen[aid] = (ver, base, url)
+        elif _vkey(ver) > _vkey(prev[0]):
+            seen[aid] = (ver, base, url)
+            DUPES.setdefault(aid, set()).add(prev[2])
+        else:
+            DUPES.setdefault(aid, set()).add(url)
     return 0
 
 
@@ -263,16 +270,25 @@ def main():
                          "slots in %s with your repository urls." % REPOS.name)
             print("reading %d repository url(s) from %s\n" % (len(urls), REPOS.name))
         rc, seen = 0, {}
-        for n, url in enumerate(urls):
-            if n:
-                print()
-            print("=" * 78)
-            print("  %s" % url)
-            print("=" * 78)
-            rc |= discover(url, seen)
-        if len(urls) > 1:
-            print("\n%d add-on(s) found across %d repositories."
-                  % (len(seen), len(urls)))
+        multi = len(urls) > 1
+        for url in urls:
+            print("\n-- %s" % url)
+            rc |= discover(url, seen if multi else None)
+        if not multi:
+            return rc
+
+        print("\n" + "=" * 78)
+        print("  %d add-on(s) across %d repositories, duplicates removed"
+              % (len(seen), len(urls)))
+        print("  Paste the lines you want into %s" % WISHLIST.name)
+        print("=" * 78 + "\n")
+        for aid in sorted(seen):
+            ver, base, _ = seen[aid]
+            extra = "   # also in %d other repo(s)" % len(DUPES[aid]) if aid in DUPES else ""
+            print("%-46s %s        # v%s%s" % (aid, base, ver, extra))
+        if DUPES:
+            print("\n%d add-on(s) were served by more than one repository. "
+                  "Only the newest is listed above." % len(DUPES))
         return rc
 
     wanted = read_wishlist()
