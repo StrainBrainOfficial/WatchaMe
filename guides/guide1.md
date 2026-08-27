@@ -1,139 +1,120 @@
-This book documents the repository in this directory: what each file does, how the build pipeline works, and how to run it. It assumes the repo exists — it is an operations manual, not a from-scratch tutorial.
+Every section here is a numbered procedure. Run the steps in order; each one is a command to type or a control to click. Lines marked **Check** tell you what success looks like — if you do not see it, stop there rather than continuing.
 
-The design decision behind it: **this is a repository, not a build.** A build is a snapshot of somebody's `userdata` and `addons` folders. It cannot update itself, reinstalling it wipes your configuration, and it breaks on every Kodi release. A repository is the mechanism Kodi natively polls, so every add-on inside it updates individually, forever. The one-click convenience people actually want from a build is provided by an add-on *inside* the repository — the Toolbox — which installs the whole curated set in one pass. Book Two covers using it.
+Background and troubleshooting live in the appendices, so the procedures stay short.
 
-# Part 0 — How a Kodi repository works
+# Part 1 — First-time setup
 
-Four moving parts.
+Do this once, on the machine where you will maintain the repository.
 
-| Piece | What it is | Where |
-|---|---|---|
-| Add-on zip | An add-on folder, zipped, named `id-version.zip` | `docs/zips/<id>/` |
-| Index | `addons.xml` — every add-on's `addon.xml` concatenated | `docs/addons.xml` |
-| Checksum | MD5 of the index | `docs/addons.xml.md5` |
-| Repository add-on | A tiny add-on holding the URLs to the three above | `docs/repository.kodikit.zip` |
+**1.1 Verify your tools.**
 
-The update loop:
+```
+python3 --version     # need 3.8 or newer
+git --version
+gh --version          # optional, only for Part 2
+```
 
-1. Kodi periodically downloads `addons.xml.md5`. It is 32 bytes, so this is cheap.
-2. If that hash differs from last time, it downloads the full `addons.xml`.
-3. It compares each `version=` against what is installed.
-4. Anything newer is downloaded from `docs/zips/` and installed.
+**1.2 Open the repository directory.**
 
-So automatic updates reduce to one rule: **when an add-on changes, its version must increase and the index must be regenerated.** `scripts/build_repo.py` does both, and CI runs it daily.
+```
+cd ~/Dev/kodi-repo
+```
 
-> **The most common failure in any Kodi repo.** Files change but `version=` does not. Kodi concludes it is already current and never downloads the change. Nothing in the logs looks wrong. The builder here avoids this for mirrored add-ons by reading the version from upstream's own `addon.xml`, but for local add-ons in `src/` you must bump it yourself.
+**1.3 Set your identity.** Open `repo.config.json` and set these four fields:
 
-# Part 1 — Prerequisites
-
-| Requirement | Notes |
+| Field | Set it to |
 |---|---|
-| Python 3.8+ | Runs the builder. No third-party packages except Pillow for artwork. |
-| Git + a GitHub account | The repo must be public — Kodi has no credential handling worth using. |
-| Network access | The builder calls the GitHub API and `mirrors.kodi.tv`. |
-| Kodi 21 (Omega) or 22 (Piers) | What the dependency checker validates against. |
+| `github_user` | Your GitHub username or org, exactly as it appears in URLs |
+| `github_repo` | The repository name you will push to |
+| `repo_name` | The display name shown in Kodi. Anything readable. |
+| `provider` | Your name, shown as the author |
+
+Leave `repo_id`, `branch`, `hosting` and `keep_versions` alone unless Part 6 applies.
+
+**1.4 Build.**
+
+```
+python3 scripts/build_repo.py
+```
+
+**Check:** the last two lines report the add-on count, an md5, and the URL it will serve from. That URL must contain your `github_user` and `github_repo` from step 1.3.
+
+**1.5 Check dependencies.**
+
+```
+python3 scripts/check_deps.py
+```
+
+**Check:** `all dependencies resolve`. If not, go to Appendix C.
+
+**1.6 Commit.**
+
+```
+git add -A && git commit -m "Configure repository identity"
+```
+
+# Part 2 — Publish to GitHub
+
+Do this once. After it, everything is automatic.
+
+**2.1 Sign in to GitHub.**
+
+```
+gh auth login
+```
+
+**2.2 Create the repository.** It must be public — Kodi cannot authenticate.
+
+```
+gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
+```
+
+**2.3 Push.**
+
+```
+git push -u origin main
+```
+
+**2.4 Wait for the build.**
+
+```
+gh run watch
+```
+
+**Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 1.4 and 1.5.
+
+**2.5 Verify what Kodi will see.** Three URLs must respond correctly.
+
+```
+BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
+curl -sI  $BASE/addons.xml     | head -1     # expect: HTTP/2 200
+curl -s   $BASE/addons.xml.md5               # expect: 32 hex characters, nothing else
+curl -sI  $BASE/repository.kodikit.zip | head -1   # expect: HTTP/2 200
+```
+
+**Check:** all three as described. A 404 on the first two means step 1.3 does not match where you actually pushed.
+
+**2.6 Write down the install URL.** This is what you type into Kodi in Book Two:
+
+```
+https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
+```
 
 \pagebreak
 
-# Part 2 — Layout
+# Part 3 — Add an add-on
 
-```
-kodi-repo/
-├── addons.json            THE CURATED LIST - what to mirror and what to install
-├── repo.config.json       Repo identity: name, ids, GitHub target, hosting
-├── scripts/
-│   ├── build_repo.py      Sync mirrors, package, build repo addon, write index
-│   ├── check_deps.py      Verify every <import> resolves. Hard-fails CI.
-│   └── make_art.py        Regenerate icon.png / fanart.png (needs Pillow)
-├── src/
-│   └── script.kodikit.toolbox/   The one-click installer + maintenance addon
-├── assets/                Committed icon and fanart
-├── docs/                  PUBLISHED TREE - the only part Kodi ever reads
-│   ├── addons.xml         GENERATED index
-│   ├── addons.xml.md5     GENERATED checksum; the update trigger
-│   ├── index.html         GENERATED landing page
-│   ├── repository.kodikit.zip     Stable-URL copy of the repo addon
-│   └── zips/<id>/<id>-<version>.zip (+ .md5)
-└── guides/                This documentation
-```
+The repeatable procedure. Six steps.
 
-## What you edit versus what is generated
+**3.1 Find the add-on's ID.** Not its display name. Any one of:
 
-Confusing these is the classic mistake. Everything under `docs/` is regenerated on every build; hand-edits are lost, and editing `addons.xml` directly breaks the checksum and invalidates the whole repository.
-
-| Path | Who writes it | Edit by hand? |
-|---|---|---|
-| `addons.json`, `repo.config.json` | You | **Yes — this is the control surface** |
-| `src/**` | You | Yes |
-| `scripts/**` | You | Rarely |
-| `docs/**` | `build_repo.py` | **Never** |
-
-`docs/` is committed even though it is generated, because that is what GitHub serves to Kodi. That is the whole delivery mechanism.
-
-## Why `docs/`
-
-The published tree is called `docs/` because GitHub Pages can serve a `/docs` folder directly. It works identically over raw URLs without Pages enabled, which is the current default — see Part 7.
-
-# Part 3 — Configuration
-
-Everything about the repo's identity lives in `repo.config.json`:
-
-| Field | Current value | What it controls |
-|---|---|---|
-| `repo_id` | `repository.kodikit` | Add-on ID of the repository itself. Globally unique, permanent. |
-| `repo_name` | `KodiKit` | Display name in Kodi's UI. Cosmetic. |
-| `repo_version` | `1.0.0` | Bump when the repo add-on's own URLs or metadata change. |
-| `provider` | `StrainBrainOfficial` | Shown as the author. Cosmetic. |
-| `github_user` / `github_repo` | `StrainBrainOfficial` / `kodi-repo` | **Baked into every URL.** Must match where you actually push. |
-| `branch` | `main` | Branch the URLs point at. |
-| `hosting` | `raw` | `raw` or `pages` — see Part 7. |
-| `keep_versions` | `2` | Old zips retained per add-on. |
-| `toolbox_id` | `script.kodikit.toolbox` | Which local add-on the Toolbox is. |
-
-**Renaming the repo:** edit `repo_id`, `repo_name`, `github_user`, `github_repo`, then rebuild. To rename the Toolbox too, rename `src/script.kodikit.toolbox/`, update the `id` in its `addon.xml`, and update `toolbox_id`.
-
-> `github_user` and `github_repo` are concatenated into the URLs inside the repository add-on, which then ships to every device. Getting them wrong yields a repository that installs cleanly and then finds nothing — with no useful error. Push to exactly the path configured here.
-
-\pagebreak
-
-# Part 4 — What is in the curated set
-
-The set is deliberately tools and utilities only. No streaming or scraper add-ons: those are what get repositories taken down, and they break every few weeks. This one is built to still work in a year untouched.
-
-Add-ons reach a device by one of three routes, and the distinction matters:
-
-**1. Mirrored here (3).** Packaged into this repo because Kodi's official repo does not carry them. Re-synced from upstream daily.
-
-| ID | What it does |
+| Source | Where to look |
 |---|---|
-| `service.subtitles.a4ksubtitles` | Multi-source subtitle search — OpenSubtitles, Addic7ed, Podnapisi, SubDL, SubSource |
-| `script.black.bars.never` | Detects and removes black bars during playback, **including hardcoded ones** |
-| `script.service.janitor` | Deletes watched video files on a schedule to reclaim disk |
+| Its GitHub repo | `addon.xml` → the `id=` attribute of the root `<addon>` element |
+| An installed copy | The folder name under `~/.kodi/addons/`, e.g. `script.trakt/` |
+| Kodi | Add-ons → the add-on → Information |
 
-**2. Installed from Kodi's official repo (17).** The Toolbox installs these *by ID*, so they stay on the official update channel — which is where you want them. Includes `inputstream.adaptive`, `inputstream.ffmpegdirect`, `script.trakt`, `service.upnext`, `script.kodi.loguploader`, `plugin.video.youtube`, and optional entries like `skin.copacetic`, `script.plexmod` and `pvr.iptvsimple`.
-
-**3. From a vendor's own repo (2).** Listed in the README, not installed automatically, because they resolve dependencies the official repo cannot: TheMovieDb Helper 6.x and Jellyfin for Kodi.
-
-> **Why route 2 exists.** Mirroring an add-on that Kodi's official repo already carries would fork it onto your update channel and make you responsible for tracking it. Installing by ID keeps it on the maintainer's channel. Only mirror what is genuinely unavailable.
-
-# Part 5 — Adding an add-on
-
-This is the procedure for putting any add-on you want into the repository. Six steps, and step 2 is the one that silently breaks things if you skip it.
-
-## 5.1 Decide which route it takes
-
-Every add-on reaches a device by exactly one of three routes. Picking the wrong one either forks maintenance onto you or ships something that cannot install.
-
-```
-Is it already in Kodi's official repo?
-  YES -> "official"   installed by ID; stays on the maintainer's update channel
-  NO  |
-      Does it install cleanly with only dependencies that exist somewhere?
-        YES -> "mirror"     packaged into this repo from its GitHub source
-        NO  -> "external"   documented only; the vendor's own repo resolves it
-```
-
-Answer the first question with a command rather than a guess:
+**3.2 Decide which section it goes in.** Run this, with your IDs in the `probe` list:
 
 ```
 python3 - <<'EOF'
@@ -147,41 +128,29 @@ for probe in ["script.trakt", "service.vpn.manager"]:
 EOF
 ```
 
-Put your candidate IDs in the `probe` list. `IN official` means use the `official` section — mirroring it would fork an add-on onto your update channel and make you responsible for tracking it, for no benefit.
+| Result | Section | Why |
+|---|---|---|
+| `IN official` | `official` | Installed by ID; stays on the maintainer's update channel |
+| `NOT in official` | `mirror` | Packaged into your repo from its GitHub source |
+| Installs only from a vendor's own repo | `external` | Documented, never auto-installed — see Appendix A |
 
-> **The `external` route is not a failure.** It exists for add-ons whose dependencies no official repo ships. TheMovieDb Helper 6.x hard-requires `script.module.pil`, a compiled Pillow build nobody publishes; mirroring it would ship an add-on that cannot install. The dependency checker in Part 6 is what tells you this, before your users find out.
+**3.3 Add the entry to `addons.json`.** Copy the matching shape.
 
-## 5.2 Find the add-on ID
-
-The ID is not the display name, and getting it wrong is the most common mistake. Three reliable sources:
-
-| Where | How |
-|---|---|
-| The source repo | Open its `addon.xml` and read the `id=` attribute of the root `<addon>` element |
-| An installed copy | The folder name under `~/.kodi/addons/`, e.g. `script.trakt/` |
-| Kodi itself | Add-ons → the add-on → Information |
-
-The ID in `addons.json` must match the `id=` in the add-on's own `addon.xml` exactly. For mirrored add-ons the builder uses it to *find* the add-on inside the upstream tarball, so a wrong ID means the sync reports it as missing.
-
-## 5.3 The three entry shapes
-
-`addons.json` has three sections. Add your entry to exactly one.
-
-**`mirror`** — packaged into this repo from GitHub:
+For `mirror`:
 
 ```
 {
   "id": "service.vpn.manager",
   "name": "VPN Manager for OpenVPN",
   "category": "privacy",
-  "why": "Connects and maintains an OpenVPN tunnel from inside Kodi.",
+  "why": "One sentence on what it does and why it earned a slot.",
   "github": "Zomboided/service.vpn.manager",
   "track": "release",
   "optional": true
 }
 ```
 
-**`official`** — installed by ID from Kodi's own repo. No `github`, no `track`:
+For `official` — no `github`, no `track`:
 
 ```
 {
@@ -192,7 +161,7 @@ The ID in `addons.json` must match the `id=` in the add-on's own `addon.xml` exa
 }
 ```
 
-**`external`** — documented, never auto-installed. Different shape: no `id`, a vendor repo `url`, and the add-ons it provides:
+For `external` — different shape entirely: no `id`, a vendor `url`, and the add-ons it provides:
 
 ```
 {
@@ -203,231 +172,176 @@ The ID in `addons.json` must match the `id=` in the add-on's own `addon.xml` exa
 }
 ```
 
-| Field | Applies to | Meaning |
+Field reference:
+
+| Field | Sections | Meaning |
 |---|---|---|
-| `id` | mirror, official | The add-on ID. Must match its `addon.xml`. |
+| `id` | mirror, official | Must match the add-on's own `addon.xml` exactly |
 | `name` | all | Display name in the Toolbox picker |
-| `category` | mirror, official | Free-form grouping; sorts the picker. In use: `subtitles`, `playback`, `tracking`, `tools`, `interface`, `privacy`. |
-| `why` | all | Prose justification. Ends up in the README — write it for your future self. |
+| `category` | mirror, official | Groups and sorts the picker. In use: `subtitles`, `playback`, `tracking`, `tools`, `interface`, `privacy`. |
+| `why` | all | Your justification. Ends up in the README. |
 | `github` | mirror | `owner/repo` |
-| `track` | mirror | `release` (newest release, falling back to the branch head) or `branch` (always the head) |
+| `track` | mirror | `release` (newest release, falling back to branch head) or `branch` |
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
-| `optional` | mirror, official | `true` leaves it **unticked** in the picker. Use for anything needing credentials, a subscription, or extra hardware. |
+| `optional` | mirror, official | `true` leaves it **unticked** in the picker |
 
-## 5.4 The procedure
+**3.4 Bump the Toolbox version.** Open `src/script.kodikit.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
 
-1. **Edit `addons.json`.** Add the entry to the right section.
-2. **Bump the Toolbox version** in `src/script.kodikit.toolbox/addon.xml` — patch for adding or dropping an entry, minor for a behaviour change.
-3. **Build:** `python3 scripts/build_repo.py`
-4. **Check dependencies:** `python3 scripts/check_deps.py`
-5. **Commit and push.** CI re-runs both and commits the regenerated `docs/`.
-6. **Verify** with 5.5.
+> **Do not skip this.** The curated list ships *inside* the Toolbox. Change the list without changing the version and the published index stays byte-identical, so no device ever fetches your new list — while the build looks completely successful. `build_repo.py` now refuses to finish in that state and names the stale add-on.
 
-> **Why step 2 is mandatory, and what happens without it.** The curated list ships *inside* the Toolbox — the builder copies `addons.json` into the add-on when it packages it. So adding an entry changes the Toolbox's contents but not its version, and Kodi keys updates off the version in `addons.xml`. The index stays byte-identical, its checksum does not change, and **no device ever fetches the new list.** The build looks perfectly successful.
->
-> `build_repo.py` refuses to finish in this state: if a local add-on's zip contents change while its version does not, it names the stale add-on and exits non-zero. If you see that error, bump the version and rebuild — that is the whole fix.
-
-Adding to `mirror` also publishes the add-on itself, so devices can install it directly. The version bump is what makes it *appear in the Toolbox picker*.
-
-## 5.5 Verify it landed
-
-```
-# The add-on is in the published index
-grep -o 'id="service.vpn.manager" [^>]*version="[^"]*"' docs/addons.xml
-
-# Its zip exists and is Kodi-shaped (id/addon.xml at the root)
-unzip -l docs/zips/service.vpn.manager/*.zip | head -5
-
-# The Toolbox carries the new list
-python3 -c "import zipfile,json,glob; z=sorted(glob.glob('docs/zips/script.kodikit.toolbox/*.zip'))[-1]; \
-m=json.loads(zipfile.ZipFile(z).read('script.kodikit.toolbox/resources/addons.json')); \
-print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
-```
-
-On a device: Toolbox → Install curated add-ons. The new entry appears in the picker, unticked if you marked it `optional`.
-
-## 5.6 When a mirror sync fails
-
-The builder keeps the previous zip and reports the failure rather than publishing something broken.
-
-| Symptom | Cause | Fix |
-|---|---|---|
-| `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
-| Add-on not found in the tarball | `id` does not match the upstream `addon.xml` | Correct the `id` |
-| Sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
-| `check_deps.py` reports an unresolvable import | A dependency nobody publishes | Move it to `external` and document the vendor repo |
-| Upstream is a monorepo | — | Not a problem; the builder scans for the matching `addon.xml` at any depth |
-
-## 5.7 Removing an add-on
-
-Delete its entry, bump the Toolbox version, rebuild, push. Its zips remain in `docs/zips/` until pruned by `keep_versions`, and copies already installed on devices keep working but stop receiving updates. To force one off a device, uninstall it there — a repository cannot retract an add-on.
-
-# Part 6 — The build pipeline
+**3.5 Build and check.**
 
 ```
 python3 scripts/build_repo.py && python3 scripts/check_deps.py
 ```
 
-`build_repo.py` runs four stages:
+**Check:** exit code 0, and `all dependencies resolve`. If the build stops with `content changed without a version bump`, you missed 3.4.
 
-**1. Sync mirrored add-ons.** For each `github` entry, ask the GitHub API for the newest release (or branch head), download the tarball, find the add-on folder, and repackage it as a Kodi-shaped zip with `<id>/addon.xml` at the root. Versions already present are skipped, so a quiet day produces no output and no commit.
-
-**2. Package local add-ons.** Everything in `src/` is zipped at the version in its `addon.xml`. **This is where you must have bumped the version yourself** — the builder packages what it is told.
-
-**3. Build the repository add-on.** Generates `addon.xml` from `repo.config.json`, zips it into `docs/zips/`, and writes a stable copy at `docs/repository.kodikit.zip` so the install URL never changes with version.
-
-**4. Regenerate the index.** Collects the newest zip per add-on, concatenates their `addon.xml` bodies into `docs/addons.xml`, writes the MD5, prunes to `keep_versions`, and regenerates `docs/index.html`.
-
-Zips are written with **fixed timestamps**, so identical content produces byte-identical output. Without this, every run would produce a different zip and CI would commit noise daily.
-
-## The dependency checker
-
-`check_deps.py` fetches Kodi's official `addons.xml.gz` for **Omega and Piers**, unions it with this repo's own IDs, and verifies every non-optional `<import>` in the index resolves against at least one. It **fails the build** if not.
+**3.6 Push.**
 
 ```
-checked 5 add-ons against: omega, piers
-all dependencies resolve
+git add -A && git commit -m "Add <addon-id>" && git push
 ```
 
-This is not ceremony. An unresolvable dependency makes Kodi refuse to install the add-on, and the failure appears on the user's device, not in your build. It has already earned its place: TheMovieDb Helper 6.x hard-requires `script.module.pil`, a compiled Pillow module **no official Kodi repo ships**. Mirroring it would have shipped an add-on that cannot install. The checker caught it, so 6.x is documented under the vendor-repo route and the dependency-clean 5.x is in the one-click list instead.
-
-If the official index is unreachable the check warns and passes rather than blocking on a network failure.
-
-# Part 7 — Publishing
-
-Two hosting modes, set by `hosting` in `repo.config.json`.
-
-| Mode | URL form | Notes |
-|---|---|---|
-| `raw` (current) | `raw.githubusercontent.com/USER/REPO/main/docs` | Works immediately after push, no setup. ~5 min cache. |
-| `pages` | `USER.github.io/REPO` | Better caching. Requires enabling Pages for `/docs`. |
-
-Switching modes changes the URLs baked into the repository add-on, so **existing users must reinstall the repo zip once.** Choose before distributing.
-
-Verify after pushing:
-
-```
-curl -sI https://raw.githubusercontent.com/USER/REPO/main/docs/addons.xml | head -1
-curl -s  https://raw.githubusercontent.com/USER/REPO/main/docs/addons.xml.md5
-```
-
-The first must return `200`; the second a bare 32-character hex string.
-
-# Part 8 — Automation
-
-`.github/workflows/sync.yml` runs daily at 05:15 UTC, on manual dispatch, and on pushes that touch `addons.json`, `repo.config.json`, `src/`, `scripts/`, or the workflow itself.
-
-It runs the builder, then the dependency checker, and commits `docs/` back to the branch only if something changed. A `concurrency` group prevents overlapping runs from fighting over the same commit.
-
-The full unattended chain:
-
-```
-upstream publishes  ->  05:15 UTC sync job packages the new version
-                    ->  check_deps.py verifies it can actually install
-                    ->  docs/ committed, addons.xml.md5 changes
-                    ->  Kodi notices within 24h and installs silently
-```
-
-Worst case is about 48 hours from upstream release to device.
+**Check:** run the verification in Part 8.
 
 \pagebreak
 
-# Part 9 — Making sure updates actually land
+# Part 4 — Remove an add-on
 
-Three things must line up.
+**4.1** Delete its entry from `addons.json`.
 
-**Kodi must be set to auto-update.** Settings → Add-ons → Updates → *Install updates automatically*. In `guisettings.xml` this is `general.addonupdates` = `0` (`1` notifies, `2` never). There is also a per-add-on override in Add-on info → Auto-update; if one was ever set to Never, the global setting will not rescue it.
+**4.2** Bump the Toolbox version in `src/script.kodikit.toolbox/addon.xml`.
 
-**The version must increase.** Kodi only moves upward. Re-uploading a zip with the same version does nothing regardless of content, and lowering a version to force a change does nothing either. A broken release is fixed with a **higher** patch version, never a re-upload.
-
-**The checksum must change.** That is what Kodi polls. The builder handles it; the only way to break it is editing `docs/addons.xml` by hand afterwards.
-
-To force an immediate check on a device: Add-ons → My add-ons → select the repository → Check for updates. Remotely, toggling the repository off and on forces a re-scan on the next cycle:
+**4.3** Build and push:
 
 ```
-curl -s -H 'Content-Type: application/json' \
-  -d '{"jsonrpc":"2.0","id":1,"method":"Addons.SetAddonEnabled",
-       "params":{"addonid":"repository.kodikit","enabled":true}}' \
-  http://DEVICE-IP:8080/jsonrpc
+python3 scripts/build_repo.py && python3 scripts/check_deps.py
+git add -A && git commit -m "Remove <addon-id>" && git push
 ```
 
-If an update does not land, `kodi.log` is definitive:
+**Check:** `grep '<addon id="<addon-id>"' docs/addons.xml` returns nothing.
+
+> Copies already installed on devices keep working but stop receiving updates. A repository cannot retract an add-on — to remove it from a device, uninstall it there.
+
+# Part 5 — Change the Toolbox itself
+
+**5.1** Edit the code under `src/script.kodikit.toolbox/`.
+
+**5.2** Bump the version in its `addon.xml` — patch for a fix, minor for new behaviour.
+
+**5.3** Build, check, push:
 
 ```
-adb shell "grep -i 'repository.kodikit\|CRepository' \
-  /sdcard/Android/data/org.xbmc.kodi/files/.kodi/temp/kodi.log | tail -40"
+python3 scripts/build_repo.py && python3 scripts/check_deps.py
+git add -A && git commit -m "Toolbox: <what changed>" && git push
 ```
 
-`CRepository::FetchIndex` failures point at URLs or checksums; "no update available" against a bumped version points at a stale index.
+# Part 6 — Change the repository's identity or URLs
 
-# Part 10 — Installing on a device, in order
+Only when moving the repo or renaming it.
 
-Order is part of the procedure, not a detail. Four rules drive it:
+**6.1** Edit `repo.config.json`: `github_user`, `github_repo`, `branch`, or `hosting`.
 
-| Rule | Consequence |
-|---|---|
-| Config files are read at startup | `advancedsettings.xml` must exist before Kodi is used |
-| InputStream add-ons underpin playback | They come before anything that plays video |
-| Declared dependencies resolve automatically | Never hand-install `script.module.*` |
-| Services claim defaults on first run | Subtitles must be in place before you set the default |
+**6.2** Bump `repo_version` in the same file.
 
-**Phase A — Foundation**
+**6.3** Build and push as in 5.3.
 
-| # | Step |
-|---|---|
-| 1 | Install Kodi, launch once, quit |
-| 2 | Settings → System → Add-ons → **Unknown sources → On** |
-| 3 | Settings → Add-ons → Updates → **Install updates automatically** |
-| 4 | Settings → File manager → Add source → the URL from Part 7, named `kodikit` |
-| 5 | Add-ons → Install from zip file → `kodikit` → `repository.kodikit.zip` |
-| 6 | Add-ons → Install from repository → KodiKit → install **KodiKit Toolbox** |
+**6.4** Reinstall the repository zip on **every device.** The old URLs are baked into the copy they already have.
 
-Step 3 goes before any add-on exists so every one inherits it. Step 5 matters more than it looks: an add-on sideloaded from a loose zip belongs to no repository, so Kodi has nowhere to check for updates and it stays at its installed version forever.
+> Because of 6.4, get `github_user` and `github_repo` right in Part 1 and leave them alone.
 
-**Phase B — The Toolbox does the rest**
+# Part 7 — Daily operation
 
-Open the Toolbox → **Install curated add-ons**. It multi-selects the whole set, filters out anything already installed, and leaves optional entries unticked. Kodi resolves each add-on's declared dependencies automatically and in the right order, which is why there is no manual InputStream step here — installing the parents pulls them.
+Nothing to do. For reference, the scheduled job at 05:15 UTC:
 
-**Phase C — Tune and finish**
+1. Checks each mirrored add-on's upstream for a newer release.
+2. Repackages anything that moved.
+3. Runs the dependency check; a failure stops the commit.
+4. Commits the regenerated `docs/` only if something changed.
 
-| # | Step |
-|---|---|
-| 7 | **Decide on the VPN.** VPN Manager ships in the repository and appears in the picker unticked. Either tick it and configure it now, or consciously decide against it. Do not leave it undecided — see below. |
-| 8 | Toolbox → **Apply streaming cache tuning** → pick your device profile → restart |
-| 9 | Set the subtitle default: Settings → Player → Language → a4kSubtitles. **An unset default is why "subtitles don't work".** |
-| 10 | Toolbox → **Clean up caches** to clear install debris |
-| 11 | Optional: enable Settings → Services → Control → Allow remote control via HTTP, for remote diagnosis |
+Devices poll roughly every 24 hours, so worst case is about 48 hours from an upstream release to your stick.
 
-**On the VPN step.** It is unticked in the installer because it needs your provider's credentials and an OpenVPN binary on the platform — it cannot be a silent default. It is a mandatory *decision* because retrofitting it later means redoing any account authorization you did on the wrong address: device-code and OAuth flows bind a session to the address that completed them, so connect the VPN **before** signing in to anything.
+To force a run now:
 
-If you tick it: Toolbox picker → VPN Manager → then VPN Manager's own settings → provider → credentials → connect, and confirm its external-IP readout changes.
-
-> **Check the platform and the provider before you rely on it.** VPN Manager raises an OpenVPN tunnel from inside Kodi, which needs an OpenVPN binary it can execute — fine on LibreELEC, Linux and Windows, but on Android and Fire OS an add-on generally cannot control the system VPN. It also bundles profiles for a fixed set of providers (NordVPN, ExpressVPN, PIA in 7.0.3); anything else, **Surfshark included**, uses the *User Defined* route with hand-imported `.ovpn` files and the provider's separate manual-setup credentials. On a Fire TV Stick the reliable route is the provider's own Android app, which tunnels the whole device rather than Kodi alone. Book Two, Part 4 works this through for Surfshark.
-
-That is the whole deployment. Book Two applies it to a Fire TV Stick with device-specific numbers.
+```
+gh workflow run sync.yml && gh run watch
+```
 
 \pagebreak
 
-# Part 11 — Maintenance
+# Part 8 — Health check
 
-| Task | When | How |
+Run after any push, or whenever something looks wrong.
+
+**8.1 The index lists what you expect.**
+
+```
+grep -o 'id="[^"]*" name="[^"]*" version="[^"]*"' docs/addons.xml
+```
+
+**8.2 A specific add-on is present.**
+
+```
+grep -o 'id="service.vpn.manager"[^>]*version="[^"]*"' docs/addons.xml
+```
+
+**8.3 Its zip is Kodi-shaped** — `<id>/addon.xml` must be at the root:
+
+```
+unzip -l docs/zips/service.vpn.manager/*.zip | head -5
+```
+
+**8.4 The Toolbox carries the current list.**
+
+```
+python3 -c "import zipfile,json,glob; z=sorted(glob.glob('docs/zips/script.kodikit.toolbox/*.zip'))[-1]; \
+m=json.loads(zipfile.ZipFile(z).read('script.kodikit.toolbox/resources/addons.json')); \
+print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
+```
+
+**8.5 The live URLs still respond.** Re-run 2.5.
+
+**8.6 On a device:** Toolbox → Install curated add-ons. New entries appear in the picker, unticked if you marked them `optional`.
+
+# Appendix A — How it works
+
+**The update loop.** Kodi downloads `addons.xml.md5` (32 bytes) on a ~24 hour cycle. If that hash changed, it downloads `addons.xml`, compares every `version=` against what is installed, and downloads anything newer from `docs/zips/`. So an update happens **only** when a version number increases. Re-uploading a zip at the same version does nothing; lowering a version does nothing. A broken release is fixed with a higher patch version, never a re-upload.
+
+**The three routes.** `official` keeps an add-on on its maintainer's update channel — mirroring something Kodi already ships would fork it onto your channel and make you responsible for tracking it. `mirror` is for add-ons genuinely unavailable elsewhere. `external` is for add-ons whose dependencies nobody publishes: TheMovieDb Helper 6.x hard-requires `script.module.pil`, a compiled Pillow build no official repo ships, so mirroring it would deliver an add-on that cannot install.
+
+**What the builder does.** Syncs mirrors from upstream; packages everything in `src/` at the version in its `addon.xml`; generates the repository add-on from `repo.config.json`; regenerates the index, checksum, `index.html`, and prunes old zips. Zips use fixed timestamps, so identical content produces identical bytes — otherwise CI would commit noise daily.
+
+**What the dependency checker does.** Fetches Kodi's official index for Omega and Piers, unions it with your own IDs, and verifies every non-optional `<import>` resolves. It fails the build rather than letting a device discover the problem.
+
+**Where the add-on ID appears.** Folder name in `docs/zips/`, zip filename, folder at the root inside the zip, and the `id=` in `addon.xml`. Kodi builds its download URL from the ID and version in the index, so any mismatch is a 404 that surfaces as "failed to install". The builder derives all four from one source, which is why you never rename zips by hand.
+
+# Appendix B — File map
+
+| Path | Purpose | Edit? |
 |---|---|---|
-| Add or drop a curated add-on | Any time | Edit `addons.json`, push. CI rebuilds. |
-| Change the Toolbox | Any time | Edit `src/`, **bump its `addon.xml` version**, push |
-| Change repo identity or URLs | Rarely | Edit `repo.config.json`, bump `repo_version`, and have users reinstall the repo zip |
-| Regenerate artwork | Rarely | `python3 scripts/make_art.py` (needs Pillow) |
-| Check upstream health | Monthly | Read the sync job's log for skipped or failed mirrors |
+| `addons.json` | The curated list | **Yes — this is the control surface** |
+| `repo.config.json` | Repo identity, hosting, versions | Yes |
+| `src/` | Add-ons you maintain | Yes |
+| `scripts/build_repo.py` | The builder | Rarely |
+| `scripts/check_deps.py` | Dependency validation | Rarely |
+| `scripts/make_art.py` | Regenerates icon/fanart (needs Pillow) | Rarely |
+| `assets/` | Committed icon and fanart | Rarely |
+| `docs/` | **Published tree — what Kodi downloads** | **Never by hand** |
+| `guides/` | This document's source | Yes |
 
-# Part 12 — Troubleshooting
+# Appendix C — Troubleshooting
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | `curl` the URL; confirm 200 and public |
-| Repository installs, shows no add-ons | Index empty or checksum stale | Re-run the builder; never hand-edit `docs/` |
-| "Failed to install add-on" | Zip name does not match `id-version.zip` | Re-run the builder; it names them |
-| "Dependency not met" | Unresolvable `<import>` | Run `check_deps.py`; mirror the missing module |
-| Add-on installs, never updates | Version not bumped | Bump it in `addon.xml` and rebuild |
-| One add-on never updates | Per-add-on auto-update set to Never | Add-on info → Auto-update → On |
-| CI commits every day with no real change | Zip timestamps not fixed | Already handled here; do not remove the fixed-timestamp logic |
-| Sync job fails on one add-on | Upstream renamed a release or branch | Set `ref` explicitly in `addons.json` |
-| Updates only appear after a restart | Normal 24h poll cycle | Force a check, or accept the cadence |
+| Build stops: `content changed without a version bump` | The working case, caught | Bump the version in `src/<addon>/addon.xml`, rebuild |
+| `check_deps` reports an unresolvable import | A dependency nobody publishes | Move the add-on to `external` and document the vendor repo |
+| Mirror sync: `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
+| Mirror sync: add-on not found in the tarball | `id` does not match upstream's `addon.xml` | Correct the `id` |
+| Mirror sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
+| Kodi: "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | Re-run 2.5; confirm the repo is public |
+| Kodi: repository installs but lists nothing | Index empty, or checksum stale | Re-run 1.4; never hand-edit `docs/` |
+| Kodi: "Failed to install add-on" | Zip name does not match `id-version.zip` | Re-run 1.4; the builder names them |
+| Kodi: "Dependency not met" | Unresolvable `<import>` | Run 1.5 |
+| An add-on never updates on one device | Per-add-on auto-update set to Never | Add-on info → Auto-update → On |
+| Updates appear only after a restart | Normal 24-hour poll cycle | Force a check on the device, or wait |
