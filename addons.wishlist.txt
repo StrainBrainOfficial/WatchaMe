@@ -1,0 +1,28 @@
+# WISHLIST -- the add-ons you want in your repository.
+#
+# One per line:   <addon-id>   [owner/repo]
+#
+#   <addon-id>    Required. The add-on's real id, not its display name.
+#                 Find it in the add-on's own addon.xml, or as the folder
+#                 name under ~/.kodi/addons/.
+#
+#   [owner/repo]  Its GitHub slug. Only needed if the add-on is NOT in
+#                 Kodi's official repository -- run the planner and it will
+#                 tell you which ones need it.
+#
+# Add "optional" at the end of a line to leave it unticked in the Toolbox
+# picker (use for anything needing credentials, a subscription or hardware).
+#
+# Then run:
+#     python3 scripts/plan_addons.py            # check and preview
+#     python3 scripts/plan_addons.py --apply    # write into addons.json
+#
+# Lines starting with # are ignored. Delete these comments if you like.
+#
+# ---------------------------------------------------------------------------
+# Examples -- delete and replace with your own:
+#
+# script.trakt
+# service.subtitles.a4ksubtitles   a4k-openproject/a4kSubtitles
+# script.plexmod                                                    optional
+

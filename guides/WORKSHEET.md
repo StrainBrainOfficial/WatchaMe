@@ -18,18 +18,18 @@ Fill these in once, in Book One, Part 1.
 
 ## 2. Add-ons you want
 
-One row per add-on. Fill the first two columns, run the probe in step 3.2, then complete the rest.
+You can fill this in on paper, or skip it and type straight into **`addons.wishlist.txt`** in the repository root, which the planner in step 3.0 reads directly. Same information either way.
 
-| Display name | Add-on ID | Probe result | Section | `optional`? | Added |
-|---|---|---|---|---|---|
-| | | IN / NOT in official | mirror / official / external | yes / no | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
+| Display name | Add-on ID | GitHub `owner/repo` (if any) | `optional`? | Added |
+|---|---|---|---|---|
+| | | | yes / no | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
 
 Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no device will ever see them.
 
@@ -53,10 +53,10 @@ Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no de
 
 **Part 3 — Choose your add-ons** *(before publishing)*
 
-- [ ] 3.1 IDs found for everything in section 2 above
-- [ ] 3.2 Probe run; section decided for each
-- [ ] 3.3 Entries added to `addons.json`
-- [ ] 3.4 Toolbox version bumped
+- [ ] 3.0 `addons.wishlist.txt` filled in
+- [ ] 3.0b Planner run clean, then `--apply`
+- [ ] 3.0c Every `why` field written
+- [ ] 3.4 Toolbox version bumped (the planner does this)
 - [ ] 3.5 Build and dependency check both clean
 - [ ] 3.6 Committed
 

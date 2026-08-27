@@ -22,7 +22,7 @@ Every part carries a **Where** line repeating this, so you never have to guess w
 
 Each step is one command to type or one control to click, and lines marked **Check** tell you what success looks like — if you do not see it, stop there rather than continuing. Background, file maps and troubleshooting live in the appendices so the procedures stay short.
 
-Two files in the repository root pair with these instructions: **`addons.template.json`** holds the three add-on entry shapes ready to paste, and **`repo.config.json`** is the identity you set in Part 2.
+Three files in the repository root pair with these instructions: **`addons.wishlist.txt`** is where you list the add-ons you want (Part 3 turns it into real entries for you), **`addons.template.json`** holds the entry shapes if you would rather write them by hand, and **`repo.config.json`** is the identity you set in Part 2.
 
 \toc
 
@@ -188,7 +188,46 @@ git add -A && git commit -m "Configure repository identity"
 
 **Where:** terminal and a text editor. No browser.
 
-Do this before you publish, and again any time you want to change what the repository carries. Six steps.
+Do this before you publish, and again any time you want to change what the repository carries.
+
+Fill in one file, run one command. **`addons.wishlist.txt`** in the repository root is that file — a plain list of what you want, with comments explaining the format. `scripts/plan_addons.py` reads it, checks each add-on against Kodi's official repository, works out which section it belongs in, and writes the entries for you.
+
+**3.0 Fill in the wishlist.** Open `addons.wishlist.txt` and list what you want, one per line:
+
+```
+script.trakt
+service.subtitles.a4ksubtitles   a4k-openproject/a4kSubtitles
+script.plexmod                                          optional
+```
+
+The add-on **id** is the only required field. Add a GitHub `owner/repo` only for add-ons that are not in Kodi's official repository — you do not need to know which those are in advance; the planner tells you. Append `optional` to leave an entry unticked in the Toolbox picker.
+
+**3.0b Run the planner.**
+
+```
+python3 scripts/plan_addons.py
+```
+
+It reports one line per add-on:
+
+```
+  --  service.subtitles.a4ksubtitles    already in addons.json
+  ok  script.trakt                      official  (installed by id)
+  ok  plugin.video.example              mirror    (from owner/repo)
+  !!  script.something                  NOT in the official repo, and no owner/repo given
+```
+
+Fix any `!!` lines by adding a GitHub slug to the wishlist, then run it again. When it is clean:
+
+```
+python3 scripts/plan_addons.py --apply
+```
+
+That writes the entries into `addons.json` **and bumps the Toolbox version for you** — the step that otherwise means no device ever sees your change.
+
+**3.0c Edit each `why`.** The planner leaves `"why": "TODO: ..."` on every entry. Replace it with one sentence; it ends up in the README and is the only record of why an add-on earned its slot.
+
+Then go to 3.5 to build and check. The rest of this part explains what the planner is doing, and is the manual route if you would rather write entries by hand.
 
 **3.1 Find the add-on's ID.** Not its display name. Any one of:
 
@@ -504,7 +543,9 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 | Path | Purpose | Edit? |
 |---|---|---|
 | `addons.json` | The curated list | **Yes — this is the control surface** |
+| `addons.wishlist.txt` | **Fill this in** — what you want the repo to carry | **Yes** |
 | `addons.template.json` | Copy-paste entry templates; never read by the build | Reference |
+| `scripts/plan_addons.py` | Turns the wishlist into `addons.json` entries | Rarely |
 | `repo.config.json` | Repo identity, hosting, versions | Yes |
 | `src/` | Add-ons you maintain | Yes |
 | `scripts/build_repo.py` | The builder | Rarely |
@@ -1011,18 +1052,18 @@ Fill these in once, in Book One, Part 1.
 
 ## 2. Add-ons you want
 
-One row per add-on. Fill the first two columns, run the probe in step 3.2, then complete the rest.
+You can fill this in on paper, or skip it and type straight into **`addons.wishlist.txt`** in the repository root, which the planner in step 3.0 reads directly. Same information either way.
 
-| Display name | Add-on ID | Probe result | Section | `optional`? | Added |
-|---|---|---|---|---|---|
-| | | IN / NOT in official | mirror / official / external | yes / no | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
-| | | | | | [ ] |
+| Display name | Add-on ID | GitHub `owner/repo` (if any) | `optional`? | Added |
+|---|---|---|---|---|
+| | | | yes / no | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
+| | | | | [ ] |
 
 Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no device will ever see them.
 
@@ -1046,10 +1087,10 @@ Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no de
 
 **Part 3 — Choose your add-ons** *(before publishing)*
 
-- [ ] 3.1 IDs found for everything in section 2 above
-- [ ] 3.2 Probe run; section decided for each
-- [ ] 3.3 Entries added to `addons.json`
-- [ ] 3.4 Toolbox version bumped
+- [ ] 3.0 `addons.wishlist.txt` filled in
+- [ ] 3.0b Planner run clean, then `--apply`
+- [ ] 3.0c Every `why` field written
+- [ ] 3.4 Toolbox version bumped (the planner does this)
 - [ ] 3.5 Build and dependency check both clean
 - [ ] 3.6 Committed
 
