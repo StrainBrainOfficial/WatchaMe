@@ -52,7 +52,7 @@ if __name__ == "__main__":
     (ROOT / "assets").mkdir(exist_ok=True)
     make_icon(ROOT / "assets" / "icon.png")
     make_fanart(ROOT / "assets" / "fanart.png")
-    tb = ROOT / "src" / "script.kodikit.toolbox"
+    tb = ROOT / "src" / "script.watchame.toolbox"
     if tb.is_dir():
         make_icon(tb / "icon.png")
         make_fanart(tb / "fanart.png")

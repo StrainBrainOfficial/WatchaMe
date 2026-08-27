@@ -1,4 +1,4 @@
-"""KodiKit Toolbox - entry point."""
+"""WatchaMe Toolbox - entry point."""
 import sys
 
 import xbmcaddon
@@ -19,7 +19,7 @@ MENU = [
 
 
 def main():
-    # Allow direct invocation, e.g. RunScript(script.kodikit.toolbox,cleanup)
+    # Allow direct invocation, e.g. RunScript(script.watchame.toolbox,cleanup)
     if len(sys.argv) > 1:
         shortcut = {
             "install": installer.run,

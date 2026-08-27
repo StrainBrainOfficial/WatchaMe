@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-    <addon id="repository.kodikit" name="KodiKit" version="1.0.0" provider-name="StrainBrainOfficial">
-      <extension point="xbmc.addon.repository" name="KodiKit">
+    <addon id="repository.watchame" name="WatchaMe" version="1.0.0" provider-name="StrainBrainOfficial">
+      <extension point="xbmc.addon.repository" name="WatchaMe">
         <dir>
-          <info compressed="false">https://raw.githubusercontent.com/StrainBrainOfficial/kodi-repo/main/docs/addons.xml</info>
-          <checksum>https://raw.githubusercontent.com/StrainBrainOfficial/kodi-repo/main/docs/addons.xml.md5</checksum>
-          <datadir zip="true">https://raw.githubusercontent.com/StrainBrainOfficial/kodi-repo/main/docs/zips</datadir>
+          <info compressed="false">https://raw.githubusercontent.com/StrainBrainOfficial/WatchaMe/main/docs/addons.xml</info>
+          <checksum>https://raw.githubusercontent.com/StrainBrainOfficial/WatchaMe/main/docs/addons.xml.md5</checksum>
+          <datadir zip="true">https://raw.githubusercontent.com/StrainBrainOfficial/WatchaMe/main/docs/zips</datadir>
           <hashes>true</hashes>
         </dir>
       </extension>
@@ -14,7 +14,7 @@
         <description lang="en_gb">A lightweight curated repository of high-quality Kodi tools: subtitles, Trakt scrobbling, black-bar removal, metadata, maintenance and cleanup utilities. Mirrors are refreshed automatically from upstream every day.</description>
         <platform>all</platform>
         <license>GPL-3.0-or-later</license>
-        <source>https://github.com/StrainBrainOfficial/kodi-repo</source>
+        <source>https://github.com/StrainBrainOfficial/WatchaMe</source>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.png</fanart>
@@ -52,24 +52,6 @@
     		</assets>
     		<news>Updated the addon to use new addon.xml metadata</news>
     	</extension>
-    </addon>
-    <addon id="script.kodikit.toolbox" name="KodiKit Toolbox" version="1.2.1" provider-name="StrainBrainOfficial">
-      <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-      </requires>
-      <extension point="xbmc.python.script" library="default.py">
-        <provides>executable</provides>
-      </extension>
-      <extension point="xbmc.addon.metadata">
-        <summary lang="en_gb">One-click setup, cleanup and tuning for Kodi</summary>
-        <description lang="en_gb">Installs a curated set of Kodi tools in one pass, then keeps the install healthy: clear the package and thumbnail caches, purge old logs, clean the library of missing files, and apply sensible streaming cache settings. Everything is opt-in and shows you exactly what it will touch before it touches it.</description>
-        <platform>all</platform>
-        <license>GPL-3.0-or-later</license>
-        <assets>
-          <icon>icon.png</icon>
-          <fanart>fanart.png</fanart>
-        </assets>
-      </extension>
     </addon>
     <addon id="script.service.janitor" name="Janitor" version="5.0.1" provider-name="Anthirian, drewzh">
         <requires>
@@ -133,6 +115,24 @@
                 <fanart>resources/fanart.jpg</fanart>
             </assets>
         </extension>
+    </addon>
+    <addon id="script.watchame.toolbox" name="WatchaMe Toolbox" version="1.2.1" provider-name="StrainBrainOfficial">
+      <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+      </requires>
+      <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en_gb">One-click setup, cleanup and tuning for Kodi</summary>
+        <description lang="en_gb">Installs a curated set of Kodi tools in one pass, then keeps the install healthy: clear the package and thumbnail caches, purge old logs, clean the library of missing files, and apply sensible streaming cache settings. Everything is opt-in and shows you exactly what it will touch before it touches it.</description>
+        <platform>all</platform>
+        <license>GPL-3.0-or-later</license>
+        <assets>
+          <icon>icon.png</icon>
+          <fanart>fanart.png</fanart>
+        </assets>
+      </extension>
     </addon>
     <addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.24.2" provider-name="Unknown">
         <requires>

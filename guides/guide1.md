@@ -181,7 +181,7 @@ gh run watch
 BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 curl -sI  $BASE/addons.xml     | head -1            # expect: HTTP/2 200
 curl -s   $BASE/addons.xml.md5                      # expect: 32 hex characters, nothing else
-curl -sI  $BASE/repository.kodikit.zip | head -1    # expect: HTTP/2 200
+curl -sI  $BASE/repository.watchame.zip | head -1    # expect: HTTP/2 200
 ```
 
 **Check:** all three as described. A 404 on the first two means 2.2 does not match where you actually pushed.
@@ -222,7 +222,7 @@ The repeatable procedure. Six steps.
 python3 - <<'EOF'
 import gzip, re, urllib.request
 url = "https://mirrors.kodi.tv/addons/omega/addons.xml.gz"
-req = urllib.request.Request(url, headers={"User-Agent": "kodikit"})
+req = urllib.request.Request(url, headers={"User-Agent": "watchame"})
 raw = gzip.decompress(urllib.request.urlopen(req, timeout=60).read()).decode("utf-8", "replace")
 ids = set(re.findall(r'<addon\s+id="([^"]+)"', raw))
 for probe in ["script.trakt", "service.vpn.manager"]:
@@ -287,7 +287,7 @@ Field reference:
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
 | `optional` | mirror, official | `true` leaves it **unticked** in the picker |
 
-**4.4 Bump the Toolbox version.** Open `src/script.kodikit.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
+**4.4 Bump the Toolbox version.** Open `src/script.watchame.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
 
 > **Do not skip this.** The curated list ships *inside* the Toolbox. Change the list without changing the version and the published index stays byte-identical, so no device ever fetches your new list — while the build looks completely successful. `build_repo.py` refuses to finish in that state and names the stale add-on.
 
@@ -315,7 +315,7 @@ git add -A && git commit -m "Add <addon-id>" && git push
 
 **5.1** Delete its entry from `addons.json`.
 
-**5.2** Bump the Toolbox version in `src/script.kodikit.toolbox/addon.xml`.
+**5.2** Bump the Toolbox version in `src/script.watchame.toolbox/addon.xml`.
 
 **5.3** Build and push:
 
@@ -332,7 +332,7 @@ git add -A && git commit -m "Remove <addon-id>" && git push
 
 **Where:** terminal and a text editor.
 
-**6.1** Edit the code under `src/script.kodikit.toolbox/`.
+**6.1** Edit the code under `src/script.watchame.toolbox/`.
 
 **6.2** Bump the version in its `addon.xml` — patch for a fix, minor for new behaviour.
 
@@ -407,8 +407,8 @@ unzip -l docs/zips/service.vpn.manager/*.zip | head -5
 **9.4 The Toolbox carries the current list.**
 
 ```
-python3 -c "import zipfile,json,glob; z=sorted(glob.glob('docs/zips/script.kodikit.toolbox/*.zip'))[-1]; \
-m=json.loads(zipfile.ZipFile(z).read('script.kodikit.toolbox/resources/addons.json')); \
+python3 -c "import zipfile,json,glob; z=sorted(glob.glob('docs/zips/script.watchame.toolbox/*.zip'))[-1]; \
+m=json.loads(zipfile.ZipFile(z).read('script.watchame.toolbox/resources/addons.json')); \
 print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 ```
 
@@ -531,7 +531,7 @@ Open these three in a browser tab, substituting your values:
 ```
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/addons.xml
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/addons.xml.md5
-https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/repository.kodikit.zip
+https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs/repository.watchame.zip
 ```
 
 **Check:** the first shows XML listing your add-ons; the second shows a single 32-character hash; the third downloads a file. A **404** on any means the values in D.3 do not match the repository's actual address.
@@ -545,7 +545,7 @@ The third URL is also the one you enter in Book Two, step 17 — minus the filen
 
 ## D.7 Bump the Toolbox version — the step that matters
 
-1. Navigate to **`src`** → **`script.kodikit.toolbox`** → **`addon.xml`**.
+1. Navigate to **`src`** → **`script.watchame.toolbox`** → **`addon.xml`**.
 2. Click the **pencil**.
 3. Increase the version, e.g. `version="1.2.1"` → `version="1.2.2"`.
 4. **Commit changes.**

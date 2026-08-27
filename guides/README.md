@@ -1,6 +1,6 @@
 # Guides
 
-Source for the KodiKit Operations Guide.
+Source for the WatchaMe Operations Guide.
 
     guide1.md           Book One - running the repository
     guide2.md           Book Two - provisioning a Fire TV Stick 4K
@@ -14,4 +14,4 @@ Rebuild after editing either book:
 
 It renders once to learn where headings land, then re-renders with a real
 table of contents and asserts that every listed page number matches reality.
-Output: `KodiKit_Operations_Guide.pdf`.
+Output: `WatchaMe_Operations_Guide.pdf`.

@@ -117,13 +117,13 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 >
 > The text appears in the field. Check it on screen before pressing OK.
 
-**18.** Name it `kodikit` → OK.
+**18.** Name it `watchame` → OK.
 
-**19.** Kodi → Add-ons → **Install from zip file** → `kodikit` → `repository.kodikit.zip`.
+**19.** Kodi → Add-ons → **Install from zip file** → `watchame` → `repository.watchame.zip`.
 
 **Check:** a notification confirms the repository add-on installed.
 
-**20.** Add-ons → **Install from repository** → KodiKit → Program add-ons → **KodiKit Toolbox** → Install.
+**20.** Add-ons → **Install from repository** → WatchaMe → Program add-ons → **WatchaMe Toolbox** → Install.
 
 **Check:** the Toolbox appears under Add-ons → Program add-ons.
 
@@ -133,7 +133,7 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 
 **Where:** the TV, inside Kodi.
 
-**21.** Open **KodiKit Toolbox** → **Install curated add-ons**.
+**21.** Open **WatchaMe Toolbox** → **Install curated add-ons**.
 
 **22.** In the picker, untick anything you do not want. For this stick:
 

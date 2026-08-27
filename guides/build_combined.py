@@ -2,11 +2,11 @@
 """Iterative build: re-render until the TOC's page numbers match reality."""
 import md2pdf as M
 
-SRC, OUT = 'combined.md', 'KodiKit_Operations_Guide.pdf'
-TITLE = 'KodiKit Operations Guide'
+SRC, OUT = 'combined.md', 'WatchaMe_Operations_Guide.pdf'
+TITLE = 'WatchaMe Operations Guide'
 SUB   = ('Operating a self-updating Kodi add-on repository, and provisioning '
          'a Fire TV Stick 4K from it.')
-FOOT  = 'KodiKit Operations Guide'
+FOOT  = 'WatchaMe Operations Guide'
 md = open(SRC).read()
 
 def render_pass(out):

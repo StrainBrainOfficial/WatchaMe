@@ -1,4 +1,4 @@
-# KodiKit — a curated, self-updating Kodi repository
+# WatchaMe — a curated, self-updating Kodi repository
 
 A lightweight curated repository of high-quality Kodi tools: subtitles, Trakt scrobbling, black-bar removal, metadata, maintenance and cleanup utilities. Mirrors are refreshed automatically from upstream every day.
 
@@ -19,7 +19,7 @@ A **repository** is the mechanism Kodi natively polls for updates. Add it once a
 every add-on inside it updates itself forever, individually, with no wizard.
 
 So: **this is a repository**, and the one-click convenience people actually want
-from a build is provided by an add-on inside it — **script.kodikit.toolbox** — which
+from a build is provided by an add-on inside it — **script.watchame.toolbox** — which
 installs the whole curated set in one pass and handles cleanup and tuning.
 One-zip install, no snapshot, nothing to reinstall later.
 
@@ -34,14 +34,14 @@ One-zip install, no snapshot, nothing to reinstall later.
    https://raw.githubusercontent.com/StrainBrainOfficial/kodi-repo/main/docs/
    ```
 
-   Name it `kodikit`.
-3. **Add-ons → Install from zip file** → `kodikit` →
-   `repository.kodikit.zip`
-4. **Add-ons → Install from repository → KodiKit** → install
-   **KodiKit Toolbox**.
+   Name it `watchame`.
+3. **Add-ons → Install from zip file** → `watchame` →
+   `repository.watchame.zip`
+4. **Add-ons → Install from repository → WatchaMe** → install
+   **WatchaMe Toolbox**.
 5. Open the Toolbox → **Install curated add-ons** → confirm.
 
-Direct zip link: `https://raw.githubusercontent.com/StrainBrainOfficial/kodi-repo/main/docs/repository.kodikit.zip`
+Direct zip link: `https://raw.githubusercontent.com/StrainBrainOfficial/kodi-repo/main/docs/repository.watchame.zip`
 
 ---
 
@@ -58,7 +58,7 @@ Direct zip link: `https://raw.githubusercontent.com/StrainBrainOfficial/kodi-rep
 It can also be driven directly, e.g. from a keymap or another script:
 
 ```
-RunScript(script.kodikit.toolbox,cleanup)
+RunScript(script.watchame.toolbox,cleanup)
 ```
 
 Valid arguments: `install`, `report`, `cleanup`, `tweaks`, `library`.
@@ -167,7 +167,7 @@ one. The builder finds the add-on folder by scanning the archive for an
 
 **Rename the repo** — edit `repo.config.json` (`repo_id`, `repo_name`,
 `github_user`, `github_repo`), then rebuild. To rename the Toolbox as well,
-rename `src/script.kodikit.toolbox/`, update its `addon.xml` id, and update
+rename `src/script.watchame.toolbox/`, update its `addon.xml` id, and update
 `toolbox_id` in the config.
 
 **Host on GitHub Pages instead of raw URLs** — set `"hosting": "pages"` in

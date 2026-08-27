@@ -43,6 +43,6 @@
     "url": "external only. The vendor's repository URL.",
     "addons": "external only. The add-on ids that repo provides."
   },
-  "_step_4_dont_forget": "Bump the version in src/script.kodikit.toolbox/addon.xml, or no device will ever see your change. The build will stop you if you forget.",
+  "_step_4_dont_forget": "Bump the version in src/script.watchame.toolbox/addon.xml, or no device will ever see your change. The build will stop you if you forget.",
   "_step_5_build": "python3 scripts/build_repo.py && python3 scripts/check_deps.py"
 }
