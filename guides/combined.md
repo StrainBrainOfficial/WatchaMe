@@ -416,7 +416,7 @@ Open the Toolbox → **Install curated add-ons**. It multi-selects the whole set
 
 If you tick it: Toolbox picker → VPN Manager → then VPN Manager's own settings → provider → credentials → connect, and confirm its external-IP readout changes.
 
-> **Platform check before you rely on it.** VPN Manager brings up an OpenVPN tunnel from inside Kodi, which requires an OpenVPN binary the add-on can execute. That is straightforward on LibreELEC, Linux and Windows. On Android and Fire OS a Kodi add-on generally cannot control the system VPN, so verify it actually connects on your device rather than assuming. On a Fire TV Stick the reliable route is your provider's own Android app installed on the stick, with Kodi left alone — the tunnel then covers everything on the device, not just Kodi.
+> **Check the platform and the provider before you rely on it.** VPN Manager raises an OpenVPN tunnel from inside Kodi, which needs an OpenVPN binary it can execute — fine on LibreELEC, Linux and Windows, but on Android and Fire OS an add-on generally cannot control the system VPN. It also bundles profiles for a fixed set of providers (NordVPN, ExpressVPN, PIA in 7.0.3); anything else, **Surfshark included**, uses the *User Defined* route with hand-imported `.ovpn` files and the provider's separate manual-setup credentials. On a Fire TV Stick the reliable route is the provider's own Android app, which tunnels the whole device rather than Kodi alone. Book Two, Part 4 works this through for Surfshark.
 
 That is the whole deployment. Book Two applies it to a Fire TV Stick with device-specific numbers.
 
@@ -482,7 +482,7 @@ The curated set from Book One, Part 4, minus what this hardware cannot afford.
 
 **Install:** the repository, the Toolbox, `inputstream.adaptive`, `inputstream.ffmpegdirect`, `service.subtitles.a4ksubtitles`, `script.black.bars.never`, `service.upnext`, `script.kodi.loguploader`, and `plugin.video.youtube`.
 
-**Consider:** `script.trakt` if you want watched-state sync — it is a background service, but a light one. `script.service.janitor` only if the stick stores local recordings, which it usually does not. `service.vpn.manager` is in the repository and unticked by default; see the VPN decision in Part 4 before ticking it on this hardware.
+**Consider:** `script.trakt` if you want watched-state sync — it is a background service, but a light one. `script.service.janitor` only if the stick stores local recordings, which it usually does not. `service.vpn.manager` is in the repository and unticked by default — on this hardware, and with Surfshark specifically, it is the wrong route; see the VPN decision in Part 4.
 
 **Leave out on a stick:**
 
@@ -525,7 +525,7 @@ Follow Book One, Part 10 exactly. Condensed, with the choices for this device:
 | 4 | Install `repository.kodikit.zip` | From the source you just added |
 | 5 | Install **KodiKit Toolbox** from the repository | |
 | 6 | Toolbox → **Install curated add-ons** | Untick the skin and any optional entry from Part 2 |
-| 7 | **Decide on the VPN** | Mandatory decision, not a mandatory install — read the box below before ticking it |
+| 7 | **Set up the VPN** | Surfshark's Fire TV app, not the Kodi add-on — see the section below. Mandatory decision; do it before step 9. |
 | 8 | Toolbox → **Apply streaming cache tuning** | Choose **Fire TV Stick**. Restart when prompted. |
 | 9 | Settings → Player → Language → subtitle service | Set a4kSubtitles as the default — it does nothing until you do |
 | 10 | Toolbox → **Clean up caches** | Clears install debris |
@@ -534,21 +534,50 @@ The tuning profile in step 7 writes a 40 MB buffer plus the artwork caps and dir
 
 ## The VPN decision (step 7)
 
-VPN Manager for OpenVPN ships in the repository and appears in the Toolbox picker **unticked**. Unticked is not the same as unimportant: decide now, because connecting a VPN after you have signed in to services means redoing those sign-ins. Device-code and OAuth flows bind a session to the address that completed them.
+Your primary VPN is **Surfshark**, and that settles how this step goes on a Fire TV Stick: use Surfshark's own Fire TV app, not the Kodi add-on.
 
-> **This is the step where the Fire TV Stick differs from every other Kodi box.** VPN Manager works by executing an OpenVPN binary and bringing up a tunnel from inside Kodi. On LibreELEC, Linux or Windows that is fine. On Android and Fire OS, an ordinary app cannot control the system VPN, so the add-on generally cannot establish a tunnel on this hardware — verify on the device before relying on it.
+Two independent reasons, either one sufficient:
 
-The practical options for this stick, best first:
+1. **Fire OS.** VPN Manager works by executing an OpenVPN binary and raising a tunnel from inside Kodi. On Android and Fire OS an ordinary app cannot control the system VPN, so the add-on generally cannot establish one on this hardware.
+2. **Provider coverage.** VPN Manager 7.0.3 bundles connection profiles for NordVPN, ExpressVPN and Private Internet Access. **Surfshark is not among them.** Using it with Surfshark means the *User Defined* route: downloading `.ovpn` config files and importing them by hand.
 
-| Option | How | Covers |
-|---|---|---|
-| **Your provider's Android app** | Install the provider's own Fire TV app from the Amazon appstore, sign in, connect. Leave Kodi alone. | The whole device |
-| **Router-level VPN** | Configure the tunnel on the router the stick uses | Every device on the network |
-| **VPN Manager add-on** | Tick it in the picker, add credentials in its settings | Kodi only, *if* it can connect on your device |
+### The route to use
 
-The first is what most Fire TV setups use, and it is strictly better than the add-on route here: it covers everything on the stick rather than Kodi alone. Tick VPN Manager in the picker only if you have verified it connects, or if you also run Kodi on a Linux or LibreELEC box where it works properly and want the same repository set everywhere.
+| # | Step |
+|---|---|
+| 1 | On the stick: Amazon appstore → install the **Surfshark** app |
+| 2 | Sign in and connect. Enable **auto-connect on startup** so a reboot does not silently drop protection. |
+| 3 | Optionally set **Bypasser** (Surfshark's split tunnelling) if you want specific apps outside the tunnel |
+| 4 | Verify the tunnel is actually up — see below |
+| 5 | Only then do any account sign-ins inside Kodi |
 
-If you decide against a VPN entirely, that is a legitimate answer — just make it deliberately, and before step 9's sign-ins.
+Step 5 is the ordering that matters. Device-code and OAuth flows bind a session to the address that completed them, so signing in before the tunnel is up means redoing it later.
+
+This route is strictly better than the add-on on this device: it covers **everything on the stick**, not just Kodi.
+
+### Verifying the tunnel
+
+The Surfshark app reports connected, but confirm it at the OS level:
+
+```
+# A VPN tunnel interface should exist while connected
+adb shell ip addr show tun0
+
+# And Android should report an active VPN transport
+adb shell dumpsys connectivity | grep -i -m5 vpn
+```
+
+If `tun0` does not exist, the app is not actually tunnelling regardless of what its UI says.
+
+### When VPN Manager is still worth ticking
+
+Tick it in the Toolbox picker only if you also run Kodi on **Linux, LibreELEC or Windows**, where it can execute OpenVPN properly, and you want the same curated set everywhere. For Surfshark there:
+
+- In VPN Manager settings choose **User Defined** as the provider.
+- Get the `.ovpn` files from Surfshark's manual-setup page and import them via VPN Manager's *import wizard*.
+- Authenticate with Surfshark's **manual-setup service credentials** from your account dashboard — these are a separate username and password, **not** your Surfshark login. Using the account email/password here is the usual reason a manual OpenVPN connection fails.
+
+If you decide against a VPN entirely, that is a legitimate answer — just make it deliberately, and before the sign-ins.
 
 ## Playback settings
 

@@ -29,7 +29,7 @@
       "id": "service.vpn.manager",
       "name": "VPN Manager for OpenVPN",
       "category": "privacy",
-      "why": "Connects and maintains an OpenVPN tunnel from inside Kodi, with per-addon connection rules and a visible external-IP readout. Not in the official repo. Left unticked in the installer because it needs your provider's credentials and an OpenVPN binary on the platform.",
+      "why": "Connects and maintains an OpenVPN tunnel from inside Kodi, with per-addon connection rules. Not in the official repo. Unticked by default: it bundles profiles for NordVPN, ExpressVPN and PIA but not Surfshark (which needs the User Defined route and manual-setup credentials), and on Android/Fire OS an addon cannot control the system VPN -- use the provider's own app there.",
       "github": "Zomboided/service.vpn.manager",
       "track": "release",
       "optional": true

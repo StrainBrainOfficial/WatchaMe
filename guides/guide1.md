@@ -402,7 +402,7 @@ Open the Toolbox → **Install curated add-ons**. It multi-selects the whole set
 
 If you tick it: Toolbox picker → VPN Manager → then VPN Manager's own settings → provider → credentials → connect, and confirm its external-IP readout changes.
 
-> **Platform check before you rely on it.** VPN Manager brings up an OpenVPN tunnel from inside Kodi, which requires an OpenVPN binary the add-on can execute. That is straightforward on LibreELEC, Linux and Windows. On Android and Fire OS a Kodi add-on generally cannot control the system VPN, so verify it actually connects on your device rather than assuming. On a Fire TV Stick the reliable route is your provider's own Android app installed on the stick, with Kodi left alone — the tunnel then covers everything on the device, not just Kodi.
+> **Check the platform and the provider before you rely on it.** VPN Manager raises an OpenVPN tunnel from inside Kodi, which needs an OpenVPN binary it can execute — fine on LibreELEC, Linux and Windows, but on Android and Fire OS an add-on generally cannot control the system VPN. It also bundles profiles for a fixed set of providers (NordVPN, ExpressVPN, PIA in 7.0.3); anything else, **Surfshark included**, uses the *User Defined* route with hand-imported `.ovpn` files and the provider's separate manual-setup credentials. On a Fire TV Stick the reliable route is the provider's own Android app, which tunnels the whole device rather than Kodi alone. Book Two, Part 4 works this through for Surfshark.
 
 That is the whole deployment. Book Two applies it to a Fire TV Stick with device-specific numbers.
 
