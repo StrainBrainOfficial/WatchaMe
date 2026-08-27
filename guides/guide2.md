@@ -16,7 +16,7 @@ Doing Stage A step 3 (ADB) costs a minute and saves more than that later — ste
 
 **Before you start, have these ready:**
 
-- The install URL from Book One, step 2.6
+- The install URL from Book One, step 3.6
 - Your Surfshark login
 - The Kodi `armeabi-v7a` APK for your version, or the Downloader app
 - Optional but recommended: ADB on your computer, for the verification steps
@@ -97,7 +97,7 @@ adb shell ip addr show tun0
 
 **16.** Settings → File manager → **Add source** → `<None>`.
 
-**17.** Enter the install URL from Book One, step 2.6:
+**17.** Enter the install URL from Book One, step 3.6:
 
 ```
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
@@ -119,7 +119,7 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 
 **Check:** the Toolbox appears under Add-ons → Program add-ons.
 
-> If step 19 fails, the URL in step 17 is wrong. Re-run Book One step 2.5 from your computer.
+> If step 19 fails, the URL in step 17 is wrong. Re-run Book One step 3.4 from your computer.
 
 # Stage E — Install the add-ons (steps 21–23)
 
@@ -214,7 +214,7 @@ Artwork re-downloads as you browse after a cache clean. That is expected; the fi
 | Symptom | Fix |
 |---|---|
 | Kodi APK will not install | Wrong architecture — use `armeabi-v7a` |
-| Step 19 fails | URL in step 17 is wrong; re-run Book One step 2.5 |
+| Step 19 fails | URL in step 17 is wrong; re-run Book One step 3.4 |
 | Repository installs but lists nothing | Book One, Appendix C |
 | Subtitles never appear | Step 25 not done |
 | Buffering on 1080p or 4K | Redo step 24 and pick **Fire TV Stick** |

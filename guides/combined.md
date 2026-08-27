@@ -1,38 +1,124 @@
-Two procedures and a worksheet. **Book One** sets up and runs the repository — the thing that keeps add-ons updating by themselves. **Book Two** takes a Fire TV Stick from factory state to a finished box in 34 numbered steps. **Book Three** is a worksheet to fill in as you go.
+Two procedures and a worksheet. **Book One** sets up GitHub and runs the repository — the thing that keeps add-ons updating by themselves. **Book Two** takes a Fire TV Stick from factory state to a finished box in 34 numbered steps. **Book Three** is a worksheet to fill in as you go.
 
-If the repository is already published, you only need Book Two.
+Start at Book One, Part 1 if GitHub has never been set up on this machine. If the repository is already published, you only need Book Two.
 
 Everything is written as steps to follow in order. Each step is one command to type or one control to click, and lines marked **Check** tell you what success looks like — if you do not see it, stop there rather than continuing. Background, file maps and troubleshooting live in the appendices so the procedures stay short.
 
-Two files in the repository root pair with these instructions: **`addons.template.json`** holds the three add-on entry shapes ready to paste, and **`repo.config.json`** is the identity you set in Part 1.
+Two files in the repository root pair with these instructions: **`addons.template.json`** holds the three add-on entry shapes ready to paste, and **`repo.config.json`** is the identity you set in Part 2.
 
 \toc
 
-\book BOOK ONE || Setting up and running the repository
+\book BOOK ONE || GitHub setup and running the repository
 
 Every section here is a numbered procedure. Run the steps in order; each one is a command to type or a control to click. Lines marked **Check** tell you what success looks like — if you do not see it, stop there rather than continuing.
 
+Start at Part 1 if you have never set up GitHub on this machine. If `gh auth status` already reports you as logged in, skip to Part 2.
+
 Background and troubleshooting live in the appendices, so the procedures stay short.
 
-# Part 1 — First-time setup
+# Part 1 — GitHub setup
 
-Do this once, on the machine where you will maintain the repository.
+Do this once per machine.
 
-**1.1 Verify your tools.**
+**1.1 Create a GitHub account** — skip if you have one.
+
+Go to **github.com/signup** and register. Your username becomes part of every URL your devices fetch from, so pick one you are willing to keep.
+
+**1.2 Install the tools.**
+
+*macOS (Homebrew):*
+
+```
+brew install git gh
+```
+
+*Debian / Ubuntu:*
+
+```
+sudo apt update && sudo apt install git gh python3
+```
+
+*Windows:*
+
+```
+winget install Git.Git GitHub.cli Python.Python.3.12
+```
+
+**Check:** all three report a version.
 
 ```
 python3 --version     # need 3.8 or newer
 git --version
-gh --version          # optional, only for Part 2
+gh --version
 ```
 
-**1.2 Open the repository directory.**
+**1.3 Tell git who you are.** Commits fail or land under the wrong name without this.
+
+```
+git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"
+```
+
+**Check:**
+
+```
+git config --global user.name && git config --global user.email
+```
+
+> Use the email attached to your GitHub account, or commits will not be linked to your profile. GitHub also offers a `@users.noreply.github.com` address if you would rather not publish a real one.
+
+**1.4 Sign in to GitHub from the terminal.**
+
+```
+gh auth login
+```
+
+It asks four questions. The answers:
+
+| Prompt | Answer |
+|---|---|
+| What account do you want to log into? | **GitHub.com** |
+| What is your preferred protocol for Git operations? | **HTTPS** |
+| Authenticate Git with your GitHub credentials? | **Yes** |
+| How would you like to authenticate? | **Login with a web browser** |
+
+It then shows a one-time code. Copy it, press Enter, and your browser opens; paste the code and approve. The token is stored in your system credential store.
+
+**Check:**
+
+```
+gh auth status
+```
+
+You want `Logged in to github.com account YOURNAME` and a token with the `repo`, `read:org` and `gist` scopes.
+
+> **Headless machine, or no browser?** Create a personal access token (classic) at **github.com/settings/tokens** with the `repo`, `read:org` and `gist` scopes, then pipe it in: `gh auth login --with-token < token.txt`.
+
+**1.5 Get the repository onto this machine.**
+
+If you already have the directory, just note where it is. Otherwise clone it:
+
+```
+git clone https://github.com/YOURNAME/YOURREPO.git ~/Dev/kodi-repo
+```
+
+Starting from scratch instead? Copy the repository files into a new directory and:
+
+```
+cd ~/Dev/kodi-repo && git init -b main
+```
+
+\pagebreak
+
+# Part 2 — Configure the repository
+
+**2.1 Open the repository directory.**
 
 ```
 cd ~/Dev/kodi-repo
 ```
 
-**1.3 Set your identity.** Open `repo.config.json` and set these four fields. Record them in the worksheet (Book Three) as you go — the install URL in Part 2 is built from them.
+**2.2 Set your identity.** Open `repo.config.json` and set these four fields. Record them in the worksheet (Book Three) as you go — the install URL in Part 3 is built from them.
 
 | Field | Set it to |
 |---|---|
@@ -41,17 +127,17 @@ cd ~/Dev/kodi-repo
 | `repo_name` | The display name shown in Kodi. Anything readable. |
 | `provider` | Your name, shown as the author |
 
-Leave `repo_id`, `branch`, `hosting` and `keep_versions` alone unless Part 6 applies.
+Leave `repo_id`, `branch`, `hosting` and `keep_versions` alone unless Part 7 applies.
 
-**1.4 Build.**
+**2.3 Build.**
 
 ```
 python3 scripts/build_repo.py
 ```
 
-**Check:** the last two lines report the add-on count, an md5, and the URL it will serve from. That URL must contain your `github_user` and `github_repo` from step 1.3.
+**Check:** the last two lines report the add-on count, an md5, and the URL it will serve from. That URL must contain your `github_user` and `github_repo` from 2.2.
 
-**1.5 Check dependencies.**
+**2.4 Check dependencies.**
 
 ```
 python3 scripts/check_deps.py
@@ -59,68 +145,70 @@ python3 scripts/check_deps.py
 
 **Check:** `all dependencies resolve`. If not, go to Appendix C.
 
-**1.6 Commit.**
+**2.5 Commit.**
 
 ```
 git add -A && git commit -m "Configure repository identity"
 ```
 
-# Part 2 — Publish to GitHub
+# Part 3 — Publish to GitHub
 
 Do this once. After it, everything is automatic.
 
-**2.1 Sign in to GitHub.**
-
-```
-gh auth login
-```
-
-**2.2 Create the repository.** It must be public — Kodi cannot authenticate.
+**3.1 Create the repository.** It must be public — Kodi cannot authenticate.
 
 ```
 gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
 ```
 
-> If that reports `remote origin already exists`, the repository directory is already pointed somewhere. Check with `git remote -v`, then either use that target or repoint it with `git remote set-url origin URL`.
+> If that reports `remote origin already exists`, the directory is already pointed somewhere. Check with `git remote -v`, then either use that target or repoint it: `git remote set-url origin URL`.
 
-**2.3 Push.**
+**3.2 Push.**
 
 ```
 git push -u origin main
 ```
 
-**2.4 Wait for the build.**
+**Check:** no authentication prompt. If you get one, redo 1.4.
+
+**3.3 Wait for the build.**
 
 ```
 gh run watch
 ```
 
-**Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 1.4 and 1.5.
+**Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 2.3 and 2.4.
 
-**2.5 Verify what Kodi will see.** Three URLs must respond correctly. Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
+**3.4 Verify what Kodi will see.** Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
 
 ```
 BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
-curl -sI  $BASE/addons.xml     | head -1     # expect: HTTP/2 200
-curl -s   $BASE/addons.xml.md5               # expect: 32 hex characters, nothing else
-curl -sI  $BASE/repository.kodikit.zip | head -1   # expect: HTTP/2 200
+curl -sI  $BASE/addons.xml     | head -1            # expect: HTTP/2 200
+curl -s   $BASE/addons.xml.md5                      # expect: 32 hex characters, nothing else
+curl -sI  $BASE/repository.kodikit.zip | head -1    # expect: HTTP/2 200
 ```
 
-**Check:** all three as described. A 404 on the first two means step 1.3 does not match where you actually pushed.
+**Check:** all three as described. A 404 on the first two means 2.2 does not match where you actually pushed.
 
-**2.6 Write down the install URL.** This is what you type into Kodi in Book Two:
+**3.5 Enable the scheduled sync.** Open the repository on github.com → **Actions** tab → if prompted, click **I understand my workflows, go ahead and enable them**.
+
+**Check:** the **Sync** workflow is listed and not disabled.
+
+**3.6 Write down the install URL.** This is what you type into Kodi in Book Two, step 17:
 
 ```
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 ```
 
+> **No `gh`?** Create the repository at **github.com/new** — public, no README, no .gitignore — then: `git remote add origin https://github.com/YOURNAME/YOURREPO.git && git push -u origin main`. When git asks for a password, paste a personal access token; GitHub stopped accepting account passwords for this in 2021.
+
 \pagebreak
 
-# Part 3 — Add an add-on
+# Part 4 — Add an add-on
 
 The repeatable procedure. Six steps.
 
-**3.1 Find the add-on's ID.** Not its display name. Any one of:
+**4.1 Find the add-on's ID.** Not its display name. Any one of:
 
 | Source | Where to look |
 |---|---|
@@ -128,7 +216,7 @@ The repeatable procedure. Six steps.
 | An installed copy | The folder name under `~/.kodi/addons/`, e.g. `script.trakt/` |
 | Kodi | Add-ons → the add-on → Information |
 
-**3.2 Decide which section it goes in.** Run this, with your IDs in the `probe` list:
+**4.2 Decide which section it goes in.** Run this, with your IDs in the `probe` list:
 
 ```
 python3 - <<'EOF'
@@ -148,7 +236,7 @@ EOF
 | `NOT in official` | `mirror` | Packaged into your repo from its GitHub source |
 | Installs only from a vendor's own repo | `external` | Documented, never auto-installed — see Appendix A |
 
-**3.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
+**4.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
 
 For `mirror`:
 
@@ -199,35 +287,35 @@ Field reference:
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
 | `optional` | mirror, official | `true` leaves it **unticked** in the picker |
 
-**3.4 Bump the Toolbox version.** Open `src/script.kodikit.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
+**4.4 Bump the Toolbox version.** Open `src/script.kodikit.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
 
-> **Do not skip this.** The curated list ships *inside* the Toolbox. Change the list without changing the version and the published index stays byte-identical, so no device ever fetches your new list — while the build looks completely successful. `build_repo.py` now refuses to finish in that state and names the stale add-on.
+> **Do not skip this.** The curated list ships *inside* the Toolbox. Change the list without changing the version and the published index stays byte-identical, so no device ever fetches your new list — while the build looks completely successful. `build_repo.py` refuses to finish in that state and names the stale add-on.
 
-**3.5 Build and check.**
+**4.5 Build and check.**
 
 ```
 python3 scripts/build_repo.py && python3 scripts/check_deps.py
 ```
 
-**Check:** exit code 0, and `all dependencies resolve`. If the build stops with `content changed without a version bump`, you missed 3.4.
+**Check:** exit code 0, and `all dependencies resolve`. If the build stops with `content changed without a version bump`, you missed 4.4.
 
-**3.6 Push.**
+**4.6 Push.**
 
 ```
 git add -A && git commit -m "Add <addon-id>" && git push
 ```
 
-**Check:** run the verification in Part 8.
+**Check:** run the verification in Part 9.
 
 \pagebreak
 
-# Part 4 — Remove an add-on
+# Part 5 — Remove an add-on
 
-**4.1** Delete its entry from `addons.json`.
+**5.1** Delete its entry from `addons.json`.
 
-**4.2** Bump the Toolbox version in `src/script.kodikit.toolbox/addon.xml`.
+**5.2** Bump the Toolbox version in `src/script.kodikit.toolbox/addon.xml`.
 
-**4.3** Build and push:
+**5.3** Build and push:
 
 ```
 python3 scripts/build_repo.py && python3 scripts/check_deps.py
@@ -238,34 +326,34 @@ git add -A && git commit -m "Remove <addon-id>" && git push
 
 > Copies already installed on devices keep working but stop receiving updates. A repository cannot retract an add-on — to remove it from a device, uninstall it there.
 
-# Part 5 — Change the Toolbox itself
+# Part 6 — Change the Toolbox itself
 
-**5.1** Edit the code under `src/script.kodikit.toolbox/`.
+**6.1** Edit the code under `src/script.kodikit.toolbox/`.
 
-**5.2** Bump the version in its `addon.xml` — patch for a fix, minor for new behaviour.
+**6.2** Bump the version in its `addon.xml` — patch for a fix, minor for new behaviour.
 
-**5.3** Build, check, push:
+**6.3** Build, check, push:
 
 ```
 python3 scripts/build_repo.py && python3 scripts/check_deps.py
 git add -A && git commit -m "Toolbox: <what changed>" && git push
 ```
 
-# Part 6 — Change the repository's identity or URLs
+# Part 7 — Change the repository's identity or URLs
 
 Only when moving the repo or renaming it.
 
-**6.1** Edit `repo.config.json`: `github_user`, `github_repo`, `branch`, or `hosting`.
+**7.1** Edit `repo.config.json`: `github_user`, `github_repo`, `branch`, or `hosting`.
 
-**6.2** Bump `repo_version` in the same file.
+**7.2** Bump `repo_version` in the same file.
 
-**6.3** Build and push as in 5.3.
+**7.3** Build and push as in 6.3.
 
-**6.4** Reinstall the repository zip on **every device.** The old URLs are baked into the copy they already have.
+**7.4** Reinstall the repository zip on **every device.** The old URLs are baked into the copy they already have.
 
-> Because of 6.4, get `github_user` and `github_repo` right in Part 1 and leave them alone.
+> Because of 7.4, get `github_user` and `github_repo` right in Part 2 and leave them alone.
 
-# Part 7 — Daily operation
+# Part 8 — Daily operation
 
 Nothing to do. For reference, the scheduled job at 05:15 UTC:
 
@@ -284,29 +372,29 @@ gh workflow run sync.yml && gh run watch
 
 \pagebreak
 
-# Part 8 — Health check
+# Part 9 — Health check
 
 Run after any push, or whenever something looks wrong.
 
-**8.1 The index lists what you expect.**
+**9.1 The index lists what you expect.**
 
 ```
 grep -o 'id="[^"]*" name="[^"]*" version="[^"]*"' docs/addons.xml
 ```
 
-**8.2 A specific add-on is present.**
+**9.2 A specific add-on is present.**
 
 ```
 grep -o 'id="service.vpn.manager"[^>]*version="[^"]*"' docs/addons.xml
 ```
 
-**8.3 Its zip is Kodi-shaped** — `<id>/addon.xml` must be at the root:
+**9.3 Its zip is Kodi-shaped** — `<id>/addon.xml` must be at the root:
 
 ```
 unzip -l docs/zips/service.vpn.manager/*.zip | head -5
 ```
 
-**8.4 The Toolbox carries the current list.**
+**9.4 The Toolbox carries the current list.**
 
 ```
 python3 -c "import zipfile,json,glob; z=sorted(glob.glob('docs/zips/script.kodikit.toolbox/*.zip'))[-1]; \
@@ -314,9 +402,9 @@ m=json.loads(zipfile.ZipFile(z).read('script.kodikit.toolbox/resources/addons.js
 print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 ```
 
-**8.5 The live URLs still respond.** Re-run 2.5.
+**9.5 The live URLs still respond.** Re-run 3.4.
 
-**8.6 On a device:** Toolbox → Install curated add-ons. New entries appear in the picker, unticked if you marked them `optional`.
+**9.6 On a device:** Toolbox → Install curated add-ons. New entries appear in the picker, unticked if you marked them `optional`.
 
 # Appendix A — How it works
 
@@ -349,15 +437,19 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 
 | Symptom | Cause | Fix |
 |---|---|---|
+| `gh auth login` opens no browser | Headless machine | Use the token method in the 1.4 note |
+| `git push` asks for a password | Not authenticated, or using a password | Redo 1.4, or paste a personal access token |
+| Commits show the wrong author | `user.email` not your GitHub address | Redo 1.3 |
 | Build stops: `content changed without a version bump` | The working case, caught | Bump the version in `src/<addon>/addon.xml`, rebuild |
 | `check_deps` reports an unresolvable import | A dependency nobody publishes | Move the add-on to `external` and document the vendor repo |
 | Mirror sync: `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
 | Mirror sync: add-on not found in the tarball | `id` does not match upstream's `addon.xml` | Correct the `id` |
 | Mirror sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
-| Kodi: "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | Re-run 2.5; confirm the repo is public |
-| Kodi: repository installs but lists nothing | Index empty, or checksum stale | Re-run 1.4; never hand-edit `docs/` |
-| Kodi: "Failed to install add-on" | Zip name does not match `id-version.zip` | Re-run 1.4; the builder names them |
-| Kodi: "Dependency not met" | Unresolvable `<import>` | Run 1.5 |
+| Actions never run | Workflows not enabled on a new repo | Do 3.5 |
+| Kodi: "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | Re-run 3.4; confirm the repo is public |
+| Kodi: repository installs but lists nothing | Index empty, or checksum stale | Re-run 2.3; never hand-edit `docs/` |
+| Kodi: "Failed to install add-on" | Zip name does not match `id-version.zip` | Re-run 2.3; the builder names them |
+| Kodi: "Dependency not met" | Unresolvable `<import>` | Run 2.4 |
 | An add-on never updates on one device | Per-add-on auto-update set to Never | Add-on info → Auto-update → On |
 | Updates appear only after a restart | Normal 24-hour poll cycle | Force a check on the device, or wait |
 
@@ -381,7 +473,7 @@ Doing Stage A step 3 (ADB) costs a minute and saves more than that later — ste
 
 **Before you start, have these ready:**
 
-- The install URL from Book One, step 2.6
+- The install URL from Book One, step 3.6
 - Your Surfshark login
 - The Kodi `armeabi-v7a` APK for your version, or the Downloader app
 - Optional but recommended: ADB on your computer, for the verification steps
@@ -462,7 +554,7 @@ adb shell ip addr show tun0
 
 **16.** Settings → File manager → **Add source** → `<None>`.
 
-**17.** Enter the install URL from Book One, step 2.6:
+**17.** Enter the install URL from Book One, step 3.6:
 
 ```
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
@@ -484,7 +576,7 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 
 **Check:** the Toolbox appears under Add-ons → Program add-ons.
 
-> If step 19 fails, the URL in step 17 is wrong. Re-run Book One step 2.5 from your computer.
+> If step 19 fails, the URL in step 17 is wrong. Re-run Book One step 3.4 from your computer.
 
 # Stage E — Install the add-ons (steps 21–23)
 
@@ -579,7 +671,7 @@ Artwork re-downloads as you browse after a cache clean. That is expected; the fi
 | Symptom | Fix |
 |---|---|
 | Kodi APK will not install | Wrong architecture — use `armeabi-v7a` |
-| Step 19 fails | URL in step 17 is wrong; re-run Book One step 2.5 |
+| Step 19 fails | URL in step 17 is wrong; re-run Book One step 3.4 |
 | Repository installs but lists nothing | Book One, Appendix C |
 | Subtitles never appear | Step 25 not done |
 | Buffering on 1080p or 4K | Redo step 24 and pick **Fire TV Stick** |
@@ -697,17 +789,17 @@ Fill these in once, in Book One, Part 1.
 
 | What | Used by | Your value |
 |---|---|---|
-| GitHub username or org | 1.3 `github_user` | |
-| Repository name | 1.3 `github_repo` | |
-| Repository display name | 1.3 `repo_name` | |
-| Provider / author name | 1.3 `provider` | |
-| **Install URL** | 2.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
+| GitHub username or org | 2.2 `github_user` | |
+| Repository name | 2.2 `github_repo` | |
+| Repository display name | 2.2 `repo_name` | |
+| Provider / author name | 2.2 `provider` | |
+| **Install URL** | 3.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
 | Fire TV Stick IP address | Book Two steps 4, 5 | |
 | Kodi version on the stick | Book Two step 6 | |
 
 ## 2. Add-ons you want
 
-One row per add-on. Fill the first two columns, run the probe in step 3.2, then complete the rest.
+One row per add-on. Fill the first two columns, run the probe in step 4.2, then complete the rest.
 
 | Display name | Add-on ID | Probe result | Section | `optional`? | Added |
 |---|---|---|---|---|---|
@@ -720,27 +812,34 @@ One row per add-on. Fill the first two columns, run the probe in step 3.2, then 
 | | | | | | [ ] |
 | | | | | | [ ] |
 
-Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no device will ever see them.
+Reminder: after adding entries, **bump the Toolbox version** (step 4.4) or no device will ever see them.
 
 ## 3. Book One checklist
 
-**Part 1 — First-time setup**
+**Part 1 — GitHub setup** *(once per machine; skip if `gh auth status` already shows you logged in)*
 
-- [ ] 1.1 Tools verified (`python3`, `git`)
-- [ ] 1.2 In the repository directory
-- [ ] 1.3 Four identity fields set in `repo.config.json`
-- [ ] 1.4 `build_repo.py` ran; served-from URL matches your values
-- [ ] 1.5 `check_deps.py` says *all dependencies resolve*
-- [ ] 1.6 Committed
+- [ ] 1.1 GitHub account exists
+- [ ] 1.2 `git`, `gh` and `python3` installed, all reporting a version
+- [ ] 1.3 `git config --global user.name` and `user.email` set
+- [ ] 1.4 `gh auth login` done; `gh auth status` shows *Logged in*
+- [ ] 1.5 Repository directory on this machine
 
-**Part 2 — Publish**
+**Part 2 — Configure the repository**
 
-- [ ] 2.1 `gh auth login`
-- [ ] 2.2 Repository created, public
-- [ ] 2.3 Pushed
-- [ ] 2.4 Actions run green
-- [ ] 2.5 All three URLs verified (200 / 32-char hash / 200)
-- [ ] 2.6 Install URL written into section 1 above
+- [ ] 2.1 In the repository directory
+- [ ] 2.2 Four identity fields set in `repo.config.json`
+- [ ] 2.3 `build_repo.py` ran; served-from URL matches your values
+- [ ] 2.4 `check_deps.py` says *all dependencies resolve*
+- [ ] 2.5 Committed
+
+**Part 3 — Publish**
+
+- [ ] 3.1 Repository created, public
+- [ ] 3.2 Pushed, with no authentication prompt
+- [ ] 3.3 Actions run green
+- [ ] 3.4 All three URLs verified (200 / 32-char hash / 200)
+- [ ] 3.5 Workflows enabled in the Actions tab
+- [ ] 3.6 Install URL written into section 1 above
 
 ## 4. Book Two checklist
 

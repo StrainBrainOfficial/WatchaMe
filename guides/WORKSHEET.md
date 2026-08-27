@@ -8,17 +8,17 @@ Fill these in once, in Book One, Part 1.
 
 | What | Used by | Your value |
 |---|---|---|
-| GitHub username or org | 1.3 `github_user` | |
-| Repository name | 1.3 `github_repo` | |
-| Repository display name | 1.3 `repo_name` | |
-| Provider / author name | 1.3 `provider` | |
-| **Install URL** | 2.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
+| GitHub username or org | 2.2 `github_user` | |
+| Repository name | 2.2 `github_repo` | |
+| Repository display name | 2.2 `repo_name` | |
+| Provider / author name | 2.2 `provider` | |
+| **Install URL** | 3.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
 | Fire TV Stick IP address | Book Two steps 4, 5 | |
 | Kodi version on the stick | Book Two step 6 | |
 
 ## 2. Add-ons you want
 
-One row per add-on. Fill the first two columns, run the probe in step 3.2, then complete the rest.
+One row per add-on. Fill the first two columns, run the probe in step 4.2, then complete the rest.
 
 | Display name | Add-on ID | Probe result | Section | `optional`? | Added |
 |---|---|---|---|---|---|
@@ -31,27 +31,34 @@ One row per add-on. Fill the first two columns, run the probe in step 3.2, then 
 | | | | | | [ ] |
 | | | | | | [ ] |
 
-Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no device will ever see them.
+Reminder: after adding entries, **bump the Toolbox version** (step 4.4) or no device will ever see them.
 
 ## 3. Book One checklist
 
-**Part 1 — First-time setup**
+**Part 1 — GitHub setup** *(once per machine; skip if `gh auth status` already shows you logged in)*
 
-- [ ] 1.1 Tools verified (`python3`, `git`)
-- [ ] 1.2 In the repository directory
-- [ ] 1.3 Four identity fields set in `repo.config.json`
-- [ ] 1.4 `build_repo.py` ran; served-from URL matches your values
-- [ ] 1.5 `check_deps.py` says *all dependencies resolve*
-- [ ] 1.6 Committed
+- [ ] 1.1 GitHub account exists
+- [ ] 1.2 `git`, `gh` and `python3` installed, all reporting a version
+- [ ] 1.3 `git config --global user.name` and `user.email` set
+- [ ] 1.4 `gh auth login` done; `gh auth status` shows *Logged in*
+- [ ] 1.5 Repository directory on this machine
 
-**Part 2 — Publish**
+**Part 2 — Configure the repository**
 
-- [ ] 2.1 `gh auth login`
-- [ ] 2.2 Repository created, public
-- [ ] 2.3 Pushed
-- [ ] 2.4 Actions run green
-- [ ] 2.5 All three URLs verified (200 / 32-char hash / 200)
-- [ ] 2.6 Install URL written into section 1 above
+- [ ] 2.1 In the repository directory
+- [ ] 2.2 Four identity fields set in `repo.config.json`
+- [ ] 2.3 `build_repo.py` ran; served-from URL matches your values
+- [ ] 2.4 `check_deps.py` says *all dependencies resolve*
+- [ ] 2.5 Committed
+
+**Part 3 — Publish**
+
+- [ ] 3.1 Repository created, public
+- [ ] 3.2 Pushed, with no authentication prompt
+- [ ] 3.3 Actions run green
+- [ ] 3.4 All three URLs verified (200 / 32-char hash / 200)
+- [ ] 3.5 Workflows enabled in the Actions tab
+- [ ] 3.6 Install URL written into section 1 above
 
 ## 4. Book Two checklist
 
