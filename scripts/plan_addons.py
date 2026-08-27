@@ -47,21 +47,102 @@ def read_wishlist():
             continue
         parts = line.split()
         addon_id = parts[0]
-        optional = "optional" in [p.lower() for p in parts[1:]]
-        slug = next((p for p in parts[1:] if "/" in p), None)
+        rest = [p for p in parts[1:] if p.lower() != "optional"]
+        optional = len(rest) != len(parts) - 1
         if not re.match(r"^[a-z0-9._-]+$", addon_id):
             print("  ! line %d: '%s' does not look like an add-on id" % (n, addon_id),
                   file=sys.stderr)
             continue
-        wanted.append({"id": addon_id, "slug": slug, "optional": optional})
+        source = rest[0] if rest else None
+        kind = None
+        if source:
+            if "://" in source:
+                kind = "zip_url" if source.lower().endswith(".zip") else "repo_url"
+            elif "/" in source:
+                kind = "github"
+            else:
+                print("  ! line %d: '%s' is not a slug, repo url or zip url"
+                      % (n, source), file=sys.stderr)
+                continue
+        wanted.append({"id": addon_id, "source": source, "kind": kind,
+                       "optional": optional})
     return wanted
+
+
+
+def _vkey(v):
+    return [int(n) for n in re.findall(r"\d+", v or "0")]
+
+
+def discover(url):
+    """List the add-ons a Kodi repository serves, following nested indexes."""
+    import io, zipfile
+    url = url.strip()
+    bases = []
+    if url.lower().endswith(".zip"):
+        req = urllib.request.Request(url, headers={"User-Agent": "watchame-planner"})
+        blob = urllib.request.urlopen(req, timeout=60).read()
+        with zipfile.ZipFile(io.BytesIO(blob)) as zf:
+            name = next(n for n in zf.namelist() if n.endswith("addon.xml"))
+            root = ET.fromstring(zf.read(name))
+        for d in root.iter("dir"):
+            el = d.find("info")
+            if el is not None and el.text:
+                bases.append(el.text.strip())
+        el = root.find(".//info")
+        if not bases and el is not None and el.text:
+            bases.append(el.text.strip())
+    else:
+        bases.append(url.rstrip("/") + "/addons.xml")
+
+    seen, found, queue = set(), {}, list(bases)
+    while queue:
+        index_url = queue.pop(0)
+        if index_url in seen:
+            continue
+        seen.add(index_url)
+        try:
+            req = urllib.request.Request(index_url, headers={"User-Agent": "watchame-planner"})
+            raw = urllib.request.urlopen(req, timeout=60).read()
+            if index_url.endswith(".gz"):
+                raw = gzip.decompress(raw)
+            root = ET.fromstring(raw.decode("utf-8-sig", "replace"))
+        except Exception as exc:
+            print("  ! %s: %s" % (index_url, exc), file=sys.stderr)
+            continue
+        base = index_url.rsplit("/", 1)[0]
+        for addon in root.findall("addon"):
+            aid, ver = addon.get("id"), addon.get("version")
+            if aid.startswith("repository."):
+                # A repository entry points at the index that holds the real add-ons.
+                for el in addon.iter("info"):
+                    if el.text:
+                        queue.append(el.text.strip())
+                continue
+            prev = found.get(aid)
+            if prev is None or _vkey(ver) > _vkey(prev[0]):
+                found[aid] = (ver, base)
+
+    if not found:
+        print("no add-ons found at that URL")
+        return 1
+    print("%d add-on(s) served -- paste the lines you want into %s:\n" % (len(found), WISHLIST.name))
+    for aid in sorted(found):
+        ver, base = found[aid]
+        print("%-46s %s        # v%s" % (aid, base, ver))
+    return 0
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true",
                     help="write entries into addons.json and bump the toolbox version")
+    ap.add_argument("--discover", metavar="URL",
+                    help="list what a Kodi repository serves (its base url, or its repo zip url)")
     args = ap.parse_args()
+
+    if args.discover:
+        return discover(args.discover)
 
     wanted = read_wishlist()
     if not wanted:
@@ -79,7 +160,7 @@ def main():
         if addon_id in have:
             print("  --  %-42s already in addons.json" % addon_id)
             continue
-        if addon_id in official:
+        if addon_id in official and not item["kind"]:
             entry = collections.OrderedDict([
                 ("id", addon_id), ("name", addon_id.split(".")[-1].title()),
                 ("category", "tools"), ("why", "TODO: one sentence on why this earned a slot."),
@@ -88,24 +169,40 @@ def main():
                 entry["optional"] = True
             plan.append(("official", entry))
             print("  ok  %-42s official  (installed by id)" % addon_id)
-        elif item["slug"]:
+        elif item["kind"]:
             entry = collections.OrderedDict([
                 ("id", addon_id), ("name", addon_id.split(".")[-1].title()),
                 ("category", "tools"), ("why", "TODO: one sentence on why this earned a slot."),
-                ("github", item["slug"]), ("track", "release"),
             ])
+            if item["kind"] == "github":
+                entry["github"] = item["source"]
+                entry["track"] = "release"
+                origin = "github %s" % item["source"]
+            elif item["kind"] == "repo_url":
+                entry["repo_url"] = item["source"].rstrip("/")
+                origin = "kodi repo"
+            else:
+                entry["zip_url"] = item["source"]
+                origin = "fixed zip"
             if item["optional"]:
                 entry["optional"] = True
             plan.append(("mirror", entry))
-            print("  ok  %-42s mirror    (from %s)" % (addon_id, item["slug"]))
+            print("  ok  %-42s mirror    (%s)" % (addon_id, origin))
         else:
             blocked.append(addon_id)
-            print("  !!  %-42s NOT in the official repo, and no owner/repo given" % addon_id)
+            print("  !!  %-42s NOT in the official repo, and no source given" % addon_id)
 
     if blocked:
-        print("\nAdd a GitHub slug for these in %s, e.g." % WISHLIST.name)
+        print("\nAdd a source for these in %s -- one of:" % WISHLIST.name)
         for addon_id in blocked:
             print("    %s   owner/repo" % addon_id)
+            print("    %s   https://host/path/zips        (another Kodi repo)" % addon_id)
+            print("    %s   https://host/addon-1.2.3.zip  (a fixed zip)" % addon_id)
+            break
+        if len(blocked) > 1:
+            print("    ... and %d more" % (len(blocked) - 1))
+        print("\nNot sure what a repository serves?  "
+              "python3 scripts/plan_addons.py --discover <repo url or repo zip url>")
 
     if not plan:
         print("\nnothing new to add")

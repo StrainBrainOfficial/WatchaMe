@@ -13,6 +13,22 @@
     "track": "release",
     "optional": false
   },
+  "mirror_from_kodi_repo_template": {
+    "_hint": "Not on GitHub -- served by another Kodi repository. Point repo_url at the directory holding that repo's addons.xml; the newest version is picked up automatically.",
+    "id": "plugin.video.EXAMPLE",
+    "name": "Display Name",
+    "category": "tools",
+    "why": "One sentence: what it does and why it earned a slot.",
+    "repo_url": "https://host/path/zips"
+  },
+  "mirror_from_zip_template": {
+    "_hint": "A fixed zip URL. Pinned: it only changes when that URL serves different contents, so prefer github or repo_url when either exists.",
+    "id": "plugin.video.EXAMPLE",
+    "name": "Display Name",
+    "category": "tools",
+    "why": "One sentence: what it does and why it earned a slot.",
+    "zip_url": "https://host/plugin.video.EXAMPLE-1.2.3.zip"
+  },
   "official_template": {
     "_hint": "Already in Kodi's official repo. Installed by id, stays on the maintainer's update channel. No github, no track.",
     "id": "script.EXAMPLE",
@@ -41,7 +57,9 @@
     "ref": "mirror only, optional. Pin a branch, e.g. matrix.",
     "optional": "mirror + official. true leaves it UNTICKED in the picker. Use for anything needing credentials, a subscription or extra hardware.",
     "url": "external only. The vendor's repository URL.",
-    "addons": "external only. The add-on ids that repo provides."
+    "addons": "external only. The add-on ids that repo provides.",
+    "repo_url": "mirror only. Directory holding another Kodi repo's addons.xml. Alternative to github.",
+    "zip_url": "mirror only. A fixed zip URL. Alternative to github."
   },
   "_step_4_dont_forget": "Bump the version in src/script.watchame.toolbox/addon.xml, or no device will ever see your change. The build will stop you if you forget.",
   "_step_5_build": "python3 scripts/build_repo.py && python3 scripts/check_deps.py"

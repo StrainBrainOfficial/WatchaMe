@@ -12,6 +12,7 @@ Idempotent: a version already present in docs/zips is skipped, so running this
 daily costs almost nothing and only produces a diff when upstream actually moved.
 """
 
+import gzip
 import hashlib
 import io
 import json
@@ -173,31 +174,87 @@ def resolve_upstream(entry):
     return f"https://api.github.com/repos/{slug}/tarball/{branch}", f"{branch}@head"
 
 
+def _extract_tarball(blob, tmp):
+    with tarfile.open(fileobj=io.BytesIO(blob), mode="r:gz") as tar:
+        # Refuse path traversal in the upstream archive.
+        members = [m for m in tar.getmembers()
+                   if not (m.name.startswith("/") or ".." in Path(m.name).parts)]
+        tar.extractall(tmp, members=members)
+
+
+def _extract_zip(blob, tmp):
+    with zipfile.ZipFile(io.BytesIO(blob)) as zf:
+        members = [n for n in zf.namelist()
+                   if not (n.startswith("/") or ".." in Path(n).parts)]
+        zf.extractall(tmp, members=members)
+
+
+def kodi_repo_version(entry, addon_id):
+    """Newest version of addon_id advertised by another Kodi repository."""
+    base = entry["repo_url"].rstrip("/")
+    index = None
+    for name in ("addons.xml", "addons.xml.gz"):
+        try:
+            raw = download(f"{base}/{name}")
+            index = gzip.decompress(raw) if name.endswith(".gz") else raw
+            break
+        except Exception:
+            continue
+    if index is None:
+        raise RuntimeError(f"no addons.xml under {base}")
+    root = ET.fromstring(index.decode("utf-8-sig", "replace"))
+    versions = [a.get("version") for a in root.findall("addon") if a.get("id") == addon_id]
+    if not versions:
+        raise RuntimeError(f"{addon_id} is not served by {base}")
+    return max(versions, key=version_key)
+
+
 def sync_mirror(entry, keep):
     addon_id = entry["id"]
-    log(f"  - {addon_id}  ({entry['github']})")
-    try:
-        tarball_url, label = resolve_upstream(entry)
-    except Exception as exc:
-        log(f"      SKIP: could not resolve upstream: {exc}")
+    source = entry.get("github") or entry.get("repo_url") or entry.get("zip_url")
+    if not source:
+        log(f"  - {addon_id}: no github, repo_url or zip_url, skipped")
         return None
-    log(f"      upstream: {label}")
+    log(f"  - {addon_id}  ({source})")
+
+    # A Kodi repository advertises versions up front, so we can skip the
+    # download entirely when we already hold the newest one.
+    if entry.get("repo_url"):
+        try:
+            version = kodi_repo_version(entry, addon_id)
+        except Exception as exc:
+            log(f"      SKIP: {exc}")
+            return None
+        log(f"      upstream: {version}")
+        if (ZIPS / addon_id / f"{addon_id}-{version}.zip").exists():
+            log(f"      already current at {version}")
+            prune(ZIPS / addon_id, addon_id, keep)
+            return version
+        datadir = (entry.get("datadir") or entry["repo_url"]).rstrip("/")
+        url, is_zip = f"{datadir}/{addon_id}/{addon_id}-{version}.zip", True
+    elif entry.get("zip_url"):
+        url, is_zip = entry["zip_url"], True
+        log(f"      upstream: fixed zip url")
+    else:
+        try:
+            url, label = resolve_upstream(entry)
+        except Exception as exc:
+            log(f"      SKIP: could not resolve upstream: {exc}")
+            return None
+        is_zip = False
+        log(f"      upstream: {label}")
 
     try:
-        blob = download(tarball_url)
+        blob = download(url)
     except Exception as exc:
         log(f"      SKIP: download failed: {exc}")
         return None
 
     with tempfile.TemporaryDirectory() as tmp:
         try:
-            with tarfile.open(fileobj=io.BytesIO(blob), mode="r:gz") as tar:
-                # Refuse path traversal in the upstream archive.
-                members = [m for m in tar.getmembers()
-                           if not (m.name.startswith("/") or ".." in Path(m.name).parts)]
-                tar.extractall(tmp, members=members)
+            _extract_zip(blob, tmp) if is_zip else _extract_tarball(blob, tmp)
         except Exception as exc:
-            log(f"      SKIP: bad tarball: {exc}")
+            log(f"      SKIP: bad archive: {exc}")
             return None
 
         addon_dir = find_addon_dir(tmp, addon_id)

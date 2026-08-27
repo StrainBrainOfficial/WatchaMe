@@ -183,10 +183,26 @@ script.plexmod                                          optional
 | Field | Required | Meaning |
 |---|---|---|
 | add-on id | **Yes** | The real id, not the display name. Find it in the add-on's own `addon.xml`, or as the folder name under `~/.kodi/addons/`. |
-| `owner/repo` | Only sometimes | Its GitHub slug. Needed only for add-ons **not** in Kodi's official repository — you do not have to know which those are; step 3.2 tells you. |
+| source | Only sometimes | Where it comes from. Needed for anything **not** in Kodi's official repository — you do not have to know which those are; step 3.2 tells you. One of the three forms below. |
 | `optional` | No | Leaves the entry **unticked** in the Toolbox picker. Use it for anything needing credentials, a subscription, or extra hardware. |
 
 Everything after a `#` is a comment, so the instructions already in the file can stay.
+
+The source is one of three forms, and you will need one for every add-on that Kodi does not ship itself:
+
+| Form | Use when | Example |
+|---|---|---|
+| `owner/repo` | It lives on GitHub | `a4k-openproject/a4kSubtitles` |
+| `https://…/zips` | It is served by another Kodi repository — the directory holding that repo's `addons.xml` | `https://raw.githubusercontent.com/owner/repo/master/omega/zips` |
+| `https://…/x-1.2.3.zip` | All you have is a fixed zip | `https://host/plugin.video.x-1.2.3.zip` |
+
+Prefer the first two. Both track the newest version automatically; a fixed zip only changes when that URL's contents change.
+
+> **You know the repository but not the add-on ids?** Point the planner at it and it will list them, already formatted for this file:
+>
+> `python3 scripts/plan_addons.py --discover https://that-repo/...`
+>
+> Give it the repository's base URL or its repository zip URL. It follows nested indexes — many vendor repos split add-ons across per-Kodi-version directories — and prints every add-on served, newest version first. Copy the lines you want.
 
 **3.2 Check the list.**
 
@@ -210,13 +226,15 @@ It reads your wishlist, checks every id against Kodi's official Omega and Piers 
 | `ok … mirror` | Not in Kodi's repo; it will be packaged into yours from GitHub | Nothing |
 | `!!` | Not in Kodi's repo, and you gave no GitHub slug | Step 3.3 |
 
-**3.3 Resolve anything marked `!!`.** The add-on has to come from somewhere, so find its source and add the slug to the wishlist:
+**3.3 Resolve anything marked `!!`.** The add-on has to come from somewhere. Add one of the three source forms to that line:
 
 ```
 script.something   owner/repo
+script.something   https://that-repo/omega/zips
+script.something   https://host/script.something-1.2.3.zip
 ```
 
-To find it, search GitHub for the exact add-on id — most Kodi add-ons use their id as the repository name. Then re-run 3.2 until no `!!` lines remain.
+If it is on GitHub, searching for the exact add-on id usually finds it — most Kodi add-ons use their id as the repository name. If it comes from a vendor's Kodi repository, run `--discover` against that repository and copy the line it prints. Re-run 3.2 until no `!!` lines remain.
 
 If the add-on has no GitHub repository at all and installs only from a vendor's own Kodi repository, it belongs in the `external` section instead. Add it by hand using the `external` shape at the end of this part, and it is documented rather than installed.
 
@@ -315,8 +333,10 @@ The planner exists so you do not have to, but the entries are plain JSON and you
 | `name` | all | Display name in the Toolbox picker |
 | `category` | mirror, official | Groups and sorts the picker. In use: `subtitles`, `playback`, `tracking`, `tools`, `interface`, `privacy`. |
 | `why` | all | Your justification. Ends up in the README. |
-| `github` | mirror | `owner/repo` |
-| `track` | mirror | `release` (newest release, falling back to branch head) or `branch` |
+| `github` | mirror | `owner/repo`. One of `github`, `repo_url` or `zip_url` is required. |
+| `repo_url` | mirror | Directory holding another Kodi repo's `addons.xml`; the newest version is taken automatically |
+| `zip_url` | mirror | A fixed zip URL. Pinned — only changes when that URL's contents change. |
+| `track` | mirror | With `github`: `release` (newest release, falling back to branch head) or `branch` |
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
 | `optional` | mirror, official | `true` leaves it unticked in the picker |
 
