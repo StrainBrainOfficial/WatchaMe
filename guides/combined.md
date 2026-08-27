@@ -270,6 +270,28 @@ It reads your wishlist, checks every id against Kodi's official Omega and Piers 
 | `ok … mirror` | Not in Kodi's repo; it will be packaged into yours from the source you gave — the bracket says which | Nothing |
 | `!!` | Not in Kodi's repo, and you gave no source | Step 3.3 |
 
+**3.2b What the planner does about duplicates and versions.** Scanning several repositories routinely turns up the same add-on in more than one of them, at different versions. Paste both lines and the planner does not guess:
+
+```
+  script.example listed 2 times:
+      KEEP v2.2.2        https://…/nexusrepo/zips
+      drop v1.9.0        https://…/omega/zips
+```
+
+It asks each source what version it currently advertises and keeps the newest, showing what it dropped. If a source advertises nothing it prints `v?` and is only kept when nothing better exists.
+
+**Staying up to date afterwards is automatic**, and does not depend on what the versions were today:
+
+| Source | What the daily sync does |
+|---|---|
+| `repo_url` | Re-reads that repository's index and takes whatever it now advertises |
+| `github` with `track: release` | Takes the newest published release |
+| `zip_url` | Pinned — only changes if that URL's contents change |
+
+So the version you see at this step is not baked in. The first two track upstream on their own; only a fixed zip stands still, which is why it is the last resort.
+
+The planner also flags two things worth acting on. **Library and resource add-ons** (`script.module.*`, `resource.*`) are installed automatically by Kodi as dependencies — listing them yourself is usually unnecessary. And **a long list** gets a warning: every add-on you carry is packaged into your repository, appears in the Toolbox picker, and is checked daily, so a catalogue of everything a repository happens to serve is worse than a short list you actually use.
+
 **3.3 Resolve anything marked `!!`.** The add-on has to come from somewhere. Add one of the three source forms to that line:
 
 ```

@@ -25,15 +25,24 @@
 # Replace each REPLACE_WITH_REPO_URL_nn with a real URL. Add more lines if you
 # need them; delete the ones you do not use, or just leave them alone.
 
-REPLACE_WITH_REPO_URL_01
-REPLACE_WITH_REPO_URL_02
-REPLACE_WITH_REPO_URL_03
-REPLACE_WITH_REPO_URL_04
-REPLACE_WITH_REPO_URL_05
-REPLACE_WITH_REPO_URL_06
-REPLACE_WITH_REPO_URL_07
-REPLACE_WITH_REPO_URL_08
-REPLACE_WITH_REPO_URL_09
-REPLACE_WITH_REPO_URL_10
-REPLACE_WITH_REPO_URL_11
-REPLACE_WITH_REPO_URL_12
+https://team-crew.github.io 
+https://tinyurl.com/thecrew-alpha
+https://klass-723.github.io/packages/
+https://magnetic.website/repo 
+https://umbrellaplug.github.io
+https://repo.redwizard.xyz
+http://jewbmx.github.io
+https://repo.redwizard.xyz
+https://goldenfreddy0703.github.io/repository.otaku
+https://goldenfreddy0703.github.io/repository.hooty/
+https://bugatsinho.github.io/repo/
+https://loopaddon.uk/theloop/
+https://mullafabz.github.io/RT/
+https://kodiyashimaru.github.io/repo/
+https://cocojoe2411.github.io/
+https://kodifitzwell.github.io/repo/
+https://blry12.github.io/nxtflix
+https://sam-max.github.io/repository.jacktook/
+
+#REPLACE_WITH_REPO_URL_11
+#REPLACE_WITH_REPO_URL_12

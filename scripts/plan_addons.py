@@ -179,6 +179,62 @@ def discover(url, seen=None):
     return 0
 
 
+def advertised_version(item):
+    """Version a source currently offers, or None when it cannot be known cheaply."""
+    if item["kind"] != "repo_url":
+        return None
+    base = item["source"].rstrip("/")
+    for name in ("addons.xml", "addons.xml.gz"):
+        try:
+            req = urllib.request.Request(f"{base}/{name}",
+                                         headers={"User-Agent": "watchame-planner"})
+            raw = urllib.request.urlopen(req, timeout=45).read()
+            if name.endswith(".gz"):
+                raw = gzip.decompress(raw)
+            root = ET.fromstring(raw.decode("utf-8-sig", "replace"))
+            vs = [a.get("version") for a in root.findall("addon")
+                  if a.get("id") == item["id"]]
+            return max(vs, key=_vkey) if vs else None
+        except Exception:
+            continue
+    return None
+
+
+def resolve_duplicates(wanted):
+    """One entry per add-on id, keeping the source offering the newest version."""
+    by_id = collections.OrderedDict()
+    for item in wanted:
+        by_id.setdefault(item["id"], []).append(item)
+
+    dupes = {k: v for k, v in by_id.items() if len(v) > 1}
+    if dupes:
+        print("%d add-on(s) listed more than once -- checking which source is newest\n"
+              % len(dupes))
+
+    resolved = []
+    for addon_id, items in by_id.items():
+        if len(items) == 1:
+            resolved.append(items[0])
+            continue
+        scored = []
+        for it in items:
+            ver = advertised_version(it)
+            scored.append((_vkey(ver) if ver else [-1], ver, it))
+        scored.sort(key=lambda t: t[0], reverse=True)
+        best_key, best_ver, best = scored[0]
+        print("  %s listed %d times:" % (addon_id, len(items)))
+        for key, ver, it in scored:
+            mark = "KEEP" if it is best else "drop"
+            where = it["source"] or "official"
+            print("      %-4s v%-12s %s" % (mark, ver or "?", where))
+        if best_ver is None:
+            print("      (no version advertised -- kept the first listed)")
+        resolved.append(best)
+    if dupes:
+        print()
+    return resolved
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true",
@@ -220,6 +276,22 @@ def main():
         return rc
 
     wanted = read_wishlist()
+    if wanted:
+        wanted = resolve_duplicates(wanted)
+        noise = [w["id"] for w in wanted
+                 if w["id"].startswith(("script.module.", "resource."))]
+        if noise:
+            print("%d of these are library or resource add-ons: %s%s" %
+                  (len(noise), ", ".join(noise[:4]),
+                   " ..." if len(noise) > 4 else ""))
+            print("Kodi installs those automatically as dependencies. Listing them "
+                  "is usually unnecessary -- remove them unless you know you need "
+                  "your own copy.\n")
+        if len(wanted) > 40:
+            print("%d add-ons listed. That is a lot to carry: every one is packaged "
+                  "into your repository, shows in the Toolbox picker, and is checked "
+                  "daily. Consider trimming to what you will actually use.\n"
+                  % len(wanted))
     if not wanted:
         sys.exit("Nothing filled in yet. Overwrite the REPLACE_ placeholders in %s"
                  % WISHLIST.name)
