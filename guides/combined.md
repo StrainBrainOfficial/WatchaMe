@@ -632,13 +632,23 @@ Doing Stage A step 3 (ADB) costs a minute and saves more than that later — ste
 
 **4.** Settings → My Fire TV → About → Network → note the **IP address**.
 
-**5.** *(Optional)* From your computer:
+**5.** *(Optional)* Pair your computer with the stick. Substitute the address from step 4:
 
 ```
-adb connect STICK-IP:5555
+adb connect 192.168.1.50:5555
 ```
 
-**Check:** `connected to STICK-IP:5555`. Accept the prompt on the TV if one appears.
+Watch the TV: a dialog asks **Allow USB debugging?** — tick *Always allow from this computer* and choose **OK**. Then confirm the pairing took:
+
+```
+adb devices
+```
+
+**Check:** a line ending in `device`, e.g. `192.168.1.50:5555   device`.
+
+- An empty list, or `adb: no devices/emulators found` from any later command, means the pairing has not happened. Re-do steps 3 and 4, then this one.
+- `unauthorized` instead of `device` means the TV dialog was not accepted. Run `adb disconnect`, connect again, and watch the screen.
+- `failed to connect` means the address is wrong, the stick is asleep, or it is on a different network from your computer. Wake it and re-check step 4.
 
 # Stage B — Install Kodi (steps 6–8)
 
@@ -824,6 +834,8 @@ Artwork re-downloads as you browse after a cache clean. That is expected; the fi
 
 | Symptom | Fix |
 |---|---|
+| `adb: no devices/emulators found` | Not paired yet — do steps 3, 4 and 5 before any other adb command |
+| `adb` device shows `unauthorized` | The *Allow USB debugging* dialog on the TV was not accepted |
 | Kodi APK will not install | Wrong architecture — use `armeabi-v7a` |
 | Step 19 fails | URL in step 17 is wrong; re-run Book One step 3.4 |
 | Repository installs but lists nothing | Book One, Appendix C |
