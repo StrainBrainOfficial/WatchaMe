@@ -208,11 +208,13 @@ The source is one of three forms, and you will need one for every add-on that Ko
 
 Prefer the first two. Both track the newest version automatically; a fixed zip only changes when that URL's contents change.
 
-> **You know the repository but not the add-on ids?** Point the planner at it and it will list them, already formatted for this file:
+> **You know the repositories but not the add-on ids?** Paste their URLs into **`addons.repos.txt`**, one per line, and run:
 >
-> `python3 scripts/plan_addons.py --discover https://that-repo/...`
+> `python3 scripts/plan_addons.py --discover`
 >
-> Give it the repository's base URL or its repository zip URL. It follows nested indexes — many vendor repos split add-ons across per-Kodi-version directories — and prints every add-on served, newest version first. Copy the lines you want.
+> It visits each one and prints every add-on served, with the source path already formatted for the wishlist — copy the lines you want. Any URL shape works: a landing page, a directory listing, a repository zip, or a folder holding an `addons.xml`. It follows nested indexes too, since vendor repos routinely split add-ons across per-Kodi-version directories, and keeps the newest version when one appears in several.
+>
+> To check a single repository without editing the file, pass it directly: `python3 scripts/plan_addons.py --discover https://that-repo/`
 
 **3.2 Check the list.**
 
@@ -568,6 +570,7 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 |---|---|---|
 | `addons.json` | The curated list | **Yes — this is the control surface** |
 | `addons.wishlist.txt` | **Fill this in** — what you want the repo to carry | **Yes** |
+| `addons.repos.txt` | **Paste URLs here** — repositories to scan with `--discover` | **Yes** |
 | `addons.template.json` | Copy-paste entry templates; never read by the build | Reference |
 | `scripts/plan_addons.py` | Turns the wishlist into `addons.json` entries | Rarely |
 | `repo.config.json` | Repo identity, hosting, versions | Yes |

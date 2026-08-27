@@ -18,6 +18,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 WISHLIST = ROOT / "addons.wishlist.txt"
+REPOS = ROOT / "addons.repos.txt"
 MANIFEST = ROOT / "addons.json"
 CONFIG = ROOT / "repo.config.json"
 KODI_VERSIONS = ("omega", "piers")
@@ -78,15 +79,45 @@ def read_wishlist():
 
 
 
+def _find_repo_zip(page_url):
+    """A repo landing page is usually an index listing repository.*.zip."""
+    import urllib.parse
+    try:
+        req = urllib.request.Request(page_url, headers={"User-Agent": "watchame-planner"})
+        html = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+    except Exception:
+        return None
+    links = re.findall(r'href=["\']([^"\']+\.zip)["\']', html, re.I)
+    if not links:
+        return None
+    # Prefer an actual repository add-on, and the newest of them.
+    repo_links = [l for l in links if "repository" in l.lower()] or links
+    repo_links.sort(key=_vkey)
+    return urllib.parse.urljoin(page_url if page_url.endswith("/") else page_url + "/",
+                                repo_links[-1])
+
+
 def _vkey(v):
     return [int(n) for n in re.findall(r"\d+", v or "0")]
 
 
-def discover(url):
+def discover(url, seen=None):
     """List the add-ons a Kodi repository serves, following nested indexes."""
     import io, zipfile
     url = url.strip()
     bases = []
+    if not url.lower().endswith(".zip"):
+        # A bare base may serve addons.xml directly, or it may be the landing
+        # page you would paste into Kodi -- an index listing a repository zip.
+        probe = url.rstrip("/") + "/addons.xml"
+        try:
+            req = urllib.request.Request(probe, headers={"User-Agent": "watchame-planner"})
+            urllib.request.urlopen(req, timeout=30).read(1)
+        except Exception:
+            zip_url = _find_repo_zip(url)
+            if zip_url:
+                print("  (landing page -- following %s)\n" % zip_url.rsplit("/", 1)[-1])
+                url = zip_url
     if url.lower().endswith(".zip"):
         req = urllib.request.Request(url, headers={"User-Agent": "watchame-planner"})
         blob = urllib.request.urlopen(req, timeout=60).read()
@@ -103,12 +134,12 @@ def discover(url):
     else:
         bases.append(url.rstrip("/") + "/addons.xml")
 
-    seen, found, queue = set(), {}, list(bases)
+    visited, found, queue = set(), {}, list(bases)
     while queue:
         index_url = queue.pop(0)
-        if index_url in seen:
+        if index_url in visited:
             continue
-        seen.add(index_url)
+        visited.add(index_url)
         try:
             req = urllib.request.Request(index_url, headers={"User-Agent": "watchame-planner"})
             raw = urllib.request.urlopen(req, timeout=60).read()
@@ -132,12 +163,19 @@ def discover(url):
                 found[aid] = (ver, base)
 
     if not found:
-        print("no add-ons found at that URL")
+        print("no add-ons found -- the repository's own index url did not "
+              "respond (see the ! line above, if any)")
         return 1
-    print("%d add-on(s) served -- paste the lines you want into %s:\n" % (len(found), WISHLIST.name))
+    print("%d add-on(s) served -- paste the lines you want into %s:\n"
+          % (len(found), WISHLIST.name))
     for aid in sorted(found):
         ver, base = found[aid]
-        print("%-46s %s        # v%s" % (aid, base, ver))
+        note = ""
+        if seen is not None:
+            if aid in seen and seen[aid] != base:
+                note = "   # ALSO served by an earlier repo -- pick one"
+            seen.setdefault(aid, base)
+        print("%-46s %s        # v%s%s" % (aid, base, ver, note))
     return 0
 
 
@@ -145,12 +183,36 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true",
                     help="write entries into addons.json and bump the toolbox version")
-    ap.add_argument("--discover", metavar="URL",
-                    help="list what a Kodi repository serves (its base url, or its repo zip url)")
+    ap.add_argument("--discover", metavar="URL", nargs="*",
+                    help="list what Kodi repositories serve. With no URL, reads "
+                         "addons.repos.txt; otherwise takes them on the command line.")
     args = ap.parse_args()
 
-    if args.discover:
-        return discover(args.discover)
+    if args.discover is not None:
+        urls = args.discover
+        if not urls:
+            if not REPOS.is_file():
+                sys.exit("no %s -- create it and paste your repository urls in"
+                         % REPOS.name)
+            urls = [l.split("#")[0].strip()
+                    for l in REPOS.read_text().splitlines()]
+            urls = [u for u in urls if u]
+            if not urls:
+                sys.exit("no urls in %s yet -- paste them in, one per line"
+                         % REPOS.name)
+            print("reading %d repository url(s) from %s\n" % (len(urls), REPOS.name))
+        rc, seen = 0, {}
+        for n, url in enumerate(urls):
+            if n:
+                print()
+            print("=" * 78)
+            print("  %s" % url)
+            print("=" * 78)
+            rc |= discover(url, seen)
+        if len(urls) > 1:
+            print("\n%d add-on(s) found across %d repositories."
+                  % (len(seen), len(urls)))
+        return rc
 
     wanted = read_wishlist()
     if not wanted:

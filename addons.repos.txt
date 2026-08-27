@@ -1,0 +1,19 @@
+# ============================================================================
+# REPOSITORY URLS -- paste the repositories your add-ons come from, one per line.
+#
+# Then run:
+#     python3 scripts/plan_addons.py --discover
+#
+# It reads this file, visits every repository, follows their indexes, and
+# prints each add-on served with the source path already formatted for
+# addons.wishlist.txt. Copy the lines you want into the wishlist slots.
+#
+# Paste whichever URL you have -- all of these work:
+#     https://example.github.io                       a landing page
+#     https://example.github.io/repo/                 a directory listing
+#     https://example.com/repository.example-1.0.zip  a repository zip
+#     https://host/path/zips                          a folder with addons.xml
+#
+# Anything after a # is ignored.
+# ============================================================================
+
