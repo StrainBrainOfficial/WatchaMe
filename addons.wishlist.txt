@@ -32,25 +32,304 @@
 # Replace REPLACE_ID_nn with the add-on id, and REPLACE_SOURCE_nn with where it
 # comes from -- or delete that word if Kodi's official repo has the add-on.
 
-REPLACE_ID_01    REPLACE_SOURCE_01
-REPLACE_ID_02    REPLACE_SOURCE_02
-REPLACE_ID_03    REPLACE_SOURCE_03
-REPLACE_ID_04    REPLACE_SOURCE_04
-REPLACE_ID_05    REPLACE_SOURCE_05
-REPLACE_ID_06    REPLACE_SOURCE_06
-REPLACE_ID_07    REPLACE_SOURCE_07
-REPLACE_ID_08    REPLACE_SOURCE_08
-REPLACE_ID_09    REPLACE_SOURCE_09
-REPLACE_ID_10    REPLACE_SOURCE_10
-REPLACE_ID_11    REPLACE_SOURCE_11
-REPLACE_ID_12    REPLACE_SOURCE_12
-REPLACE_ID_13    REPLACE_SOURCE_13
-REPLACE_ID_14    REPLACE_SOURCE_14
-REPLACE_ID_15    REPLACE_SOURCE_15
-REPLACE_ID_16    REPLACE_SOURCE_16
-REPLACE_ID_17    REPLACE_SOURCE_17
-REPLACE_ID_18    REPLACE_SOURCE_18
-REPLACE_ID_19    REPLACE_SOURCE_19
-REPLACE_ID_20    REPLACE_SOURCE_20
-REPLACE_ID_21    REPLACE_SOURCE_21
-REPLACE_ID_22    REPLACE_SOURCE_22
+
+context.kaito                                  https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.6+matrix.1
+context.otaku                                  https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips        # v1.0.35   # also in 1 other repo(s)
+context.otaku.testing                          https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v1.0.35
+context.seren                                  https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v3.0.2   # also in 2 other repo(s)
+context.themoviedb.helper                      https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v2.0.0
+inputstream.ffmpegdirect                       https://magnetic.website/__zips        # v20.5.0
+plugin.audio.au.radio                          https://slyguy.uk/.repo/repository.slyguy        # v0.14.1
+plugin.audio.mp3streams                        https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v2025.0.1
+plugin.audio.nz.radio                          https://slyguy.uk/.repo/repository.slyguy        # v0.15.1
+plugin.audio.ytmusic.exp                       https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v1.0~beta39
+plugin.program.ComicThemes                     http://funstersplace.net/19repo        # v1.1.1
+plugin.program.autoenabler                     http://funstersplace.net/19repo        # v1.0.1
+plugin.program.autowidget                      https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v3.7.0
+plugin.program.bradleysbuilds                  https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.1
+plugin.program.breezz19wizard                  https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.0.1
+plugin.program.chainswizard                    https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v4.0.9
+plugin.program.darealist                       http://funstersplace.net/19repo        # v3.0
+plugin.program.funs19wiz                       https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v2.2
+plugin.program.gpio.monitor                    https://slyguy.uk/.repo/repository.slyguy        # v0.3.3
+plugin.program.horoscope                       http://funstersplace.net/19repo        # v0.0.9
+plugin.program.iptv.merge                      https://slyguy.uk/.repo/repository.slyguy        # v0.30.19
+plugin.program.magnetic19wizard                https://magnetic.website/__zips        # v0.0.25
+plugin.program.magneticwizard                  https://magnetic.website/__zips        # v1.9
+plugin.program.maxql                           https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.1.7
+plugin.program.noobs.companion                 https://slyguy.uk/.repo/repository.slyguy        # v0.8.0
+plugin.program.nxtflix                         https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.1
+plugin.program.nxtflixgui                      https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.0
+plugin.program.nxtflixsimple                   https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.5
+plugin.program.opendevtools                    https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v1.6.0
+plugin.program.openwizard                      https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v2.0.7
+plugin.program.retrobiostool                   https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.6
+plugin.program.thecrewiz                       https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.2.8
+plugin.video.Rising.Tides                      http://mullafabz.xyz/Plugins        # v1.4.22.3
+plugin.video.SportsDevil                       http://mullafabz.xyz/Plugins        # v2019.12.29
+plugin.video.absolution                        https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v4.4.1
+plugin.video.adultswim                         https://raw.githubusercontent.com/jsergio123/zips/master        # v2.0.1   # also in 3 other repo(s)
+plugin.video.au.freeview                       https://slyguy.uk/.repo/repository.slyguy        # v0.20.5
+plugin.video.base                              https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.4
+plugin.video.beinsports.apac                   https://slyguy.uk/.repo/repository.slyguy        # v0.5.2
+plugin.video.cartoon_network                   https://raw.githubusercontent.com/jsergio123/zips/master        # v1.0.1   # also in 3 other repo(s)
+plugin.video.cartoonsgr                        https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v1.0.59
+plugin.video.chainslive                        https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.0.22
+plugin.video.cumination                        https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master        # v1.1.196
+plugin.video.distrotv                          https://magnetic.website/__zips        # v1.0.1
+plugin.video.dstv.now                          https://slyguy.uk/.repo/repository.slyguy        # v0.18.4
+plugin.video.easynews                          https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v6.6.1
+plugin.video.elementum                         https://hazmat77.github.io/repository.starfleet        # v0.1.114   # also in 1 other repo(s)
+plugin.video.external.library                  http://romanvm.github.io/kodi_repo/repo        # v0.0.4
+plugin.video.f4mTester                         https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips        # v2.7.2   # also in 3 other repo(s)
+plugin.video.fanimef                           https://github.com/OldManJax/repository.animaniac/raw/master        # v1.1.8
+plugin.video.freevl                            https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.0.1
+plugin.video.gears                             https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v2.4.2
+plugin.video.genocide                          https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v6.9.9
+plugin.video.ghost                             https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.6.6
+plugin.video.ghosttv                           https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.1
+plugin.video.homelander                        https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.3.1
+plugin.video.iNovelas                          https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.1.10
+plugin.video.iptvxc                            https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v3.1.2
+plugin.video.jacktook                          https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips        # v1.18.0
+plugin.video.jacktorr                          https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips        # v1.2.2
+plugin.video.jet_guide                         https://magnetic.website/__zips        # v0.0.20
+plugin.video.jetproxy                          https://magnetic.website/__zips        # v1.0.7
+plugin.video.kaito                             https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.11.36+matrix.1
+plugin.video.madtitansports                    https://magnetic.website/__zips        # v2.0.37
+plugin.video.madtitansports_apple              https://magnetic.website/__zips        # v2.0.16a
+plugin.video.magico                            https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips        # v1.8.5
+plugin.video.moria                             https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v4.11.10
+plugin.video.nightwing                         https://magnetic.website/__zips        # v1.1.7h
+plugin.video.nxtflix                           https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v4.1
+plugin.video.nxtflixlt                         https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v2.1.1
+plugin.video.nz.films                          https://slyguy.uk/.repo/repository.slyguy        # v0.2.0
+plugin.video.nz.freeview                       https://slyguy.uk/.repo/repository.slyguy        # v0.19.5
+plugin.video.optus.sport                       https://slyguy.uk/.repo/repository.slyguy        # v0.9.3
+plugin.video.otaku                             https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips        # v5.3.2   # also in 1 other repo(s)
+plugin.video.otaku.testing                     https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v5.3.2
+plugin.video.pelisplus                         https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.1.11
+plugin.video.pov                               https://kodiyashimaru.github.io/repo/packages        # v6.08.15   # also in 1 other repo(s)
+plugin.video.premiumizemetv                    https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.0.4
+plugin.video.purelywrestling                   https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.0.3
+plugin.video.releaseBB                         https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v2.1.4
+plugin.video.replayme                          http://mullafabz.xyz/Plugins        # v0.9.1
+plugin.video.rlsbb                             https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v1.0.1
+plugin.video.rlshub                            https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v1.0.7
+plugin.video.seren                             https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v4.0.1   # also in 2 other repo(s)
+plugin.video.shadow                            https://magnetic.website/__zips        # v3.6.3   # also in 1 other repo(s)
+plugin.video.sky.sport.now                     https://slyguy.uk/.repo/repository.slyguy        # v0.7.5
+plugin.video.skylinecctv                       https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.2.5
+plugin.video.smr_link_tester                   https://raw.githubusercontent.com/Gujal00/smrzips/master        # v1.1.22   # also in 6 other repo(s)
+plugin.video.sporthdme                         https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.1.89.4
+plugin.video.sstv                              https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v4.2
+plugin.video.stan.au                           https://slyguy.uk/.repo/repository.slyguy        # v0.5.8
+plugin.video.starfleet                         https://hazmat77.github.io/repository.starfleet        # v2.3.515
+plugin.video.superview                         https://slyguy.uk/.repo/repository.slyguy        # v0.9.1
+plugin.video.tatv2                             https://github.com/OldManJax/repository.animaniac/raw/master        # v1.0.3
+plugin.video.tester                            https://slyguy.uk/.repo/repository.slyguy        # v0.3.1
+plugin.video.thechains                         https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v6.0.0
+plugin.video.thecrew                           https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v3.2.2   # also in 1 other repo(s)
+plugin.video.themoviedb.helper                 https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v6.16.5
+plugin.video.three.now                         https://slyguy.uk/.repo/repository.slyguy        # v0.14.4
+plugin.video.torrest                           https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips        # v0.0.22
+plugin.video.tubed                             https://slyguy.uk/.repo/repository.slyguy.youtube        # v99.2.28
+plugin.video.tvnz.ondemand                     https://slyguy.uk/.repo/repository.slyguy        # v0.25.1
+plugin.video.tvone                             https://magnetic.website/__zips        # v26+matrix.1
+plugin.video.tvone111                          https://magnetic.website/__zips        # v25+matrix.1
+plugin.video.tvone112                          https://magnetic.website/__zips        # v3+matrix.1
+plugin.video.udemy                             https://slyguy.uk/.repo/repository.slyguy        # v0.12.5
+plugin.video.umbrella                          https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/matrix/zips        # v6.7.85
+plugin.video.uwc                               https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master        # v1.2.46
+plugin.video.watchnixtoons2                    https://github.com/OldManJax/repository.animaniac/raw/master        # v0.14.23
+plugin.video.willow.tv                         https://slyguy.uk/.repo/repository.slyguy        # v0.2.0
+plugin.video.yatp                              https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips        # v4.5.1
+plugin.video.youtube                           https://slyguy.uk/.repo/repository.slyguy.youtube        # v99.2.28   # also in 4 other repo(s)
+plugin.video.zoro                              https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.1.8
+program.plexus                                 http://mullafabz.xyz/Plugins        # v0.1.7
+resource.font.robotocjksc                      https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.3
+resource.images.arctic.waves                   https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.2
+resource.images.exuaryicons.white              https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.fenicons.white                 https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.newsonicons.coloured           https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.openmetaicons.white            https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.otakuv2icons.coloured          https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.4
+resource.images.otakuv2icons.white             https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.4
+resource.images.serenicons.coloured            https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.serenicons.white               https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.serenv2icons.white             https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.2
+resource.images.studios.white                  https://magnetic.website/__zips        # v0.0.19
+resource.images.tmdbgenreicons.coloured        https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.tmdbicons.coloured             https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.tmdbicons.white                https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.twitchicons.coloured           https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.twitchicons.white              https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.youtube.coloured               https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.1
+resource.images.youtube.white                  https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.2
+resource.images.ytmusicicons.coloured          https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.2
+resource.images.ytmusicicons.white             https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.2
+resource.uisounds.crew                         https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.0.1
+script.absolution.artwork                      https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v4.1.7
+script.autoruns                                http://funstersplace.net/19repo        # v2.0.4
+script.elementum.burst                         https://hazmat77.github.io/repository.starfleet        # v0.0.99
+script.fentastic.helper                        https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v200.6.25a
+script.globalsearch                            https://slyguy.uk/.repo/repository.slyguy.globalsearch        # v99.1.5
+script.homelander.artwork                      https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.0.4
+script.jacktook.burst                          https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips        # v0.0.92
+script.module.absolutionscrapers               https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v4.0.5
+script.module.accountmgr                       https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v2.6.5
+script.module.acctmgr                          https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.1.0a
+script.module.acctview                         https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v2.4.8
+script.module.acctvwr                          https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.0.9a
+script.module.archive_tool                     https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v2.0.3
+script.module.blackscrapers                    https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.00.41g
+script.module.chainscrapers                    https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.0.8
+script.module.cherrypy                         https://magnetic.website/__zips        # v11.0.1
+script.module.classyscrapers                   https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.0.2
+script.module.cloudrequest                     https://raw.githubusercontent.com/Gujal00/smrzips/master        # v1.0.2   # also in 6 other repo(s)
+script.module.cloudscraper                     https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v1.2.44
+script.module.cocoscrapers                     https://raw.githubusercontent.com/not-coco-joe/repository.cocoscrapers/master/zips        # v1.0.39   # also in 1 other repo(s)
+script.module.cryptolib                        http://mullafabz.xyz/Plugins        # v1.1.1
+script.module.freetv2                          https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v9.9.9
+script.module.futures                          https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.0.0.2
+script.module.gearsscrapers                    https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.5.7
+script.module.homelanderscrapers               https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v2.0.4
+script.module.idna                             https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v2.8
+script.module.infotagger                       https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.0.8
+script.module.inputstreamhelper                https://slyguy.uk/.repo/repository.slyguy.inputstreamhelper        # v99.0.12
+script.module.jetextractors                    https://magnetic.website/__zips        # v3.3.18
+script.module.js2py                            https://magnetic.website/__zips        # v0.6.6a
+script.module.jsbeautifier                     https://raw.githubusercontent.com/jsergio123/zips/master        # v1.8.8   # also in 3 other repo(s)
+script.module.jurialmunkey                     https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.2.35
+script.module.kodi-six                         http://funstersplace.net/19repo        # v0.1.3   # also in 1 other repo(s)
+script.module.libtorrent                       https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips        # v1.1.1c
+script.module.liveresolver                     https://magnetic.website/__zips        # v0.1.50.a   # also in 1 other repo(s)
+script.module.magneto                          https://kodiyashimaru.github.io/repo/packages        # v6.07.04   # also in 1 other repo(s)
+script.module.metahandler                      https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips        # v3.0.3   # also in 2 other repo(s)
+script.module.microjenscrapers                 https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.8   # also in 1 other repo(s)
+script.module.moriascrapers                    https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.03.05
+script.module.myconnpy                         https://klass-723.github.io/packages        # v8.0.33
+script.module.nightwingscrapers                https://magnetic.website/__zips        # v1.0.4b
+script.module.openscrapers                     https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips        # v0.0.2.012
+script.module.pyairtable                       https://magnetic.website/__zips        # v1.4.0
+script.module.pyamf                            https://magnetic.website/__zips        # v0.8.10+matrix.3
+script.module.pyjsparser                       https://magnetic.website/__zips        # v3.0.0
+script.module.pymongo                          http://romanvm.github.io/kodi_repo/repo        # v3.4.0
+script.module.python.koding.aio                https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v2.1   # also in 2 other repo(s)
+script.module.python.koding.aio.alt            https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips        # v1.1   # also in 1 other repo(s)
+script.module.requests                         https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v2.31.0   # also in 4 other repo(s)
+script.module.resolveurl                       https://raw.githubusercontent.com/Gujal00/smrzips/master        # v5.1.207   # also in 6 other repo(s)
+script.module.resolveurl.xxx                   https://raw.githubusercontent.com/Gujal00/smrzips/master        # v2.1.44   # also in 6 other repo(s)
+script.module.simpleplugin                     http://romanvm.github.io/kodi_repo/repo        # v2.3.2
+script.module.simpleplugin3                    http://romanvm.github.io/kodi_repo/repo        # v3.0.3
+script.module.six                              https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.16.0+matrix.1   # also in 1 other repo(s)
+script.module.slproxy                          http://mullafabz.xyz/Plugins        # v0.0.7
+script.module.slyguy                           https://slyguy.uk/.repo/repository.slyguy        # v0.86.96
+script.module.streamlink.base                  http://mullafabz.xyz/Plugins        # v2019.11.11.1
+script.module.t0mm0.common                     https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v3.0.1
+script.module.tabulate                         https://magnetic.website/__zips        # v0.9.1.2
+script.module.thecrew                          https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v3.2.9   # also in 1 other repo(s)
+script.module.tulip                            https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips        # v1.0.8   # also in 2 other repo(s)
+script.module.universaldebrid                  https://magnetic.website/__zips        # v1.2.3
+script.module.universalscrapers                https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips        # v1.2.3   # also in 2 other repo(s)
+script.module.unshortenit                      https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v0.3.1.a
+script.module.urlresolver                      https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips        # v2.10.0   # also in 1 other repo(s)
+script.module.viperscrapers                    https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v1.5.4
+script.moria.artwork                           https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v1.1.0
+script.mrknow.urlresolver                      https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips        # v2017.03.30.1   # also in 2 other repo(s)
+script.punchplay                               https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.3.0
+script.service.livescore_alerts                https://magnetic.website/__zips        # v0.0.5
+script.service.playtime                        http://romanvm.github.io/kodi_repo/repo        # v0.0.6
+script.service.sponsorblock                    https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.7.0
+script.simkl                                   https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v3.2.4
+script.skinswitcher                            http://funstersplace.net/19repo        # v1.0.2
+script.skinvariables                           https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v2.2.2
+script.texturemaker                            https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.2.11
+script.thecrew.artwork                         https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip        # v3.2.0   # also in 1 other repo(s)
+script.trakt                                   https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v3.9.0
+script.tvmaze.scrobbler                        https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.2.1+matrix.1
+script.umbrestuary.helper                      https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/nexus/zips        # v0.6.16
+script.video.F4mProxy                          https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master        # v2.8.8   # also in 3 other repo(s)
+script.wetrakr                                 https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.2.1
+script.wikipedia                               https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.2.0
+service.mdblist-scrobbler                      https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips        # v1.2.3
+service.recently.added.refresh                 https://slyguy.uk/.repo/repository.slyguy        # v0.1.0
+service.subtitles.a4ksubtitles                 https://raw.githubusercontent.com/newt-sc/a4kSubtitles/master/packages        # v3.24.2   # also in 1 other repo(s)
+service.subtitles.addic7ed                     http://romanvm.github.io/kodi_repo/repo        # v2.2.2
+service.subtitles.greeksubs                    https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master        # v2.0.14
+service.time.monitor                           https://slyguy.uk/.repo/repository.slyguy        # v0.4.1
+skin.aeon.nox.barroni                          http://funstersplace.net/19repo        # v9.9.9.9.9
+skin.aeon.terror                               http://funstersplace.net/19repo        # v1.0.4
+skin.aeon.terror.k21                           http://funstersplace.net/19repo        # v1.0.1
+skin.aeon.viper                                http://funstersplace.net/19repo        # v2.1
+skin.arctic.fuse                               https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.7.39~omega
+skin.arctic.horizon.2                          https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips        # v0.8.30~omega
+skin.blackglassnova                            http://funstersplace.net/19repo        # v7.0.1
+skin.blackglassnova.21                         http://funstersplace.net/19repo        # v1.0.0
+skin.extuary                                   http://funstersplace.net/19repo        # v1.0.0
+skin.fentastic                                 https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips        # v200.0.30a
+skin.pm3-hd.extended                           http://funstersplace.net/19repo        # v1.0.8
+skin.real.steel                                http://funstersplace.net/19repo        # v1.0.0
+skin.real.steel.k21                            http://funstersplace.net/19repo        # v1.0.1
+skin.real.steel.viper.glowbar.edition          http://funstersplace.net/19repo        # v2.1
+skin.silvo.lite                                http://funstersplace.net/19repo        # v1.0.0
+skin.simpletouchreloaded                       http://funstersplace.net/19repo        # v1.7.5
+skin.terror.lite                               http://funstersplace.net/19repo        # v1.0.1
+skin.terror.lite.k21                           http://funstersplace.net/19repo        # v1.0.1
+skin.umbrestuary                               https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/omega/zips        # v1.0.20
+skin.xonfluence                                http://funstersplace.net/19repo        # v4.0.10
+skin.xonfluence4widgets                        http://funstersplace.net/19repo        # v4.0.11
+skin.you.nique                                 http://funstersplace.net/19repo        # v1.7
+slyguy.10play                                  https://slyguy.uk/.repo/repository.slyguy        # v0.4.5
+slyguy.7plus                                   https://slyguy.uk/.repo/repository.slyguy        # v0.5.7
+slyguy.9now                                    https://slyguy.uk/.repo/repository.slyguy        # v0.4.5
+slyguy.bein.connect                            https://slyguy.uk/.repo/repository.slyguy        # v0.3.1
+slyguy.curiositystream                         https://slyguy.uk/.repo/repository.slyguy        # v0.2.0
+slyguy.dependencies                            https://slyguy.uk/.repo/repository.slyguy        # v0.0.30
+slyguy.discovery.plus                          https://slyguy.uk/.repo/repository.slyguy        # v0.0.4
+slyguy.disney.plus                             https://slyguy.uk/.repo/repository.slyguy        # v0.20.33
+slyguy.espn                                    https://slyguy.uk/.repo/repository.slyguy        # v0.4.5
+slyguy.fox.sports                              https://slyguy.uk/.repo/repository.slyguy        # v0.1.2
+slyguy.hgtv.go                                 https://slyguy.uk/.repo/repository.slyguy        # v0.1.0
+slyguy.hulu                                    https://slyguy.uk/.repo/repository.slyguy        # v0.5.1
+slyguy.max                                     https://slyguy.uk/.repo/repository.slyguy        # v0.2.9
+slyguy.nebula                                  https://slyguy.uk/.repo/repository.slyguy        # v0.3.5
+slyguy.neon                                    https://slyguy.uk/.repo/repository.slyguy        # v0.2.3
+slyguy.paramount.plus                          https://slyguy.uk/.repo/repository.slyguy        # v0.9.20
+slyguy.pbs.live                                https://slyguy.uk/.repo/repository.slyguy        # v0.2.5
+slyguy.plex.live                               https://slyguy.uk/.repo/repository.slyguy        # v0.2.4
+slyguy.pluto.tv.provider                       https://slyguy.uk/.repo/repository.slyguy        # v0.7.8
+slyguy.roku                                    https://slyguy.uk/.repo/repository.slyguy        # v0.0.2
+slyguy.rugbypass.tv                            https://slyguy.uk/.repo/repository.slyguy        # v0.1.0
+slyguy.samsung.tv.plus                         https://slyguy.uk/.repo/repository.slyguy        # v0.2.5
+slyguy.sbs.ondemand                            https://slyguy.uk/.repo/repository.slyguy        # v0.0.14
+slyguy.shine.tv                                https://slyguy.uk/.repo/repository.slyguy        # v0.1.0
+slyguy.singtel.tv.go                           https://slyguy.uk/.repo/repository.slyguy        # v0.1.0
+slyguy.skygo.nz                                https://slyguy.uk/.repo/repository.slyguy        # v0.3.6
+slyguy.stirr.provider                          https://slyguy.uk/.repo/repository.slyguy        # v0.3.5
+slyguy.stremium                                https://slyguy.uk/.repo/repository.slyguy        # v0.2.3
+slyguy.trailers                                https://slyguy.uk/.repo/repository.slyguy        # v0.2.0
+
+
+#REPLACE_ID_01    REPLACE_SOURCE_01
+#REPLACE_ID_02    REPLACE_SOURCE_02
+#REPLACE_ID_03    REPLACE_SOURCE_03
+#REPLACE_ID_04    REPLACE_SOURCE_04
+#REPLACE_ID_05    REPLACE_SOURCE_05
+#REPLACE_ID_06    REPLACE_SOURCE_06
+#REPLACE_ID_07    REPLACE_SOURCE_07
+#REPLACE_ID_08    REPLACE_SOURCE_08
+#REPLACE_ID_09    REPLACE_SOURCE_09
+#REPLACE_ID_10    REPLACE_SOURCE_10
+#REPLACE_ID_11    REPLACE_SOURCE_11
+#REPLACE_ID_12    REPLACE_SOURCE_12
+#REPLACE_ID_13    REPLACE_SOURCE_13
+#REPLACE_ID_14    REPLACE_SOURCE_14
+#REPLACE_ID_15    REPLACE_SOURCE_15
+#REPLACE_ID_16    REPLACE_SOURCE_16
+#REPLACE_ID_17    REPLACE_SOURCE_17
+#REPLACE_ID_18    REPLACE_SOURCE_18
+#REPLACE_ID_19    REPLACE_SOURCE_19
+#REPLACE_ID_20    REPLACE_SOURCE_20
+#REPLACE_ID_21    REPLACE_SOURCE_21
+#REPLACE_ID_22    REPLACE_SOURCE_22

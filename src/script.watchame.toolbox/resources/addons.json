@@ -33,6 +33,1854 @@
       "github": "Zomboided/service.vpn.manager",
       "track": "release",
       "optional": true
+    },
+    {
+      "id": "context.kaito",
+      "name": "Kaito",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "context.otaku",
+      "name": "Otaku",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips"
+    },
+    {
+      "id": "context.otaku.testing",
+      "name": "Testing",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "context.seren",
+      "name": "Seren",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "context.themoviedb.helper",
+      "name": "Helper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.audio.au.radio",
+      "name": "Radio",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.audio.mp3streams",
+      "name": "Mp3Streams",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.audio.nz.radio",
+      "name": "Radio",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.audio.ytmusic.exp",
+      "name": "Exp",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.autoenabler",
+      "name": "Autoenabler",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "plugin.program.autowidget",
+      "name": "Autowidget",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.bradleysbuilds",
+      "name": "Bradleysbuilds",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.breezz19wizard",
+      "name": "Breezz19Wizard",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.program.chainswizard",
+      "name": "Chainswizard",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.program.darealist",
+      "name": "Darealist",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "plugin.program.funs19wiz",
+      "name": "Funs19Wiz",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.program.gpio.monitor",
+      "name": "Monitor",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.program.horoscope",
+      "name": "Horoscope",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "plugin.program.iptv.merge",
+      "name": "Merge",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.program.magnetic19wizard",
+      "name": "Magnetic19Wizard",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.program.magneticwizard",
+      "name": "Magneticwizard",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.program.maxql",
+      "name": "Maxql",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.noobs.companion",
+      "name": "Companion",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.program.nxtflix",
+      "name": "Nxtflix",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.nxtflixgui",
+      "name": "Nxtflixgui",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.nxtflixsimple",
+      "name": "Nxtflixsimple",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.opendevtools",
+      "name": "Opendevtools",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.openwizard",
+      "name": "Openwizard",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.retrobiostool",
+      "name": "Retrobiostool",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.program.thecrewiz",
+      "name": "Thecrewiz",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.absolution",
+      "name": "Absolution",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.adultswim",
+      "name": "Adultswim",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/jsergio123/zips/master"
+    },
+    {
+      "id": "plugin.video.au.freeview",
+      "name": "Freeview",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.base",
+      "name": "Base",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.beinsports.apac",
+      "name": "Apac",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.cartoon_network",
+      "name": "Cartoon_Network",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/jsergio123/zips/master"
+    },
+    {
+      "id": "plugin.video.cartoonsgr",
+      "name": "Cartoonsgr",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.chainslive",
+      "name": "Chainslive",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.cumination",
+      "name": "Cumination",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master"
+    },
+    {
+      "id": "plugin.video.distrotv",
+      "name": "Distrotv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.dstv.now",
+      "name": "Now",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.easynews",
+      "name": "Easynews",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.elementum",
+      "name": "Elementum",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://hazmat77.github.io/repository.starfleet"
+    },
+    {
+      "id": "plugin.video.external.library",
+      "name": "Library",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://romanvm.github.io/kodi_repo/repo"
+    },
+    {
+      "id": "plugin.video.fanimef",
+      "name": "Fanimef",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://github.com/OldManJax/repository.animaniac/raw/master"
+    },
+    {
+      "id": "plugin.video.freevl",
+      "name": "Freevl",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.gears",
+      "name": "Gears",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.genocide",
+      "name": "Genocide",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.ghost",
+      "name": "Ghost",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.ghosttv",
+      "name": "Ghosttv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.homelander",
+      "name": "Homelander",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.iptvxc",
+      "name": "Iptvxc",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.jacktook",
+      "name": "Jacktook",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.jacktorr",
+      "name": "Jacktorr",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.jet_guide",
+      "name": "Jet_Guide",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.jetproxy",
+      "name": "Jetproxy",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.kaito",
+      "name": "Kaito",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.madtitansports",
+      "name": "Madtitansports",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.madtitansports_apple",
+      "name": "Madtitansports_Apple",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.magico",
+      "name": "Magico",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips"
+    },
+    {
+      "id": "plugin.video.moria",
+      "name": "Moria",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.nightwing",
+      "name": "Nightwing",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.nxtflix",
+      "name": "Nxtflix",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.nxtflixlt",
+      "name": "Nxtflixlt",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.nz.films",
+      "name": "Films",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.nz.freeview",
+      "name": "Freeview",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.optus.sport",
+      "name": "Sport",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.otaku",
+      "name": "Otaku",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.otaku.testing",
+      "name": "Testing",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.pelisplus",
+      "name": "Pelisplus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.pov",
+      "name": "Pov",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://kodiyashimaru.github.io/repo/packages"
+    },
+    {
+      "id": "plugin.video.premiumizemetv",
+      "name": "Premiumizemetv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.purelywrestling",
+      "name": "Purelywrestling",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.replayme",
+      "name": "Replayme",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://mullafabz.xyz/Plugins"
+    },
+    {
+      "id": "plugin.video.rlsbb",
+      "name": "Rlsbb",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.rlshub",
+      "name": "Rlshub",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.seren",
+      "name": "Seren",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.shadow",
+      "name": "Shadow",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.sky.sport.now",
+      "name": "Now",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.skylinecctv",
+      "name": "Skylinecctv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.smr_link_tester",
+      "name": "Smr_Link_Tester",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+    },
+    {
+      "id": "plugin.video.sporthdme",
+      "name": "Sporthdme",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "plugin.video.sstv",
+      "name": "Sstv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.stan.au",
+      "name": "Au",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.starfleet",
+      "name": "Starfleet",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://hazmat77.github.io/repository.starfleet"
+    },
+    {
+      "id": "plugin.video.superview",
+      "name": "Superview",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.tatv2",
+      "name": "Tatv2",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://github.com/OldManJax/repository.animaniac/raw/master"
+    },
+    {
+      "id": "plugin.video.tester",
+      "name": "Tester",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.thechains",
+      "name": "Thechains",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "plugin.video.thecrew",
+      "name": "Thecrew",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "plugin.video.themoviedb.helper",
+      "name": "Helper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.three.now",
+      "name": "Now",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.torrest",
+      "name": "Torrest",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips"
+    },
+    {
+      "id": "plugin.video.tubed",
+      "name": "Tubed",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy.youtube"
+    },
+    {
+      "id": "plugin.video.tvnz.ondemand",
+      "name": "Ondemand",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.tvone",
+      "name": "Tvone",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.tvone111",
+      "name": "Tvone111",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.tvone112",
+      "name": "Tvone112",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "plugin.video.udemy",
+      "name": "Udemy",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.umbrella",
+      "name": "Umbrella",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/matrix/zips"
+    },
+    {
+      "id": "plugin.video.uwc",
+      "name": "Uwc",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master"
+    },
+    {
+      "id": "plugin.video.watchnixtoons2",
+      "name": "Watchnixtoons2",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://github.com/OldManJax/repository.animaniac/raw/master"
+    },
+    {
+      "id": "plugin.video.willow.tv",
+      "name": "Tv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "plugin.video.yatp",
+      "name": "Yatp",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips"
+    },
+    {
+      "id": "plugin.video.zoro",
+      "name": "Zoro",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "program.plexus",
+      "name": "Plexus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://mullafabz.xyz/Plugins"
+    },
+    {
+      "id": "resource.font.robotocjksc",
+      "name": "Robotocjksc",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.arctic.waves",
+      "name": "Waves",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.exuaryicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.fenicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.newsonicons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.openmetaicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.otakuv2icons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.otakuv2icons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.serenicons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.serenicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.serenv2icons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.studios.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "resource.images.tmdbgenreicons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.tmdbicons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.tmdbicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.twitchicons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.twitchicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.youtube.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.youtube.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.ytmusicicons.coloured",
+      "name": "Coloured",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.images.ytmusicicons.white",
+      "name": "White",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "resource.uisounds.crew",
+      "name": "Crew",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "script.absolution.artwork",
+      "name": "Artwork",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.autoruns",
+      "name": "Autoruns",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "script.elementum.burst",
+      "name": "Burst",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://hazmat77.github.io/repository.starfleet"
+    },
+    {
+      "id": "script.fentastic.helper",
+      "name": "Helper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.homelander.artwork",
+      "name": "Artwork",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.jacktook.burst",
+      "name": "Burst",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Sam-Max/repository.jacktook/master/repo/zips"
+    },
+    {
+      "id": "script.module.absolutionscrapers",
+      "name": "Absolutionscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.module.accountmgr",
+      "name": "Accountmgr",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.acctmgr",
+      "name": "Acctmgr",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.acctview",
+      "name": "Acctview",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.acctvwr",
+      "name": "Acctvwr",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.archive_tool",
+      "name": "Archive_Tool",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "script.module.blackscrapers",
+      "name": "Blackscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.chainscrapers",
+      "name": "Chainscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.module.cherrypy",
+      "name": "Cherrypy",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.classyscrapers",
+      "name": "Classyscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "script.module.cloudrequest",
+      "name": "Cloudrequest",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+    },
+    {
+      "id": "script.module.cloudscraper",
+      "name": "Cloudscraper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "script.module.cocoscrapers",
+      "name": "Cocoscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/not-coco-joe/repository.cocoscrapers/master/zips"
+    },
+    {
+      "id": "script.module.cryptolib",
+      "name": "Cryptolib",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://mullafabz.xyz/Plugins"
+    },
+    {
+      "id": "script.module.freetv2",
+      "name": "Freetv2",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.module.futures",
+      "name": "Futures",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "script.module.gearsscrapers",
+      "name": "Gearsscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.module.homelanderscrapers",
+      "name": "Homelanderscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.module.idna",
+      "name": "Idna",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "script.module.infotagger",
+      "name": "Infotagger",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "script.module.inputstreamhelper",
+      "name": "Inputstreamhelper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy.inputstreamhelper"
+    },
+    {
+      "id": "script.module.jetextractors",
+      "name": "Jetextractors",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.js2py",
+      "name": "Js2Py",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.jsbeautifier",
+      "name": "Jsbeautifier",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/jsergio123/zips/master"
+    },
+    {
+      "id": "script.module.jurialmunkey",
+      "name": "Jurialmunkey",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "script.module.kodi-six",
+      "name": "Kodi-Six",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "script.module.libtorrent",
+      "name": "Libtorrent",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips"
+    },
+    {
+      "id": "script.module.liveresolver",
+      "name": "Liveresolver",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.magneto",
+      "name": "Magneto",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://kodiyashimaru.github.io/repo/packages"
+    },
+    {
+      "id": "script.module.metahandler",
+      "name": "Metahandler",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
+    },
+    {
+      "id": "script.module.microjenscrapers",
+      "name": "Microjenscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.moriascrapers",
+      "name": "Moriascrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "script.module.myconnpy",
+      "name": "Myconnpy",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://klass-723.github.io/packages"
+    },
+    {
+      "id": "script.module.nightwingscrapers",
+      "name": "Nightwingscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.openscrapers",
+      "name": "Openscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips"
+    },
+    {
+      "id": "script.module.pyairtable",
+      "name": "Pyairtable",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.pyamf",
+      "name": "Pyamf",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.pyjsparser",
+      "name": "Pyjsparser",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.pymongo",
+      "name": "Pymongo",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://romanvm.github.io/kodi_repo/repo"
+    },
+    {
+      "id": "script.module.python.koding.aio",
+      "name": "Aio",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "script.module.python.koding.aio.alt",
+      "name": "Alt",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips"
+    },
+    {
+      "id": "script.module.requests",
+      "name": "Requests",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.resolveurl",
+      "name": "Resolveurl",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+    },
+    {
+      "id": "script.module.resolveurl.xxx",
+      "name": "Xxx",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+    },
+    {
+      "id": "script.module.simpleplugin",
+      "name": "Simpleplugin",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://romanvm.github.io/kodi_repo/repo"
+    },
+    {
+      "id": "script.module.simpleplugin3",
+      "name": "Simpleplugin3",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://romanvm.github.io/kodi_repo/repo"
+    },
+    {
+      "id": "script.module.six",
+      "name": "Six",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.module.slproxy",
+      "name": "Slproxy",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://mullafabz.xyz/Plugins"
+    },
+    {
+      "id": "script.module.slyguy",
+      "name": "Slyguy",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "script.module.streamlink.base",
+      "name": "Base",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://mullafabz.xyz/Plugins"
+    },
+    {
+      "id": "script.module.t0mm0.common",
+      "name": "Common",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "script.module.tabulate",
+      "name": "Tabulate",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.thecrew",
+      "name": "Thecrew",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "script.module.tulip",
+      "name": "Tulip",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
+    },
+    {
+      "id": "script.module.universaldebrid",
+      "name": "Universaldebrid",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.module.universalscrapers",
+      "name": "Universalscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
+    },
+    {
+      "id": "script.module.unshortenit",
+      "name": "Unshortenit",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "script.module.urlresolver",
+      "name": "Urlresolver",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips"
+    },
+    {
+      "id": "script.module.viperscrapers",
+      "name": "Viperscrapers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "script.moria.artwork",
+      "name": "Artwork",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "script.mrknow.urlresolver",
+      "name": "Urlresolver",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
+    },
+    {
+      "id": "script.punchplay",
+      "name": "Punchplay",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.service.livescore_alerts",
+      "name": "Livescore_Alerts",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://magnetic.website/__zips"
+    },
+    {
+      "id": "script.service.playtime",
+      "name": "Playtime",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://romanvm.github.io/kodi_repo/repo"
+    },
+    {
+      "id": "script.service.sponsorblock",
+      "name": "Sponsorblock",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "script.simkl",
+      "name": "Simkl",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.skinswitcher",
+      "name": "Skinswitcher",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "script.skinvariables",
+      "name": "Skinvariables",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "script.texturemaker",
+      "name": "Texturemaker",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "script.thecrew.artwork",
+      "name": "Artwork",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
+    },
+    {
+      "id": "script.tvmaze.scrobbler",
+      "name": "Scrobbler",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.umbrestuary.helper",
+      "name": "Helper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/nexus/zips"
+    },
+    {
+      "id": "script.wetrakr",
+      "name": "Wetrakr",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.wikipedia",
+      "name": "Wikipedia",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "service.mdblist-scrobbler",
+      "name": "Mdblist-Scrobbler",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "service.recently.added.refresh",
+      "name": "Refresh",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "service.subtitles.addic7ed",
+      "name": "Addic7Ed",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://romanvm.github.io/kodi_repo/repo"
+    },
+    {
+      "id": "service.subtitles.greeksubs",
+      "name": "Greeksubs",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+    },
+    {
+      "id": "service.time.monitor",
+      "name": "Monitor",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "skin.aeon.nox.barroni",
+      "name": "Barroni",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.aeon.terror",
+      "name": "Terror",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.aeon.terror.k21",
+      "name": "K21",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.aeon.viper",
+      "name": "Viper",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.arctic.fuse",
+      "name": "Fuse",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "skin.arctic.horizon.2",
+      "name": "2",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
+    },
+    {
+      "id": "skin.blackglassnova",
+      "name": "Blackglassnova",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.blackglassnova.21",
+      "name": "21",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.extuary",
+      "name": "Extuary",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.fentastic",
+      "name": "Fentastic",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
+    },
+    {
+      "id": "skin.pm3-hd.extended",
+      "name": "Extended",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.real.steel",
+      "name": "Steel",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.real.steel.k21",
+      "name": "K21",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.real.steel.viper.glowbar.edition",
+      "name": "Edition",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.silvo.lite",
+      "name": "Lite",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.simpletouchreloaded",
+      "name": "Simpletouchreloaded",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.terror.lite",
+      "name": "Lite",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.terror.lite.k21",
+      "name": "K21",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.umbrestuary",
+      "name": "Umbrestuary",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/omega/zips"
+    },
+    {
+      "id": "skin.xonfluence",
+      "name": "Xonfluence",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.xonfluence4widgets",
+      "name": "Xonfluence4Widgets",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "skin.you.nique",
+      "name": "Nique",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "http://funstersplace.net/19repo"
+    },
+    {
+      "id": "slyguy.10play",
+      "name": "10Play",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.7plus",
+      "name": "7Plus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.9now",
+      "name": "9Now",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.bein.connect",
+      "name": "Connect",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.curiositystream",
+      "name": "Curiositystream",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.dependencies",
+      "name": "Dependencies",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.discovery.plus",
+      "name": "Plus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.disney.plus",
+      "name": "Plus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.espn",
+      "name": "Espn",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.fox.sports",
+      "name": "Sports",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.hgtv.go",
+      "name": "Go",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.hulu",
+      "name": "Hulu",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.max",
+      "name": "Max",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.nebula",
+      "name": "Nebula",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.neon",
+      "name": "Neon",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.paramount.plus",
+      "name": "Plus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.pbs.live",
+      "name": "Live",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.plex.live",
+      "name": "Live",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.pluto.tv.provider",
+      "name": "Provider",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.roku",
+      "name": "Roku",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.rugbypass.tv",
+      "name": "Tv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.samsung.tv.plus",
+      "name": "Plus",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.sbs.ondemand",
+      "name": "Ondemand",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.shine.tv",
+      "name": "Tv",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.singtel.tv.go",
+      "name": "Go",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.skygo.nz",
+      "name": "Nz",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.stirr.provider",
+      "name": "Provider",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.stremium",
+      "name": "Stremium",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "slyguy.trailers",
+      "name": "Trailers",
+      "category": "tools",
+      "why": "TODO: one sentence on why this earned a slot.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
     }
   ],
   "official": [
