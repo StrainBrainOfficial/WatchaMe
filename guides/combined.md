@@ -81,6 +81,8 @@ gh auth login
 gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
 ```
 
+> If that reports `remote origin already exists`, the repository directory is already pointed somewhere. Check with `git remote -v`, then either use that target or repoint it with `git remote set-url origin URL`.
+
 **2.3 Push.**
 
 ```
@@ -95,7 +97,7 @@ gh run watch
 
 **Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 1.4 and 1.5.
 
-**2.5 Verify what Kodi will see.** Three URLs must respond correctly.
+**2.5 Verify what Kodi will see.** Three URLs must respond correctly. Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
 
 ```
 BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
@@ -363,7 +365,19 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 
 One continuous procedure, steps 1 to 34, taking a Fire TV Stick from factory state to a finished, self-updating Kodi box. Target hardware: **Fire TV Stick 4K (2018, model E9L29Y)** — 1.5 GB RAM, 8 GB storage, Android 7.1+, Kodi 21.1. Notes for the 1 GB gen 1/2 sticks appear where they differ.
 
-Allow about 30 minutes. Lines marked **Check** tell you what success looks like.
+Lines marked **Check** tell you what success looks like. Roughly 30 minutes end to end:
+
+| Stage | Steps | Time |
+|---|---|---|
+| A Prepare the stick | 1–5 | 3 min |
+| B Install Kodi | 6–8 | 5 min |
+| C Surfshark | 9–13 | 5 min |
+| D Repository | 14–20 | 5 min |
+| E Add-ons | 21–23 | 5 min |
+| F Configure | 24–30 | 5 min |
+| G Verify | 31–34 | 3 min |
+
+Doing Stage A step 3 (ADB) costs a minute and saves more than that later — steps 17, 32 and 33 all use it.
 
 **Before you start, have these ready:**
 
@@ -394,17 +408,21 @@ adb connect STICK-IP:5555
 
 # Stage B — Install Kodi (steps 6–8)
 
-**6.** Install Kodi, by either route:
+**6.** Install Kodi. Pick one route.
 
-*Downloader app:* open Downloader on the stick, enter the Kodi download URL for the **armeabi-v7a** build, install when it downloads.
+*Route A — Downloader app on the stick.* Open Downloader, type this exact URL, press Go, then Install when it finishes:
 
-*ADB from your computer:*
+```
+mirrors.kodi.tv/releases/android/arm/kodi-21.1-Omega-armeabi-v7a.apk
+```
+
+*Route B — ADB from your computer.* Download the same file, then:
 
 ```
 adb install -r kodi-21.1-Omega-armeabi-v7a.apk
 ```
 
-> Use **armeabi-v7a**, not arm64-v8a. The stick is 32-bit ARM; the wrong APK simply fails to install.
+> **Two things to get right.** Use **armeabi-v7a**, never arm64-v8a — the stick is 32-bit ARM and the wrong file simply fails to install. And if Kodi is already on the stick, install the **same version it already runs**, or its profile may not survive the change. Newer builds live in the same directory (`21.3` is current at time of writing); browse `mirrors.kodi.tv/releases/android/arm/` to pick one.
 
 **7.** Launch Kodi once, let it reach the home screen, then quit it. This creates the profile directory.
 
@@ -422,7 +440,7 @@ Do this **before** any sign-in inside Kodi. Sign-ins bind to the address that co
 
 **12.** *(Optional)* Set **Bypasser** if you want specific apps outside the tunnel.
 
-**13.** Verify the tunnel at OS level — the app's own UI is not proof:
+**13.** Verify the tunnel at OS level — the app's own UI is not proof. *(Needs ADB from step 5.)*
 
 ```
 adb shell ip addr show tun0
@@ -444,11 +462,17 @@ adb shell ip addr show tun0
 
 **16.** Settings → File manager → **Add source** → `<None>`.
 
-**17.** Type the install URL from Book One, step 2.6:
+**17.** Enter the install URL from Book One, step 2.6:
 
 ```
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 ```
+
+> **Do not type this on the remote.** It is the slowest minute of the whole procedure and a single wrong character fails silently at step 19. With ADB connected (step 5), tap the text field once so the cursor is in it, then type it from your computer:
+>
+> `adb shell input text "https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs"`
+>
+> The text appears in the field. Check it on screen before pressing OK.
 
 **18.** Name it `kodikit` → OK.
 
@@ -510,7 +534,7 @@ Leave ticked: InputStream Adaptive and FFmpeg Direct, a4kSubtitles, Black Bars N
 
 **31.** Reboot the stick, then leave Kodi sitting on the home screen for a minute.
 
-**32.** Check memory and disk from your computer:
+**32.** Check memory and disk from your computer. *(Needs ADB from step 5. Without it, use Toolbox → **Storage report** for the disk figure; there is no on-device view of memory.)*
 
 ```
 adb shell dumpsys meminfo org.xbmc.kodi | grep 'TOTAL PSS'
@@ -535,7 +559,7 @@ adb shell "grep addonupdates \
 
 **Check:** the value is `0`. If it is `1` or `2`, redo step 15.
 
-**34.** Play something for a minute. Press `Ctrl`+`Shift`+`O` (or hold Select on the remote → the codec overlay) and confirm no dropped frames.
+**34.** Play something for a minute and confirm it is smooth — no stutter, no audio drifting out of sync. With a USB or Bluetooth keyboard attached, `Ctrl`+`Shift`+`O` overlays the codec panel with a dropped-frame counter, which is the precise version of the same check.
 
 **Done.** The stick now updates itself. Every add-on tracks its own upstream through the repository, with no further action.
 

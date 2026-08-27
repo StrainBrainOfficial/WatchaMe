@@ -69,6 +69,8 @@ gh auth login
 gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
 ```
 
+> If that reports `remote origin already exists`, the repository directory is already pointed somewhere. Check with `git remote -v`, then either use that target or repoint it with `git remote set-url origin URL`.
+
 **2.3 Push.**
 
 ```
@@ -83,7 +85,7 @@ gh run watch
 
 **Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 1.4 and 1.5.
 
-**2.5 Verify what Kodi will see.** Three URLs must respond correctly.
+**2.5 Verify what Kodi will see.** Three URLs must respond correctly. Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
 
 ```
 BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
