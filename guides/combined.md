@@ -245,16 +245,18 @@ It reads your wishlist, checks every id against Kodi's official Omega and Piers 
 ```
   --  service.subtitles.a4ksubtitles    already in addons.json
   ok  script.trakt                      official  (installed by id)
-  ok  plugin.video.example              mirror    (from owner/repo)
-  !!  script.something                  NOT in the official repo, and no owner/repo given
+  ok  plugin.video.example              mirror    (github owner/repo)
+  ok  script.fromvendor                 mirror    (kodi repo)
+  ok  script.pinned                     mirror    (fixed zip)
+  !!  script.something                  NOT in the official repo, and no source given
 ```
 
 | Marker | Meaning | Do |
 |---|---|---|
 | `--` | Already carried | Nothing |
 | `ok … official` | Kodi ships it; it will be installed by id and stay on its maintainer's update channel | Nothing |
-| `ok … mirror` | Not in Kodi's repo; it will be packaged into yours from GitHub | Nothing |
-| `!!` | Not in Kodi's repo, and you gave no GitHub slug | Step 3.3 |
+| `ok … mirror` | Not in Kodi's repo; it will be packaged into yours from the source you gave — the bracket says which | Nothing |
+| `!!` | Not in Kodi's repo, and you gave no source | Step 3.3 |
 
 **3.3 Resolve anything marked `!!`.** The add-on has to come from somewhere. Add one of the three source forms to that line:
 

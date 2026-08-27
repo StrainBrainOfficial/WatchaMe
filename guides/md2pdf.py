@@ -184,10 +184,22 @@ def render(md, out, title, subtitle, footer_text):
             i += 1
             story.append(Spacer(1,3)); story.append(code_block(buf)); story.append(Spacer(1,8))
             continue
-        if st.startswith('> '):
+        if st.startswith('> ') or st == '>':
+            # A bare '>' is a blank line inside the callout, not the end of it.
+            # Treating it as a terminator split every multi-paragraph note and
+            # left a stray '>' rendered as body text underneath.
             buf = []
-            while i < len(lines) and lines[i].strip().startswith('> '):
-                buf.append(lines[i].strip()[2:]); i += 1
+            while i < len(lines):
+                cur = lines[i].strip()
+                if cur.startswith('> '):
+                    buf.append(cur[2:])
+                elif cur == '>':
+                    buf.append('')
+                else:
+                    break
+                i += 1
+            while buf and not buf[-1]:
+                buf.pop()
             story.append(Spacer(1,3)); story.append(note_block(buf)); story.append(Spacer(1,8))
             continue
         if st.startswith('|') and i+1 < len(lines) and re.match(r'^\|[\s:\-\|]+\|$', lines[i+1].strip()):
