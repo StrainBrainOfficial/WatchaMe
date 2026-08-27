@@ -204,6 +204,10 @@ gh run watch
 
 **Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 2.3 and 2.4.
 
+> **No run appears at all?** That is normal on the very first push. The workflow filters on changed paths, and GitHub often skips that filter when a branch is created rather than updated. Start one by hand and carry on:
+>
+> `gh workflow run sync.yml && gh run watch`
+
 **3.4 Verify what Kodi will see.** Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
 
 ```
@@ -220,6 +224,14 @@ curl -sI  $BASE/repository.watchame.zip | head -1    # expect: HTTP/2 200
 Open the repository on github.com → **Settings** → **Actions** → **General** → scroll to **Workflow permissions** → select **Read and write permissions** → Save.
 
 **Check:** the **Sync repository** workflow appears under the Actions tab, and the run from 3.3 shows a commit step that succeeded. A `403` or `permission denied` on the push step means this setting is still read-only.
+
+> **A green run does not prove this is right.** If nothing changed upstream, the job has nothing to commit and never exercises the permission — it goes green either way, and you find out weeks later when the first real update fails. Check the setting directly instead:
+>
+> `gh api repos/OWNER/REPO/actions/permissions/workflow --jq .default_workflow_permissions`
+>
+> It must print `write`. To set it without leaving the terminal:
+>
+> `gh api -X PUT repos/OWNER/REPO/actions/permissions/workflow -f default_workflow_permissions=write`
 
 **3.6 Write down the install URL.** This is what you type into Kodi in Book Two, step 17:
 
