@@ -143,8 +143,8 @@ cd ~/Dev/kodi-repo
 
 | Field | Set it to |
 |---|---|
-| `github_user` | Your GitHub username or org, exactly as it appears in URLs |
-| `github_repo` | The repository name you will push to |
+| `github_user` | Your GitHub username or org, exactly as it appears in URLs — the **Owner** field on GitHub's create page |
+| `github_repo` | The repository name, matching the **Repository name** field exactly, capitals included |
 | `repo_name` | The display name shown in Kodi. Anything readable. |
 | `provider` | Your name, shown as the author |
 
@@ -183,6 +183,8 @@ Do this once. After it, everything is automatic.
 ```
 gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
 ```
+
+`YOURNAME` is the owner and `YOURREPO` the repository name — the same two values as `github_user` and `github_repo` in 2.2. This command adds no README, .gitignore or license, which is what you want: any of them would create an initial commit and make the first push a merge.
 
 > If that reports `remote origin already exists`, the directory is already pointed somewhere. Check with `git remote -v`, then either use that target or repoint it: `git remote set-url origin URL`.
 
@@ -505,7 +507,20 @@ This is the one step where the browser is clumsy — 49 files, 27 MB. Two ways:
 
 **Route B — no terminal at all.**
 
-1. Go to **github.com/new**. Name the repository, choose **Public**, do not add a README or .gitignore, click **Create repository**.
+1. Go to **github.com/new**. The *Create a new repository* page has two sections; set every field as below, then click **Create repository**.
+
+| Section | Field | Set it to | Why |
+|---|---|---|---|
+| 1 General | **Owner** | Your account or org, e.g. `StrainBrainOfficial` | This becomes `github_user` in `repo.config.json` and appears in every URL your devices fetch |
+| 1 General | **Repository name** | Whatever you like, e.g. `WatchaMe` | Must match `github_repo` in `repo.config.json` **exactly**, including capitals |
+| 1 General | **Description** | Optional, anything | Cosmetic; shown on the repo page only |
+| 2 Configuration | **Choose visibility** | **Public** | Kodi fetches over plain HTTPS and cannot authenticate. A private repo is unreachable by your devices. |
+| 2 Configuration | **Add README** | **Off** | |
+| 2 Configuration | **Add .gitignore** | **No .gitignore** | |
+| 2 Configuration | **Add license** | **No license** | |
+
+> **Why all three must be off.** Any one of them creates an initial commit, so the repository is no longer empty. The **uploading an existing file** shortcut in step 2 disappears, and a later `git push` is rejected until you merge or force. Leave them off and the repository starts clean.
+
 2. On the empty repository page, click **uploading an existing file**.
 3. Drag the whole project folder onto the page. Wait for all 49 files to list.
 4. Type a commit message and click **Commit changes**.
