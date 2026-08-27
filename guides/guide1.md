@@ -2,6 +2,18 @@ Every section here is a numbered procedure. Run the steps in order; each one is 
 
 Start at Part 1 if you have never set up GitHub on this machine. If `gh auth status` already reports you as logged in, skip to Part 2. **Prefer not to use a terminal at all?** Appendix D is the same work done entirely in a web browser.
 
+**First time through, read Parts 1 to 4 in order and stop there:**
+
+```
+1  GitHub setup      account, tools, sign in
+2  Configure         name the repository
+3  Choose add-ons    decide what it carries      <- do this BEFORE publishing
+4  Publish           push it live, verify the URLs
+   then Book Two     install on the device       <- last, and only once the above is done
+```
+
+Parts 5 to 9 are for afterwards: removing an add-on, changing the Toolbox, moving the repository, and checking its health. You do not need them on a first run.
+
 Background and troubleshooting live in the appendices, so the procedures stay short.
 
 # Part 1 — GitHub setup
@@ -142,103 +154,13 @@ python3 scripts/check_deps.py
 ```
 git add -A && git commit -m "Configure repository identity"
 ```
-
-# Part 3 — Publish to GitHub
-
-**Where:** terminal, except 3.5 which is a browser setting.
-
-Do this once. After it, everything is automatic.
-
-**3.1 Point the local repository at GitHub.** It must be public — Kodi cannot authenticate. Which route depends on whether the repository exists yet.
-
-**Route A — it does not exist yet.** One command creates it and wires up the remote:
-
-```
-gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
-```
-
-`YOURNAME` is the owner and `YOURREPO` the repository name — the same two values as `github_user` and `github_repo` in 2.2. It adds no README, .gitignore or license, which is what you want: any of them creates an initial commit and turns your first push into a merge.
-
-**Route B — you already created it in the browser** (Appendix D.1, or github.com/new). Do not run the command above; it will fail. Just add the remote:
-
-```
-git remote add origin https://github.com/YOURNAME/YOURREPO.git
-```
-
-**Check either route:**
-
-```
-git remote -v
-```
-
-Both lines must show your repository's URL.
-
-> **`GraphQL: Name already exists on this account (createRepository)`** means the repository is already there — you are on Route B. Nothing is broken and nothing was changed; add the remote and carry on to 3.2.
->
-> **`remote origin already exists`** means the remote is set already. Confirm it points where you expect with `git remote -v`, or repoint it: `git remote set-url origin URL`.
-
-**3.2 Push.**
-
-```
-git push -u origin main
-```
-
-**Check:** no authentication prompt. If you get one, redo 1.4.
-
-**3.3 Wait for the build.**
-
-```
-gh run watch
-```
-
-**Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 2.3 and 2.4.
-
-> **No run appears at all?** That is normal on the very first push. The workflow filters on changed paths, and GitHub often skips that filter when a branch is created rather than updated. Start one by hand and carry on:
->
-> `gh workflow run sync.yml && gh run watch`
-
-**3.4 Verify what Kodi will see.** Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
-
-```
-BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
-curl -sI  $BASE/addons.xml     | head -1            # expect: HTTP/2 200
-curl -s   $BASE/addons.xml.md5                      # expect: 32 hex characters, nothing else
-curl -sI  $BASE/repository.watchame.zip | head -1    # expect: HTTP/2 200
-```
-
-**Check:** all three as described. A 404 on the first two means 2.2 does not match where you actually pushed.
-
-**3.5 Confirm Actions can write back.** *(Browser.)* The sync job commits the regenerated `docs/` to your repository, so it needs write permission. On a repo you own, Actions are enabled automatically — the "enable workflows" prompt only appears on forks — but the write permission is a separate setting that will fail the job if it is wrong.
-
-Open the repository on github.com → **Settings** → **Actions** → **General** → scroll to **Workflow permissions** → select **Read and write permissions** → Save.
-
-**Check:** the **Sync repository** workflow appears under the Actions tab, and the run from 3.3 shows a commit step that succeeded. A `403` or `permission denied` on the push step means this setting is still read-only.
-
-> **A green run does not prove this is right.** If nothing changed upstream, the job has nothing to commit and never exercises the permission — it goes green either way, and you find out weeks later when the first real update fails. Check the setting directly instead:
->
-> `gh api repos/OWNER/REPO/actions/permissions/workflow --jq .default_workflow_permissions`
->
-> It must print `write`. To set it without leaving the terminal:
->
-> `gh api -X PUT repos/OWNER/REPO/actions/permissions/workflow -f default_workflow_permissions=write`
-
-**3.6 Write down the install URL.** This is what you type into Kodi in Book Two, step 17:
-
-```
-https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
-```
-
-> **No `gh`?** Create the repository at **github.com/new** — public, no README, no .gitignore — then: `git remote add origin https://github.com/YOURNAME/YOURREPO.git && git push -u origin main`. When git asks for a password, paste a personal access token; GitHub stopped accepting account passwords for this in 2021.
-
-\pagebreak
-
-# Part 4 — Add an add-on
+# Part 3 — Choose your add-ons
 
 **Where:** terminal and a text editor. No browser.
 
-The repeatable procedure. Six steps.
+Do this before you publish, and again any time you want to change what the repository carries. Six steps.
 
-**4.1 Find the add-on's ID.** Not its display name. Any one of:
+**3.1 Find the add-on's ID.** Not its display name. Any one of:
 
 | Source | Where to look |
 |---|---|
@@ -246,7 +168,7 @@ The repeatable procedure. Six steps.
 | An installed copy | The folder name under `~/.kodi/addons/`, e.g. `script.trakt/` |
 | Kodi | Add-ons → the add-on → Information |
 
-**4.2 Decide which section it goes in.** Run this, with your IDs in the `probe` list:
+**3.2 Decide which section it goes in.** Run this, with your IDs in the `probe` list:
 
 ```
 python3 - <<'EOF'
@@ -266,7 +188,7 @@ EOF
 | `NOT in official` | `mirror` | Packaged into your repo from its GitHub source |
 | Installs only from a vendor's own repo | `external` | Documented, never auto-installed — see Appendix A |
 
-**4.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
+**3.3 Add the entry to `addons.json`.** Copy the matching block from **`addons.template.json`** in the repository root — it holds all three shapes ready to paste, so you do not have to retype them from this page. The same shapes are reproduced below for reference.
 
 For `mirror`:
 
@@ -317,25 +239,114 @@ Field reference:
 | `ref` | mirror | Pin a branch, e.g. `"ref": "matrix"` |
 | `optional` | mirror, official | `true` leaves it **unticked** in the picker |
 
-**4.4 Bump the Toolbox version.** Open `src/script.watchame.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
+**3.4 Bump the Toolbox version.** Open `src/script.watchame.toolbox/addon.xml` and increase the patch number, e.g. `1.2.1` → `1.2.2`.
 
 > **Do not skip this.** The curated list ships *inside* the Toolbox. Change the list without changing the version and the published index stays byte-identical, so no device ever fetches your new list — while the build looks completely successful. `build_repo.py` refuses to finish in that state and names the stale add-on.
 
-**4.5 Build and check.**
+**3.5 Build and check.**
 
 ```
 python3 scripts/build_repo.py && python3 scripts/check_deps.py
 ```
 
-**Check:** exit code 0, and `all dependencies resolve`. If the build stops with `content changed without a version bump`, you missed 4.4.
+**Check:** exit code 0, and `all dependencies resolve`. If the build stops with `content changed without a version bump`, you missed 3.4.
 
-**4.6 Push.**
+**3.6 Push.**
 
 ```
 git add -A && git commit -m "Add <addon-id>" && git push
 ```
 
-**Check:** run the verification in Part 9.
+**Check:** run the verification in Part 9. On a first run you have not published yet — carry straight on to Part 4.
+
+\pagebreak
+
+# Part 4 — Publish to GitHub
+
+**Where:** terminal, except 3.5 which is a browser setting.
+
+Do this once. After it, everything is automatic.
+
+**4.1 Point the local repository at GitHub.** It must be public — Kodi cannot authenticate. Which route depends on whether the repository exists yet.
+
+**Route A — it does not exist yet.** One command creates it and wires up the remote:
+
+```
+gh repo create YOURNAME/YOURREPO --public --source=. --remote=origin
+```
+
+`YOURNAME` is the owner and `YOURREPO` the repository name — the same two values as `github_user` and `github_repo` in 2.2. It adds no README, .gitignore or license, which is what you want: any of them creates an initial commit and turns your first push into a merge.
+
+**Route B — you already created it in the browser** (Appendix D.1, or github.com/new). Do not run the command above; it will fail. Just add the remote:
+
+```
+git remote add origin https://github.com/YOURNAME/YOURREPO.git
+```
+
+**Check either route:**
+
+```
+git remote -v
+```
+
+Both lines must show your repository's URL.
+
+> **`GraphQL: Name already exists on this account (createRepository)`** means the repository is already there — you are on Route B. Nothing is broken and nothing was changed; add the remote and carry on to 3.2.
+>
+> **`remote origin already exists`** means the remote is set already. Confirm it points where you expect with `git remote -v`, or repoint it: `git remote set-url origin URL`.
+
+**4.2 Push.**
+
+```
+git push -u origin main
+```
+
+**Check:** no authentication prompt. If you get one, redo 1.4.
+
+**4.3 Wait for the build.**
+
+```
+gh run watch
+```
+
+**Check:** the run completes green. If it fails, read the log — it is running the same two commands you ran in 2.3 and 2.4.
+
+> **No run appears at all?** That is normal on the very first push. The workflow filters on changed paths, and GitHub often skips that filter when a branch is created rather than updated. Start one by hand and carry on:
+>
+> `gh workflow run sync.yml && gh run watch`
+
+**4.4 Verify what Kodi will see.** Replace `YOURNAME` and `YOURREPO` in the first line, then paste the whole block.
+
+```
+BASE=https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
+curl -sI  $BASE/addons.xml     | head -1            # expect: HTTP/2 200
+curl -s   $BASE/addons.xml.md5                      # expect: 32 hex characters, nothing else
+curl -sI  $BASE/repository.watchame.zip | head -1    # expect: HTTP/2 200
+```
+
+**Check:** all three as described. A 404 on the first two means 2.2 does not match where you actually pushed.
+
+**4.5 Confirm Actions can write back.** *(Browser.)* The sync job commits the regenerated `docs/` to your repository, so it needs write permission. On a repo you own, Actions are enabled automatically — the "enable workflows" prompt only appears on forks — but the write permission is a separate setting that will fail the job if it is wrong.
+
+Open the repository on github.com → **Settings** → **Actions** → **General** → scroll to **Workflow permissions** → select **Read and write permissions** → Save.
+
+**Check:** the **Sync repository** workflow appears under the Actions tab, and the run from 3.3 shows a commit step that succeeded. A `403` or `permission denied` on the push step means this setting is still read-only.
+
+> **A green run does not prove this is right.** If nothing changed upstream, the job has nothing to commit and never exercises the permission — it goes green either way, and you find out weeks later when the first real update fails. Check the setting directly instead:
+>
+> `gh api repos/OWNER/REPO/actions/permissions/workflow --jq .default_workflow_permissions`
+>
+> It must print `write`. To set it without leaving the terminal:
+>
+> `gh api -X PUT repos/OWNER/REPO/actions/permissions/workflow -f default_workflow_permissions=write`
+
+**4.6 Write down the install URL.** This is what you type into Kodi in Book Two, step 17:
+
+```
+https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
+```
+
+> **No `gh`?** Create the repository at **github.com/new** — public, no README, no .gitignore — then: `git remote add origin https://github.com/YOURNAME/YOURREPO.git && git push -u origin main`. When git asks for a password, paste a personal access token; GitHub stopped accepting account passwords for this in 2021.
 
 \pagebreak
 
@@ -442,7 +453,7 @@ m=json.loads(zipfile.ZipFile(z).read('script.watchame.toolbox/resources/addons.j
 print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 ```
 
-**9.5 The live URLs still respond.** Re-run 3.4.
+**9.5 The live URLs still respond.** Re-run 4.4.
 
 **9.6 On a device:** Toolbox → Install curated add-ons. New entries appear in the picker, unticked if you marked them `optional`.
 
@@ -479,17 +490,17 @@ print(sorted(e['id'] for s in ('mirror','official') for e in m[s]))"
 |---|---|---|
 | `gh auth login` opens no browser | Headless machine | Use the token method in the 1.4 note |
 | `git push` asks for a password | Not authenticated, or using a password | Redo 1.4, or paste a personal access token |
-| `Name already exists on this account` | The repository was already created, probably in the browser | Skip to 3.1 Route B |
-| `destination path already exists and is not an empty directory` | Cloning on top of the local repository you already have | Do not clone. Use 3.1 Route B to attach it to GitHub. |
+| `Name already exists on this account` | The repository was already created, probably in the browser | Skip to 4.1 Route B |
+| `destination path already exists and is not an empty directory` | Cloning on top of the local repository you already have | Do not clone. Use 4.1 Route B to attach it to GitHub. |
 | Commits show the wrong author | `user.email` not your GitHub address | Redo 1.3 |
 | Build stops: `content changed without a version bump` | The working case, caught | Bump the version in `src/<addon>/addon.xml`, rebuild |
 | `check_deps` reports an unresolvable import | A dependency nobody publishes | Move the add-on to `external` and document the vendor repo |
 | Mirror sync: `no published release, falling back to branch head` | Upstream publishes no releases | Normal. Set `"track": "branch"` to make it explicit. |
 | Mirror sync: add-on not found in the tarball | `id` does not match upstream's `addon.xml` | Correct the `id` |
 | Mirror sync fails after an upstream rename | Default branch changed | Set `"ref"` explicitly |
-| Actions run but the commit step fails `403` | Workflow permissions set to read-only | Do 3.5 |
+| Actions run but the commit step fails `403` | Workflow permissions set to read-only | Do 4.5 |
 | Actions never run at all | Workflows disabled (usual on a fork) | Actions tab → enable them |
-| Kodi: "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | Re-run 3.4; confirm the repo is public |
+| Kodi: "Could not connect to repository" | `github_user`/`github_repo` wrong, or repo private | Re-run 4.4; confirm the repo is public |
 | Kodi: repository installs but lists nothing | Index empty, or checksum stale | Re-run 2.3; never hand-edit `docs/` |
 | Kodi: "Failed to install add-on" | Zip name does not match `id-version.zip` | Re-run 2.3; the builder names them |
 | Kodi: "Dependency not met" | Unresolvable `<import>` | Run 2.4 |
@@ -535,7 +546,7 @@ Nothing in the repository exceeds GitHub's 25 MB web-upload limit.
 
 **Settings** → **Actions** → **General** → scroll to **Workflow permissions** → **Read and write permissions** → **Save**.
 
-Without this the build runs and then fails at the final commit with a `403`. It is the same as step 3.5.
+Without this the build runs and then fails at the final commit with a `403`. It is the same as step 4.5.
 
 ## D.3 Set your identity
 
@@ -572,7 +583,7 @@ The third URL is also the one you enter in Book Two, step 17 — minus the filen
 
 ## D.6 Add or remove an add-on
 
-1. Click **`addons.template.json`** and copy the block you need (Part 4 explains which).
+1. Click **`addons.template.json`** and copy the block you need (Part 3 explains which).
 2. Click **`addons.json`** → **pencil** → paste your entry into the matching section → **Commit changes**.
 
 ## D.7 Bump the Toolbox version — the step that matters
@@ -586,7 +597,7 @@ Do D.6 and D.7 as two commits or one, but never D.6 alone: the curated list ship
 
 ## D.8 Deciding `official` versus `mirror` without a terminal
 
-Part 4.2 uses a command to query Kodi's official index. In the browser, check on the device instead:
+Part 3.2 uses a command to query Kodi's official index. In the browser, check on the device instead:
 
 **Add-ons → Install from repository → Kodi Add-on repository →** browse the category and look for the add-on by name.
 

@@ -14,9 +14,11 @@ Lines marked **Check** tell you what success looks like. Roughly 30 minutes end 
 
 Doing Stage A step 3 (ADB) costs a minute and saves more than that later — steps 17, 32 and 33 all use it.
 
+> **Do Book One first, all four parts.** This book installs whatever your repository currently carries, so the add-on list has to be settled before you touch the stick — that is Book One, Part 3. Coming here early means provisioning the device twice.
+
 **Before you start, have these ready:**
 
-- The install URL from Book One, step 3.6
+- The install URL from Book One, step 4.6
 - Your Surfshark login
 - The Kodi `armeabi-v7a` APK for your version, or the Downloader app
 - Optional but recommended: ADB on your computer, for the verification steps
@@ -115,7 +117,7 @@ adb shell ip addr show tun0
 
 **16.** Settings → File manager → **Add source** → `<None>`.
 
-**17.** Enter the install URL from Book One, step 3.6:
+**17.** Enter the install URL from Book One, step 4.6:
 
 ```
 https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
@@ -137,7 +139,7 @@ https://raw.githubusercontent.com/YOURNAME/YOURREPO/main/docs
 
 **Check:** the Toolbox appears under Add-ons → Program add-ons.
 
-> If step 19 fails, the URL in step 17 is wrong. Re-run Book One step 3.4 from your computer.
+> If step 19 fails, the URL in step 17 is wrong. Re-run Book One step 4.4 from your computer.
 
 # Stage E — Install the add-ons (steps 21–23)
 
@@ -240,7 +242,7 @@ Artwork re-downloads as you browse after a cache clean. That is expected; the fi
 | `adb: no devices/emulators found` | Not paired yet — do steps 3, 4 and 5 before any other adb command |
 | `adb` device shows `unauthorized` | The *Allow USB debugging* dialog on the TV was not accepted |
 | Kodi APK will not install | Wrong architecture — use `armeabi-v7a` |
-| Step 19 fails | URL in step 17 is wrong; re-run Book One step 3.4 |
+| Step 19 fails | URL in step 17 is wrong; re-run Book One step 4.4 |
 | Repository installs but lists nothing | Book One, Appendix C |
 | Subtitles never appear | Step 25 not done |
 | Buffering on 1080p or 4K | Redo step 24 and pick **Fire TV Stick** |

@@ -12,13 +12,13 @@ Fill these in once, in Book One, Part 1.
 | Repository name | 2.2 `github_repo` | |
 | Repository display name | 2.2 `repo_name` | |
 | Provider / author name | 2.2 `provider` | |
-| **Install URL** | 3.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
+| **Install URL** | 4.6, and Book Two step 17 | `https://raw.githubusercontent.com/______/______/main/docs` |
 | Fire TV Stick IP address | Book Two steps 4, 5 | |
 | Kodi version on the stick | Book Two step 6 | |
 
 ## 2. Add-ons you want
 
-One row per add-on. Fill the first two columns, run the probe in step 4.2, then complete the rest.
+One row per add-on. Fill the first two columns, run the probe in step 3.2, then complete the rest.
 
 | Display name | Add-on ID | Probe result | Section | `optional`? | Added |
 |---|---|---|---|---|---|
@@ -31,7 +31,7 @@ One row per add-on. Fill the first two columns, run the probe in step 4.2, then 
 | | | | | | [ ] |
 | | | | | | [ ] |
 
-Reminder: after adding entries, **bump the Toolbox version** (step 4.4) or no device will ever see them.
+Reminder: after adding entries, **bump the Toolbox version** (step 3.4) or no device will ever see them.
 
 ## 3. Book One checklist
 
@@ -51,16 +51,25 @@ Reminder: after adding entries, **bump the Toolbox version** (step 4.4) or no de
 - [ ] 2.4 `check_deps.py` says *all dependencies resolve*
 - [ ] 2.5 Committed
 
-**Part 3 — Publish**
+**Part 3 — Choose your add-ons** *(before publishing)*
 
-- [ ] 3.1 Repository created, public
-- [ ] 3.2 Pushed, with no authentication prompt
-- [ ] 3.3 Actions run green
-- [ ] 3.4 All three URLs verified (200 / 32-char hash / 200)
-- [ ] 3.5 Workflows enabled in the Actions tab
-- [ ] 3.6 Install URL written into section 1 above
+- [ ] 3.1 IDs found for everything in section 2 above
+- [ ] 3.2 Probe run; section decided for each
+- [ ] 3.3 Entries added to `addons.json`
+- [ ] 3.4 Toolbox version bumped
+- [ ] 3.5 Build and dependency check both clean
+- [ ] 3.6 Committed
 
-## 4. Book Two checklist
+**Part 4 — Publish**
+
+- [ ] 4.1 Repository created (or remote added), public
+- [ ] 4.2 Pushed, with no authentication prompt
+- [ ] 4.3 Actions run green
+- [ ] 4.4 All three URLs verified (200 / 32-char hash / 200)
+- [ ] 4.5 Workflow permission confirmed as `write`
+- [ ] 4.6 Install URL written into section 1 above
+
+## 4. Book Two checklist *(only after Book One Parts 1–4)*
 
 - [ ] **Stage A** (1–5) Developer options on, unknown sources on, IP noted
 - [ ] **Stage B** (6–8) Kodi installed (`armeabi-v7a`), launched once, quit
