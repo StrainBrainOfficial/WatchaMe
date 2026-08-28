@@ -632,13 +632,6 @@
       "datadir": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
     },
     {
-      "id": "resource.font.robotocjksc",
-      "name": "Robotocjksc",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
-    },
-    {
       "id": "resource.images.arctic.waves",
       "name": "Waves",
       "category": "tools",
@@ -851,20 +844,6 @@
     {
       "id": "script.module.acctvwr",
       "name": "Acctvwr",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
-    },
-    {
-      "id": "script.module.archive_tool",
-      "name": "Archive_Tool",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
-    },
-    {
-      "id": "script.module.blackscrapers",
-      "name": "Blackscrapers",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
