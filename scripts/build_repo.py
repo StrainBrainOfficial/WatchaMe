@@ -59,7 +59,9 @@ def load_json(path):
 def base_url(cfg):
     user, repo, branch = cfg["github_user"], cfg["github_repo"], cfg.get("branch", "main")
     if cfg.get("hosting") == "pages":
-        return f"https://{user}.github.io/{repo}"
+        # The Pages host is the owner name lowercased; the path keeps the
+        # repository's own casing, which is case-sensitive.
+        return f"https://{user.lower()}.github.io/{repo}"
     return f"https://raw.githubusercontent.com/{user}/{repo}/{branch}/docs"
 
 

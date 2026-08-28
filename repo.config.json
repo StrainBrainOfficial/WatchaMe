@@ -1,14 +1,14 @@
 {
   "repo_id": "repository.watchame",
   "repo_name": "WatchaMe",
-  "repo_version": "1.0.0",
+  "repo_version": "1.0.1",
   "provider": "StrainBrainOfficial",
   "summary": "Curated, auto-updating Kodi tools and utilities",
   "description": "A lightweight curated repository of high-quality Kodi tools: subtitles, Trakt scrobbling, black-bar removal, metadata, maintenance and cleanup utilities. Mirrors are refreshed automatically from upstream every day.",
   "github_user": "StrainBrainOfficial",
   "github_repo": "WatchaMe",
   "branch": "main",
-  "hosting": "raw",
+  "hosting": "pages",
   "keep_versions": 2,
   "toolbox_id": "script.watchame.toolbox"
 }
