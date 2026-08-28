@@ -36,6 +36,14 @@ SRC = ROOT / "src"
 SKIP_NAMES = {".git", ".github", "__pycache__", ".idea", ".vscode", ".pytest_cache"}
 SKIP_SUFFIX = {".pyc", ".pyo", ".pyd"}
 
+# GitHub hard-rejects any single file over 100 MB, and the zips are served
+# straight out of the repo, so anything near that ceiling can never be pushed.
+MAX_ZIP_MB = 95
+
+
+class ZipTooLarge(Exception):
+    pass
+
 
 # ---------------------------------------------------------------- helpers
 
@@ -137,6 +145,10 @@ def make_zip(addon_dir, addon_id, version, out_dir):
             info.external_attr = 0o644 << 16
             zf.writestr(info, file_path.read_bytes())
     tmp_path.replace(zip_path)
+    size_mb = zip_path.stat().st_size / 1024 / 1024
+    if size_mb > MAX_ZIP_MB:
+        zip_path.unlink(missing_ok=True)
+        raise ZipTooLarge(f"{zip_path.name} is {size_mb:.0f} MB, over the {MAX_ZIP_MB} MB limit")
     digest = hashlib.md5(zip_path.read_bytes()).hexdigest()
     (out_dir / f"{addon_id}-{version}.zip.md5").write_text(digest + "\n", encoding="utf-8")
     return zip_path
@@ -272,7 +284,11 @@ def sync_mirror(entry, keep):
         if zip_path.exists():
             log(f"      already current at {version}")
         else:
-            make_zip(addon_dir, addon_id, version, out_dir)
+            try:
+                make_zip(addon_dir, addon_id, version, out_dir)
+            except ZipTooLarge as exc:
+                log(f"      SKIP: {exc}")
+                return None
             log(f"      packaged {version}  <-- UPDATED")
         prune(out_dir, addon_id, keep)
         return version
@@ -390,12 +406,21 @@ def collect_latest():
         )
         if not zips:
             continue
-        with zipfile.ZipFile(zips[0]) as zf:
-            try:
+        size_mb = zips[0].stat().st_size / 1024 / 1024
+        if size_mb > MAX_ZIP_MB:
+            log(f"  ! {zips[0].name} is {size_mb:.0f} MB, over the {MAX_ZIP_MB} MB limit, skipped")
+            continue
+        try:
+            with zipfile.ZipFile(zips[0]) as zf:
                 raw = zf.read(f"{addon_id}/addon.xml")
-            except KeyError:
-                log(f"  ! {zips[0].name} has no {addon_id}/addon.xml, skipped")
-                continue
+        except KeyError:
+            log(f"  ! {zips[0].name} has no {addon_id}/addon.xml, skipped")
+            continue
+        except zipfile.BadZipFile:
+            # A Git LFS pointer checked out without the object looks exactly
+            # like this. Advertising it would hand Kodi a 130-byte "zip".
+            log(f"  ! {zips[0].name} is not a readable zip, skipped")
+            continue
         try:
             root = ET.fromstring(raw)
         except ET.ParseError:

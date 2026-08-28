@@ -1,1 +1,5 @@
-*.zip filter=lfs diff=lfs merge=lfs -text
+# Add-on zips are served directly from raw.githubusercontent.com, which returns
+# the pointer text rather than the object for LFS-tracked files. Kodi would
+# download a 130-byte "zip" and fail every install, so these must stay as
+# ordinary git blobs. scripts/build_repo.py keeps each one under 95 MB.
+*.zip binary

@@ -279,7 +279,7 @@ skin.terror.lite.k21                           http://funstersplace.net/19repo  
 skin.umbrestuary                               https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/omega/zips        # v1.0.20
 skin.xonfluence                                http://funstersplace.net/19repo        # v4.0.10
 skin.xonfluence4widgets                        http://funstersplace.net/19repo        # v4.0.11
-skin.you.nique                                 http://funstersplace.net/19repo        # v1.7
+# skin.you.nique                               http://funstersplace.net/19repo        # v1.7 - EXCLUDED: 116 MB zip, over GitHub's 100 MB per-file limit
 slyguy.10play                                  https://slyguy.uk/.repo/repository.slyguy        # v0.4.5
 slyguy.7plus                                   https://slyguy.uk/.repo/repository.slyguy        # v0.5.7
 slyguy.9now                                    https://slyguy.uk/.repo/repository.slyguy        # v0.4.5
