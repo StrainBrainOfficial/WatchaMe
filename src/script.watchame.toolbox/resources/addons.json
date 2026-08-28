@@ -2,39 +2,6 @@
   "_comment": "mirror = packaged into this repo from upstream GitHub (missing from the official Kodi repo, or official is stale). official = installed by id from Kodi's own repo by the toolbox add-on. external = better served by the vendor's own repository.",
   "mirror": [
     {
-      "id": "service.subtitles.a4ksubtitles",
-      "name": "a4kSubtitles",
-      "category": "subtitles",
-      "why": "Multi-source subtitle search (OpenSubtitles, Addic7ed, Podnapisi, SubDL, SubSource) in one addon. Not in the official repo.",
-      "github": "a4k-openproject/a4kSubtitles",
-      "track": "release"
-    },
-    {
-      "id": "script.black.bars.never",
-      "name": "BlackBarsNever",
-      "category": "playback",
-      "why": "Detects and removes black bars, including hardcoded ones, during playback.",
-      "github": "osumoclement/script.black.bars.never",
-      "track": "release"
-    },
-    {
-      "id": "script.service.janitor",
-      "name": "Janitor",
-      "category": "cleanup",
-      "why": "Deletes watched video files on a schedule to reclaim disk. Not in the official repo.",
-      "github": "Anthirian/script.filecleaner",
-      "track": "branch"
-    },
-    {
-      "id": "service.vpn.manager",
-      "name": "VPN Manager for OpenVPN",
-      "category": "privacy",
-      "why": "Connects and maintains an OpenVPN tunnel from inside Kodi, with per-addon connection rules. Not in the official repo. Unticked by default: it bundles profiles for NordVPN, ExpressVPN and PIA but not Surfshark (which needs the User Defined route and manual-setup credentials), and on Android/Fire OS an addon cannot control the system VPN -- use the provider's own app there.",
-      "github": "Zomboided/service.vpn.manager",
-      "track": "release",
-      "optional": true
-    },
-    {
       "id": "context.kaito",
       "name": "Kaito",
       "category": "tools",
@@ -103,13 +70,6 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "http://funstersplace.net/19repo"
-    },
-    {
-      "id": "plugin.program.autowidget",
-      "name": "Autowidget",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
     },
     {
       "id": "plugin.program.bradleysbuilds",
@@ -217,13 +177,6 @@
       "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
     },
     {
-      "id": "plugin.program.opendevtools",
-      "name": "Opendevtools",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
-    },
-    {
       "id": "plugin.program.openwizard",
       "name": "Openwizard",
       "category": "tools",
@@ -252,13 +205,6 @@
       "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
     },
     {
-      "id": "plugin.video.adultswim",
-      "name": "Adultswim",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/jsergio123/zips/master"
-    },
-    {
       "id": "plugin.video.au.freeview",
       "name": "Freeview",
       "category": "tools",
@@ -280,18 +226,12 @@
       "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
     },
     {
-      "id": "plugin.video.cartoon_network",
-      "name": "Cartoon_Network",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/jsergio123/zips/master"
-    },
-    {
       "id": "plugin.video.cartoonsgr",
       "name": "Cartoonsgr",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.chainslive",
@@ -306,13 +246,6 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master"
-    },
-    {
-      "id": "plugin.video.distrotv",
-      "name": "Distrotv",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://magnetic.website/__zips"
     },
     {
       "id": "plugin.video.dstv.now",
@@ -354,14 +287,8 @@
       "name": "Freevl",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
-    },
-    {
-      "id": "plugin.video.gears",
-      "name": "Gears",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.genocide",
@@ -476,13 +403,6 @@
       "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
     },
     {
-      "id": "plugin.video.nxtflixlt",
-      "name": "Nxtflixlt",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/blry12/nxtflix/master/repo/zips"
-    },
-    {
       "id": "plugin.video.nz.films",
       "name": "Films",
       "category": "tools",
@@ -522,14 +442,8 @@
       "name": "Pelisplus",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
-    },
-    {
-      "id": "plugin.video.pov",
-      "name": "Pov",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://kodiyashimaru.github.io/repo/packages"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.premiumizemetv",
@@ -546,25 +460,20 @@
       "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
     },
     {
-      "id": "plugin.video.replayme",
-      "name": "Replayme",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "http://mullafabz.xyz/Plugins"
-    },
-    {
       "id": "plugin.video.rlsbb",
       "name": "Rlsbb",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.rlshub",
       "name": "Rlshub",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.seren",
@@ -592,21 +501,24 @@
       "name": "Skylinecctv",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.smr_link_tester",
       "name": "Smr_Link_Tester",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master",
+      "datadir": "https://raw.githubusercontent.com/Gujal00/smrzips/master/zips"
     },
     {
       "id": "plugin.video.sporthdme",
       "name": "Sporthdme",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "plugin.video.sstv",
@@ -665,13 +577,6 @@
       "repo_url": "https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip"
     },
     {
-      "id": "plugin.video.themoviedb.helper",
-      "name": "Helper",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
-    },
-    {
       "id": "plugin.video.three.now",
       "name": "Now",
       "category": "tools",
@@ -698,27 +603,6 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
-    },
-    {
-      "id": "plugin.video.tvone",
-      "name": "Tvone",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://magnetic.website/__zips"
-    },
-    {
-      "id": "plugin.video.tvone111",
-      "name": "Tvone111",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://magnetic.website/__zips"
-    },
-    {
-      "id": "plugin.video.tvone112",
-      "name": "Tvone112",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://magnetic.website/__zips"
     },
     {
       "id": "plugin.video.udemy",
@@ -775,6 +659,42 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "http://mullafabz.xyz/Plugins"
+    },
+    {
+      "id": "repository.slyguy",
+      "name": "SlyGuy Repository",
+      "category": "dependency",
+      "why": "Dependency: every SlyGuy add-on imports its repository add-on.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy",
+      "optional": true,
+      "datadir": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "repository.slyguy.inputstreamhelper",
+      "name": "SlyGuy InputStream Helper Repository",
+      "category": "dependency",
+      "why": "Dependency: required import of the SlyGuy InputStream helper.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy",
+      "optional": true,
+      "datadir": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "repository.slyguy.youtube",
+      "name": "SlyGuy YouTube Repository",
+      "category": "dependency",
+      "why": "Dependency: required import of slyguy.youtube.",
+      "repo_url": "https://slyguy.uk/.repo/repository.slyguy",
+      "optional": true,
+      "datadir": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "repository.universalscrapers",
+      "name": "Universal Scrapers Repository",
+      "category": "dependency",
+      "why": "Dependency: 2 mirrored scraper modules declare it as a required import.",
+      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips",
+      "optional": true,
+      "datadir": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
     },
     {
       "id": "resource.font.robotocjksc",
@@ -945,6 +865,14 @@
       "repo_url": "http://funstersplace.net/19repo"
     },
     {
+      "id": "script.black.bars.never",
+      "name": "BlackBarsNever",
+      "category": "playback",
+      "why": "Detects and removes black bars, including hardcoded ones, during playback.",
+      "github": "osumoclement/script.black.bars.never",
+      "track": "release"
+    },
+    {
       "id": "script.elementum.burst",
       "name": "Burst",
       "category": "tools",
@@ -1047,14 +975,16 @@
       "name": "Cloudrequest",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master",
+      "datadir": "https://raw.githubusercontent.com/Gujal00/smrzips/master/zips"
     },
     {
       "id": "script.module.cloudscraper",
       "name": "Cloudscraper",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "script.module.cocoscrapers",
@@ -1082,7 +1012,8 @@
       "name": "Futures",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "script.module.gearsscrapers",
@@ -1103,7 +1034,8 @@
       "name": "Idna",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "script.module.infotagger",
@@ -1148,39 +1080,11 @@
       "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
     },
     {
-      "id": "script.module.kodi-six",
-      "name": "Kodi-Six",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "http://funstersplace.net/19repo"
-    },
-    {
       "id": "script.module.libtorrent",
       "name": "Libtorrent",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://bitbucket.org/bugatsinho/magicogr/raw/HEAD/_zips"
-    },
-    {
-      "id": "script.module.liveresolver",
-      "name": "Liveresolver",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://magnetic.website/__zips"
-    },
-    {
-      "id": "script.module.magneto",
-      "name": "Magneto",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://kodiyashimaru.github.io/repo/packages"
-    },
-    {
-      "id": "script.module.metahandler",
-      "name": "Metahandler",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
     },
     {
       "id": "script.module.microjenscrapers",
@@ -1246,20 +1150,6 @@
       "repo_url": "http://romanvm.github.io/kodi_repo/repo"
     },
     {
-      "id": "script.module.python.koding.aio",
-      "name": "Aio",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
-    },
-    {
-      "id": "script.module.python.koding.aio.alt",
-      "name": "Alt",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips"
-    },
-    {
       "id": "script.module.requests",
       "name": "Requests",
       "category": "tools",
@@ -1271,14 +1161,16 @@
       "name": "Resolveurl",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master",
+      "datadir": "https://raw.githubusercontent.com/Gujal00/smrzips/master/zips"
     },
     {
       "id": "script.module.resolveurl.xxx",
       "name": "Xxx",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master"
+      "repo_url": "https://raw.githubusercontent.com/Gujal00/smrzips/master",
+      "datadir": "https://raw.githubusercontent.com/Gujal00/smrzips/master/zips"
     },
     {
       "id": "script.module.simpleplugin",
@@ -1327,7 +1219,8 @@
       "name": "Common",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "script.module.tabulate",
@@ -1351,25 +1244,12 @@
       "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
     },
     {
-      "id": "script.module.universaldebrid",
-      "name": "Universaldebrid",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://magnetic.website/__zips"
-    },
-    {
-      "id": "script.module.universalscrapers",
-      "name": "Universalscrapers",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips"
-    },
-    {
       "id": "script.module.unshortenit",
       "name": "Unshortenit",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "script.module.urlresolver",
@@ -1405,6 +1285,14 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
+    },
+    {
+      "id": "script.service.janitor",
+      "name": "Janitor",
+      "category": "cleanup",
+      "why": "Deletes watched video files on a schedule to reclaim disk. Not in the official repo.",
+      "github": "Anthirian/script.filecleaner",
+      "track": "branch"
     },
     {
       "id": "script.service.livescore_alerts",
@@ -1449,13 +1337,6 @@
       "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
     },
     {
-      "id": "script.texturemaker",
-      "name": "Texturemaker",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
-    },
-    {
       "id": "script.thecrew.artwork",
       "name": "Artwork",
       "category": "tools",
@@ -1475,6 +1356,15 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/nexus/zips"
+    },
+    {
+      "id": "script.video.F4mProxy",
+      "name": "F4m Proxy",
+      "category": "dependency",
+      "why": "Dependency: F4m/HDS stream proxy imported by one mirrored add-on.",
+      "repo_url": "https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master",
+      "optional": true,
+      "datadir": "https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master"
     },
     {
       "id": "script.wetrakr",
@@ -1505,6 +1395,14 @@
       "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
     },
     {
+      "id": "service.subtitles.a4ksubtitles",
+      "name": "a4kSubtitles",
+      "category": "subtitles",
+      "why": "Multi-source subtitle search (OpenSubtitles, Addic7ed, Podnapisi, SubDL, SubSource) in one addon. Not in the official repo.",
+      "github": "a4k-openproject/a4kSubtitles",
+      "track": "release"
+    },
+    {
       "id": "service.subtitles.addic7ed",
       "name": "Addic7Ed",
       "category": "tools",
@@ -1516,7 +1414,8 @@
       "name": "Greeksubs",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master"
+      "repo_url": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master",
+      "datadir": "https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/_zips"
     },
     {
       "id": "service.time.monitor",
@@ -1524,6 +1423,15 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
+    },
+    {
+      "id": "service.vpn.manager",
+      "name": "VPN Manager for OpenVPN",
+      "category": "privacy",
+      "why": "Connects and maintains an OpenVPN tunnel from inside Kodi, with per-addon connection rules. Not in the official repo. Unticked by default: it bundles profiles for NordVPN, ExpressVPN and PIA but not Surfshark (which needs the User Defined route and manual-setup credentials), and on Android/Fire OS an addon cannot control the system VPN -- use the provider's own app there.",
+      "github": "Zomboided/service.vpn.manager",
+      "track": "release",
+      "optional": true
     },
     {
       "id": "skin.aeon.nox.barroni",
@@ -1552,20 +1460,6 @@
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "http://funstersplace.net/19repo"
-    },
-    {
-      "id": "skin.arctic.fuse",
-      "name": "Fuse",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
-    },
-    {
-      "id": "skin.arctic.horizon.2",
-      "name": "2",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips"
     },
     {
       "id": "skin.blackglassnova",
@@ -1850,13 +1744,6 @@
     {
       "id": "slyguy.skygo.nz",
       "name": "Nz",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
-    },
-    {
-      "id": "slyguy.stirr.provider",
-      "name": "Provider",
       "category": "tools",
       "why": "TODO: one sentence on why this earned a slot.",
       "repo_url": "https://slyguy.uk/.repo/repository.slyguy"

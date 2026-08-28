@@ -484,370 +484,6 @@
             </assets>
         </extension>
     </addon>
-    <addon id="plugin.program.autowidget" name="AutoWidget" version="3.7.0" provider-name="drinfernoo">
-        <requires>
-            <import addon="script.module.pil" />
-            <import addon="script.module.six" />
-        </requires>
-        
-        <extension point="xbmc.python.pluginsource" library="main.py">
-            <provides>executable video music</provides>
-        </extension>
-        
-        <extension point="xbmc.service" library="service.py" />
-        
-        <extension point="kodi.context.item">
-            <menu id="kodi.core.main">
-                <item library="context_add.py">
-                    <label>$ADDON[plugin.program.autowidget 30003]</label>
-                    <visible>String.IsEqual(Window(10000).Property(context.autowidget),true)</visible>
-                </item>
-                <item library="context_refresh.py">
-                    <label>$ADDON[plugin.program.autowidget 30006]</label>
-                    <visible>String.Contains(ListItem.FolderPath, plugin://plugin.program.autowidget)</visible>
-                </item>
-    			<item library="context_refresh_single.py">
-                    <label>$ADDON[plugin.program.autowidget 30046]</label>
-                    <visible>!String.IsEmpty(ListItem.Property(autoID)) + [!String.IsEqual(ListItem.Property(autoAction),static) + !String.IsEqual(ListItem.Property(autoAction),merged)]</visible>
-                </item>
-    			<item library="clear_cache_single.py">
-                    <label>$ADDON[plugin.program.autowidget 30116]</label>
-                    <visible>!String.IsEmpty(ListItem.Property(autoCache))</visible>
-                </item>
-            </menu>
-        </extension>
-        
-        <extension point="xbmc.addon.metadata">
-            <reuselanguageinvoker>true</reuselanguageinvoker>
-            <summary lang="en_GB">Automatically changes out widgets</summary>
-            <description lang="en_GB">Automatically changes out widgets on the homescreen for a more interesting browsing experience.</description>
-    	<summary lang="es_ES">Cambia los widgets automáticamente</summary>
-    	<description lang="es_ES">Cambia los widgets en la pantalla de inicio automáticamente para una experiencia de navegación más interesante.</description>
-    	<platform>all</platform>
-            <license>LGPL-3.0</license>
-            <website>https://www.github.com/drinfernoo/</website>
-            <source>https://www.github.com/drinfernoo/plugin.program.autowidget/</source>
-            <news>
-    3.7.0
-     - Optimize caching for performance and reliability
-     - Fix direct shortcuts
-     - Fix Settings Shortcuts for dependency add-ons
-    3.6.1
-     - Fix playing direct shortcuts for some items
-     - Fix cache clearing again
-    3.6.0
-     - Convert all file and path handling to xbmcvfs
-     - Add more feedback and granular controls during backup/restore
-    3.5.1
-     - Fix sorting bug with higher group counts
-    3.5.0
-     - Allow bulk operations in some groups
-     - More informative dialogs
-     - Allow manually sorting groups in "My Groups"
-     - Fixes for direct shortcuts
-     - Update "version" attribute in metafiles when updating
-    3.4.2
-     - Some fixes for constant notification
-    3.4.1
-     - Fix clearing cache from settings
-    3.4.0
-     - Rework caching mechanism
-     - Add more notifications of progress
-     - Add placeholder items when no content is loaded
-    3.3.7
-     - Delay widget updates during library scans or when in media views
-     - Fix widget cleaning scan for skins which don't use Skin Shortcuts
-     - Fix refreshing widgets created before 3.3.0
-     - Add more content type choices in editor dialog
-    3.3.6
-     - Fix "Next Page" for Python 2.7
-    3.3.5
-     - Better handling of error and empty states
-     - Better handling of "Next Page" items
-     - Fix "Active Widgets" menu
-     - Delay library updates when inside media views
-    3.3.4
-     - Fix "Next Page" localizations
-    3.3.3
-     - Fix "Clear Cache"
-    3.3.2
-     - Fix bug when paths return no items
-    3.3.1
-     - Fix bug when Skin Shortcuts is not installed
-     - More improvements to page item handling
-    3.3.0
-     - Add "Copy Group" in group context menu
-     - Add "Create New ... Group" in "My Groups" menu
-     - Add "Clear Cache" in "Tools" menu
-     - Add "Refresh Widget" to widget context menu
-     - Add "Clear Cache" to widget context menu
-     - Add rudimentary error item for failed widgets
-     - Add "Icon Packs" for library widgets from genres, studios, and countries
-     - Remove dependency on Kodi Six
-     - Allow editing content type
-     - Allow Cycling Widgets to pull from a subset of paths
-     - Support cast thumbnails for Kodi N
-     - Fix translatePath reference again
-     - Faster and more robust item creation
-     - Make `.widget` files much simpler
-     - Better support for library paths
-     - Better support for music
-    3.2.3
-     - Add English (US) and Portugese localizations
-    3.2.2
-     - Add more localizations
-     - Better "Next Page" detection
-     - Support for "Next Page" items in other languages
-    3.2.1
-     - Fix for items with no artwork
-    3.2.0
-     - Add setting to prefer episodes/shows when removing duplicates
-     - Rework duplicate removal
-     - Fix bug in Active Widgets editor dialog
-     - Fix landscape art for some items
-     - Fix paged widgets not resetting on boot
-     - Format with black
-    3.1.9
-     - Fix error with translatePath
-    3.1.8
-     - Fix resume progress on items
-    3.1.7
-     - Fix widget cleaning
-     - Fix Active Widgets menu
-    3.1.6
-     - Fix detection of JSON-RPC version
-    3.1.5
-     - Fix editor dialog
-    3.1.4
-     - Fix settings shortcuts
-     - Fix some Unicode errors
-     - Fix some dialog labels in editor
-    3.1.3
-     - Fix hashing in Matrix
-    3.1.2
-     - Fix "Clear Cache"
-    3.1.1
-     - Fixes for cache mechanism
-     - Add "Force Refresh Widgets" to context menu for AutoWidget items
-    3.1.0
-     - Improved background caching for paths that change frequently
-     - Fix unneeded refreshes
-     - Fix caching on merged widgets
-     - Fix more Unicode errors
-    3.0.2
-     - Fix bug in background caching
-    3.0.1
-     - Fix bug when adding paths
-    3.0.0
-     - Huge speed improvements thanks to @djay's background caching implementation
-     - Fix merged widget duplicate removal
-    2.3.7
-     - Unicode fixes
-     - Fix method calls
-     - Fix separator in menus
-     - Fix logging in Kodi 19
-     - Update Spanish translation
-    2.3.6
-     - Fix separator in shortcut groups
-    2.3.5
-     - Fix various shortcut- and refresh-related bugs
-     - Fix error when path contained no items
-     - Add more debug logging
-     - Add widget ID as ListItem property (autoID)
-     - Reduce library updates (again)
-    2.3.4
-     - Fix logging error
-    2.3.3
-     - Fix shortcuts to Android apps
-    2.3.2
-     - Fix error in debug logging logic
-    2.3.1
-     - Fix editing and adding new groups
-     - Overall cleanup
-     - Trim as many library updates as possible
-    2.3.0
-     - Huge simplification of plugin paths
-     - Speed improvements
-     - Better detection for "Next Page" items in various add-ons
-     - Add dedicated debug log
-     - Allow 'path' to be editing for static widgets
-    2.2.0
-     - Reduce library updates to improve overall speed
-     - Sort "Active Widgets" by most recently refreshed
-     - Fix any straggling widget errors, I hope :D
-    2.1.6
-     - Fix "Next Page" error
-    2.1.5
-     - Fix non-merged paths :D
-    2.1.4
-     - Support more add-ons' "Next Page" items
-     - Fix merged paths
-    2.1.3
-    - Fixes for Unicode characters in path labels
-    - Fix for viewing groups in Kodi 17.x
-    - Change "Icon Color" to a per-path basis
-    2.1.2
-     - Add per-widget icon color
-    2.1.1
-     - Fix "Icon Color"
-    2.1.0
-     - New artwork for add-on
-     - Add icon coloring
-     - Improved "Active Widgets" menu
-     - Added "Clean Old Widget Files" shortcut in Tools
-     - Fix shortcut paths
-     - Fix missing InfoLabels
-    2.0.2
-     - Make artwork for groups and paths more consistent
-    2.0.1
-     - Add "Toggle Skin Debugging" shortcut
-    2.0.0
-     - Rewrite most of add-on functions
-     - Add "Static Path" option
-     - Add "Merged Path" option
-     - Add "Paged Widgets"
-     - Revamp editor dialog
-     - More complete skin compatibility
-     - More miscellaneous fixes
-    1.6.8
-     - Add setting for notification sound
-    1.6.7
-     - Fix crash when window cannot be detected. Notably fixes Disney+ support.
-    1.6.6
-     - Fix extract location
-    1.6.5
-     - Add backup/restore features
-    1.6.4
-     - Fix more rogue refreshes
-     - Fix wording in Spanish translation (again, thanks to @roliverosc)
-    1.6.3
-     - Update settings localizations
-    1.6.2
-     - Fix bug that caused Skin Shortcuts to not be able to rebuild the skin
-    1.6.1
-     - Fix bug with shortcut widgets being "converted"
-    1.6.0
-     - Android App shortcut support (thanks to @Sandmann79)
-     - Add Spanish translation (thanks to @roliverosc)
-     - Fix bug with empty action nodes
-     - Reduce refreshes
-     - Prettify .props file output
-    1.5.5
-     - Fix regex for labels in some skins
-    1.5.4
-     - Fix recursion crash during refresh
-    1.5.3
-     - Fix indent error
-    1.5.2
-     - Fix shortcut calls for YouTube
-    1.5.1
-     - Fix error in editor dialog
-     - Fix changelog
-    1.5.0
-     - Add "Active Widgets" menu
-     - Consistency fixes during initialization and refresh
-     - Allow adding playable items as shortcuts
-     - Fix crashes in Krypton
-     - Fix crashes from invalid group/widget files
-     - Fix Unicode compatibility
-    1.4.5
-     - Refresh Shortcut widgets Automatically
-     - Add "Next Path" widget action
-     - Add "Clone" and "Explode" widget modes
-     - Allow refreshing between 15m-2h, at 15m intervals
-    1.4.3
-     - Add context menu on more items
-     - Fix some log spam
-     - Catch more errors from invalid files
-     - Fix "Settings" shortcuts
-     - Gracefully handle remote artwork
-     - Use special paths for artwork
-    1.4.2
-     - Fix bug in conversion
-    1.4.1
-     - Fix bug in migration
-    1.4.0
-     - Add "Clean Old References" shortcuts
-     - Change main menu layout
-    1.3.9
-     - Fix label bug in Embuary (and maybe elsewhere)
-    1.3.8
-     - Add "Wipe Add-on Data" shortcuts
-     - Allow Unicode characters in labels
-    1.3.7
-     - Fix typo in path handling
-    1.3.6
-     - Fix error handling
-    1.3.5
-     - Add extra error checking for file operations
-    1.3.4
-     - Add proper migration from old JSON to current
-    1.3.3
-     - Rewrite editor dialog
-     - Fix path conversion for skin string paths
-    1.3.2
-     - Fixes and cleanup in editor dialog
-    1.3.1
-     - Cleanup skin string conversion
-    1.3.0
-     - Add group editing dialog
-     - Non-Skin Shortcuts skin support
-     - Fix issues with groups and paths with the same name
-     - Fix settings shortcuts
-     - Add rudimentary JSON migration
-    1.2.5
-     - Update some skin localizations
-     - Add more widget artwork
-     - Update documentation
-    1.2.3
-     - Fix paths made from add-on browser
-     - Add ability to set plot
-    1.2.2
-     - Fix group dialog calls
-    1.2.1
-     - Fix imports
-    1.2.0
-     - Better handling of art
-     - Better add-on art added
-     - Redesigned path addition dialog
-     - Settings shortcuts added
-    1.1.2
-     - Add art editing for paths
-     - Add group renaming
-    1.1.1
-     - Add setting to disable notification
-    1.1.0
-     - Remove Skin Shortcuts dependency
-     - Expand context menu options
-     - Add support for skins with "basic" Skin Shortcuts integration
-     - Add setting to pause AutoWidget's service
-    1.0.7
-     - Fix context menu option not showing
-    1.0.6
-     - Fix paths not saving
-    1.0.5
-     - Raise required Skin Shortcuts version to  1.0.19
-    1.0.4
-     - Allow custom labels
-     - Add removal notifications    
-    1.0.3
-     - Fix shortcuts and widgets added from context menu
-    1.0.2
-     - Fix crash from non-XML files
-    1.0.1
-     - Fix crash from non-existent context menu setting
-    1.0.0
-     - First stable release
-            </news>
-            <assets>
-                <icon>resources/media/icon.png</icon>
-                <fanart>resources/media/fanart.png</fanart>
-                <poster>resources/media/poster.png</poster>
-                <banner>resources/media/banner.png</banner>
-                <clearlogo>resources/media/clearlogo.png</clearlogo>
-            </assets>
-        </extension>
-    </addon>
     <addon id="plugin.program.bradleysbuilds" name="[COLOR red]BRADLEYS BUILDS[/COLOR] Maintanance " version="1.1" provider-name="BLRY">
     	<requires>
     		<import addon="xbmc.python" version="3.0.1" />
@@ -1257,88 +893,6 @@
     		</assets>
     	</extension>
     </addon>
-    <addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.6.0" provider-name="drinfernoo">
-    	<requires>
-    		<import addon="script.module.dateutil" />
-    		<import addon="script.module.pil" />
-    		<import addon="script.module.pyqrcode" />
-    		<import addon="script.module.requests" />
-    	</requires>
-    	<extension point="xbmc.python.script" library="default.py">
-    		<provides>executable</provides>
-    	</extension>
-    	<extension point="xbmc.addon.metadata">
-    		<language />
-    		<summary lang="en">Ease of access for Devs and Testers</summary>
-    		<description lang="en">Provides ease of access tools for Devs and Testers</description>
-    		<platform>all</platform>
-    		<license>GNU GENERAL PUBLIC LICENSE Version 2, June 1991</license>
-    		<assets>
-    			<icon>icon.png</icon>
-    			<fanart>fanart.png</fanart>
-    		</assets>
-    		<news>
-    1.6.0
-     - Support plugins in repo subfolders
-     - Fix choosing commit when only one branch exists
-     - Cleanup orphaned files after update
-     - Reload add-on localizations if changed during update
-    1.5.5
-     - Add release automation via GitHub Actions
-    1.5.4
-     - Fix error when "Install Dependencies" is disabled
-    1.5.3
-     - Fix Web-PDB setting not being respected
-    1.5.2
-     - Only read .json files for repo definitions
-     - Fix already installed addons downloading icons again
-    1.5.1
-     - Allow automatically adding Web-PDB to installed add-ons
-    1.5.0
-     - Reorganization of most functions
-     - Scannable QR code dialogs for GitHub authorization and uploaded logs
-     - Limit on number of fetched commits
-     - Add "Most Recently Used" sorting method for repos
-     - Exclusions manager
-     - Speed and performance increases
-    1.4.3
-     - Add OpenDevTools as bundled repository
-    1.4.2
-     - Add bare log uploading without authorization or issue
-    1.4.1
-     - Fix skin installs
-     - Use regional time formatting
-     - Fix time formatting on Android (all platforms?)
-    1.4.0
-     - Change format of raised issues
-     - More comprehensive XML checking
-     - More intelligent profile reloads
-     - More intelligent enabling/disabling of updated add-ons
-     - Fix clearing temp files
-     - Show add-on type(s) before install
-     - Show repository name as well as add-on name
-    1.3.0
-     - Fix repo listings
-     - Minimize profile reloads
-    1.2.0
-     - List repos by user
-     - Better enabling of addons after install
-     - Fix timestamps with correct time zone
-    1.1.0
-     - Add string localization
-     - Add support for multiple repositories containing the same add-on
-     - Offer to update add-on after adding
-    1.0.3
-     - Better formatting for timestamps
-    1.0.2
-     - Fix for existing folders
-    1.0.1
-     - Some performance fixes
-    1.0.0
-     - Initial Release
-    		</news>
-    	</extension>
-    </addon>
     <addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="2.0.7" provider-name="drinfernoo, slamious">
         <requires>
             <import addon="xbmc.python" version="3.0.0" />
@@ -1569,25 +1123,6 @@
             </news>
         </extension>
     </addon>
-    <addon id="plugin.video.adultswim" name="Adult Swim" version="2.0.1" provider-name="jsergio">
-      <requires>
-          <import addon="xbmc.python" version="2.20.0" />
-          <import addon="script.module.t1mlib" version="1.0.18" />
-          <import addon="script.module.metahandler" version="2.9.0" />
-      </requires>
-      <extension point="xbmc.python.pluginsource" library="default.py">
-            <provides>video</provides>
-      </extension>
-      <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Adult Swim</summary>
-        <description lang="en_GB">Watch free episodes from adultswim.com</description>
-        <disclaimer lang="en_GB">Feel free to use this script.</disclaimer>
-        <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-        <website>www.adultswim.com</website>
-        <source>https://github.com/jsergio123/plugin.video.adultswim</source>
-      </extension>
-    </addon>
     <addon id="plugin.video.au.freeview" name="IPTV AU" provider-name="SlyGuy" version="0.20.5">
       <requires>
         <import addon="script.module.slyguy" version="0.84.0" />
@@ -1649,23 +1184,44 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.cartoon_network" name="Cartoon Network" version="1.0.1" provider-name="jsergio">
+    <addon id="plugin.video.cartoonsgr" name="CartoonsGR" version="1.0.59" provider-name="Bugatsinho">
       <requires>
-        <import addon="xbmc.python" version="2.25.0" />
-        <import addon="script.module.t1mlib" version="1.0.18" />
-        <import addon="script.module.metahandler" version="2.9.0" />
+        <import addon="xbmc.addon" version="17.0.000" />
+        <import addon="script.module.six" />
+        <import addon="script.module.resolveurl" version="5.0.00" />
+        <import addon="script.module.pyxbmct" version="1.2.0" />
+        <import addon="script.module.requests" version="2.19.1" />
       </requires>
       <extension point="xbmc.python.pluginsource" library="default.py">
-            <provides>video</provides>
+    		<provides>video</provides>
       </extension>
       <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Cartoon Network</summary>
-        <description lang="en_GB">Watch free episodes from cartoonnetwork.com[CR][CR][B]Follow me @ twitter.com/jsergio123[/B]</description>
-        <disclaimer lang="en_GB">Feel free to use this script.</disclaimer>
         <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-        <website>www.cartoonnetwork.com</website>
-        <source>https://github.com/jsergio123/plugin.video.cartoon_network</source>
+        <summary lang="el">ΠΑΙΔΙΚΑ</summary>
+        <description lang="el">ΤΑΙΝΙΕΣ κ ΣΕΙΡΕΣ για τα παιδιά ΜΕΤΑΓΛΩΤΙΣΜΕΝΑ ή με ΥΠΟΤΙΤΛΟΥΣ</description>
+        <disclaimer lang="el">Ο δημιουργός δεν φιλοξενεί ή διανέμει οποιαδήποτε από το περιεχόμενο που εμφανίζεται από αυτό το πρόσθετο και δεν έχει οποιαδήποτε σχέση με την ιστοσελίδα και τους ιδιοκτήτες αυτής.
+        </disclaimer>
+        <summary lang="en">Cartoons</summary>
+        <description lang="en">Movies and Series dubbed or with Greek subtitles for the kids.</description>
+        <disclaimer lang="en">The CartoonsGR's author  does not host, stream or distribute any of the content displayed inside this plugin and does not
+        have any relation with the website or the website's author.
+        </disclaimer>
+        <language>en el</language>
+        <license>GNU GPL, version 2</license>
+        <website>https://bugatsinho.github.io/</website>
+        <twitter>https://twitter.com/bugatsinho</twitter>
+        <repo>https://bugatsinho.github.io/repo/</repo>
+        <email>bugatsinho@protonmail.com</email>
+        <news>
+          [B]v1.0.59[/B] 16/06/2026
+          - Fixed gmteam.best host not redirecting to embedded player
+          - Fixed coverapi.store resolver (site switched to new player API)
+          - Coverapi requests now send a browser User-Agent to avoid Cloudflare block
+        </news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
       </extension>
     </addon>
     <addon id="plugin.video.chainslive" name="Chains Live" version="1.0.22" provider-name="Chains">
@@ -1716,27 +1272,6 @@
                 <icon>icon.png</icon>
                 <fanart>fanart.jpg</fanart>
             </assets>
-        </extension>
-    </addon>
-    <addon id="plugin.video.distrotv" name="DistroTv Addon" version="1.0.1" provider-name="TonyH">
-        <requires>
-            <import addon="xbmc.python" version="2.19.0" />
-            <import addon="script.module.requests" version="2.9.1" />
-            <import addon="script.module.addon.common" version="2.0.0" />
-            <import addon="script.module.xmltodict" version="0.9.0" />
-        </requires>
-        <extension point="xbmc.python.pluginsource" library="default.py">
-            <provides>video</provides>
-        </extension>
-        <extension point="xbmc.service" library="service.py" start="[login|startup]" />
-        <extension point="xbmc.addon.metadata">
-            <summary lang="en">DistroTv Addon</summary>
-            <description lang="en">Live and Vod content from DistroTv</description>
-            <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
-            <platform>all</platform>
-            <website />
-            <video_guide />
-            <reuselanguageinvoker>false</reuselanguageinvoker>
         </extension>
     </addon>
     <addon id="plugin.video.dstv.now" name="DStv Now" provider-name="SlyGuy" version="0.18.4">
@@ -1875,31 +1410,28 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.gears" name="[COLORghostwhite]The Gears[/COLOR]" provider-name="chains" version="2.4.2">
-        <requires>
-            <import addon="xbmc.python" version="3.0.0" />
-            <import addon="script.module.pil" version="1.1.7" />
-            <import addon="script.module.requests" version="2.19.1" />
-    		<import addon="script.module.gearsscrapers" version="1.0.0" />
-        </requires>
-        <extension point="xbmc.python.pluginsource" library="resources/lib/gears.py">
-            <provides>video</provides>
-        </extension>
-        <extension point="xbmc.service" library="resources/lib/service.py" />
-        <extension point="xbmc.python.module" library="resources/lib/" />
-        <extension point="xbmc.addon.metadata">
-            <reuselanguageinvoker>true</reuselanguageinvoker>
-            <summary lang="en">Access your Derid Content. Part Of The Chains Repository.</summary>
-            <description lang="en">This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</description>
-            <platform>all</platform>
-    		<disclaimer lang="en">The author of this addon does not host any of the content which is found and has no affiliation with any of the content providers.</disclaimer>
-            <license />
-            <assets>
-                <icon>icon.png</icon>
-                <fanart>fanart.jpg</fanart>
-            </assets>
-            <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
-        </extension>
+    <addon id="plugin.video.freevl" name="Free Video Lectures" version="0.0.1" provider-name="Bugatsinho">
+      <requires>
+        <import addon="xbmc.python" version="2.25.0" />
+        <import addon="script.module.kodi-six" version="0.0.2" />
+        <import addon="script.module.youtube.dl" version="18.619.0" optional="true" />
+        <import addon="plugin.video.youtube" version="6.4.1" />
+      </requires>
+      <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en">Free Video Lectures</summary>
+        <description lang="en">Free Video Lectures</description>
+    	<disclaimer lang="en">Free Video Lectures by https://freevideolectures.com</disclaimer>
+    	<language>en es</language>
+        <license>GNU GPL, version 2</license>
+        <yt_channel>https://www.youtube.com/channel/UCZ0RGft8sZBd7iNuAKXov4w</yt_channel>
+        <facebook>https://www.facebook.com/freevideolectures.courses</facebook>
+        <twitter>https://twitter.com/video_lectures</twitter>
+        <website>https://freevideolectures.com</website>
+        <news>version 0.0.1</news>
+      </extension>
     </addon>
     <addon id="plugin.video.genocide" version="6.9.9" name="Genocide" provider-name="genocide">
     	<requires>
@@ -2532,34 +2064,6 @@
             <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
         </extension>
     </addon>
-    <addon id="plugin.video.nxtflixlt" name="NXTFlix Light" provider-name="blry12" version="2.1.1">
-        <requires>
-            <import addon="xbmc.python" version="3.0.0" />
-            <import addon="script.module.pil" version="1.1.7" />
-            <import addon="script.module.viperscrapers" version="0.0.1" />		
-            <import addon="script.module.requests" version="2.19.1" />
-        </requires>
-        <extension point="xbmc.python.pluginsource" library="resources/lib/nxtflixlt.py">
-            <provides>video</provides>
-        </extension>
-        <extension point="xbmc.service" library="resources/lib/service.py" />
-        <extension point="xbmc.python.module" library="resources/lib/" />
-        <extension point="xbmc.addon.metadata">
-            <reuselanguageinvoker>true</reuselanguageinvoker>
-            <summary lang="en">Access your content from Easynews and Debrid Clouds.</summary>
-            <description lang="en">This add-on is intended for advanced Kodi users only. You must own the content of any media you play through this addon. This is an English language only add-on.</description>
-            <platform>all</platform>
-    		<disclaimer lang="en">The author of this addon does not host any of the content which is found and has no affiliation with any of the content providers.</disclaimer>
-            <license />
-            <assets>
-                <icon>resources/media/addon_icons/nxtflixlt_icon_01.png</icon>
-                <fanart>resources/media/nxtflixlt_fanart_01.jpg</fanart>
-            </assets>
-            <news>
-    		NXTFlix Light
-    		</news>
-        </extension>
-    </addon>
     <addon id="plugin.video.nz.films" name="NZ Films" provider-name="SlyGuy" version="0.2.0">
       <requires>
         <import addon="script.module.slyguy" version="0.84.0" />
@@ -2690,6 +2194,36 @@
         </assets>
       </extension>
     </addon>
+    <addon id="plugin.video.pelisplus" name="PelisPlus TV" version="0.1.11" provider-name="Bugatsinho">
+      <requires>
+        <import addon="xbmc.python" version="2.1.0" />
+        <import addon="script.module.resolveurl" version="5.0.00" />
+        <import addon="script.module.requests" version="2.19.1" />
+      </requires>
+      <extension point="xbmc.python.pluginsource" library="default.py">
+    		<provides>video</provides>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+        <platform>all</platform>
+        <summary lang="es">PelisPlus TV Contenido desde pelisplus tv(Español-Latino) pagina web</summary>
+        <description lang="es">Contenido desde pelisplus tv(Español-Latino) pagina web</description>
+        <disclaimer lang="es">El autor de Pelisplus TV no aloja, transmite ni distribuye el contenido que se muestra dentro de este complemento y no
+        tener alguna relación con el sitio web o el autor del sitio web.
+        </disclaimer>
+        <summary lang="en">PelisPlus TV Content from peliplus tv (Spanish-Latino) website</summary>
+        <description lang="en">Content from peliplus tv (Spanish-Latino) website</description>
+        <disclaimer lang="en">The Pelisplus TV's author  does not host, stream or distribute any of the content displayed inside this plugin and does not
+        have any relation with the website or the website's author.
+        </disclaimer>
+        <language>en es</language>
+        <license>GNU GPL, version 2</license>
+        <twitter>https://twitter.com/Bugatsinho</twitter>
+        <news>[0.1.10] 03/01/2020
+    - change domain url
+        </news>
+      </extension>
+    </addon>
     <addon id="plugin.video.premiumizemetv" version="1.0.4" name="Premiumize Cloud" provider-name="premiumize.me">
         <requires>
             <import addon="xbmc.python" version="3.0.0" />
@@ -2738,25 +2272,67 @@
     		<website />
     	</extension>
     </addon>
-    <addon id="plugin.video.replayme" name="[COLOR red]R[/COLOR][COLOR white]eplay[/COLOR] [COLOR pink]M[/COLOR][COLOR white]e[/COLOR]" version="0.9.1" provider-name="@mullafabz">
+    <addon id="plugin.video.rlsbb" version="1.0.1" name="[COLOR orange][B]RLSBB[/B][/COLOR]" provider-name="Bugatsinho">
       <requires>
-        <import addon="xbmc.python" version="2.1.0" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.simplejson" version="0.0.1" />
-        <import addon="script.module.resolveurl" optional="false" />
-        <import addon="script.module.liveresolver" version="0.1.50" />
-        <import addon="script.module.metahandler" version="0.0.1" />
-    	  <import addon="script.common.plugin.cache" version="0.0.1" />
-    	  <import addon="script.module.livestreamer" version="1.12.0" />
+        <import addon="xbmc.python" version="3.0.1" />
+        <import addon="script.module.requests" version="2.19.1" />
+        <import addon="script.module.resolveurl" version="5.1.206" />
+        <import addon="script.trakt" optional="true" />
+        <import addon="script.module.pyqrcode" version="1.2.1" />
       </requires>
       <extension point="xbmc.python.pluginsource" library="default.py">
-            <provides>video</provides>
+        <provides>video</provides>
       </extension>
+      <extension point="xbmc.service" library="service.py" start="startup" />
       <extension point="xbmc.addon.metadata">
-        <summary lang="en">Replay Me</summary>
-        <description lang="en">Get all the major events replays in one place daily.</description>
-        <disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon or have any affiliation with the website owners</disclaimer>
+        <summary>[COLOR orange][B]RLSBB[/B][/COLOR] Reborn, Python 3 only, Kodi 20+</summary>
+        <description>Stream scene release movies and TV shows from ReleaseBB.
+          [COLOR red][B][I]YOU will need a premium Rapidgator/Nitroflare account configured in ResolveUrl to play most links[/B][/I][/COLOR]
+          [COLOR gold][B][I]FREE links are also available on many posts[/B][/I][/COLOR]</description>
         <platform>all</platform>
+        <disclaimer lang="en">All the movies on this add-on are hosted on third party sites and uploaded by other people. We are not responsible for any content hosted on third-party sites. If you have any legal issues please contact the appropriate content owners/hosters.</disclaimer>
+        <website>https://bugatsinho.github.io/</website>
+        <twitter>https://twitter.com/bugatsinho</twitter>
+        <repo>https://bugatsinho.github.io/repo/</repo>
+        <email>bugatsinho@protonmail.com</email>
+        <news>
+          [B][COLOR lime]v1.0.1[/COLOR][/B]
+          - Movies/TV Shows menu now shows "All Movies"/"All TV Shows" at the top, browse everything without picking a subcategory first
+        </news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+      </extension>
+    </addon>
+    <addon id="plugin.video.rlshub" version="1.0.7" name="Release[COLOR gold][B]HUB[/B][/COLOR]" provider-name="Bugatsinho">
+      <requires>
+        <import addon="xbmc.addon" version="18.0.000" />
+        <import addon="script.module.resolveurl" />
+        <import addon="script.module.requests" />
+        <import addon="script.module.pyxbmct" />
+        <import addon="script.module.six" />
+      </requires>
+      <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+      </extension>
+      <extension point="xbmc.service" library="service.py" start="startup" />
+      <extension point="xbmc.addon.metadata">
+        <summary>Browse Release[COLOR orange][B]BB[/B][/COLOR]</summary>
+        <description>Stream a wide selection of scene release movies and Tv shows from various websites....
+          [COLOR red][B][I]YOU will need a Real-Debrid / Premiumize / Alldebrid account for this add-on[/B][/I][/COLOR]
+        </description>
+        <platform>all</platform>
+        <disclaimer lang="en">All the movies on this add-on are hosted on the third party sites and uploaded by other people. We are not responsible for any content that hosted on on the third-party sites. If you have any legal issues please contact appropriate video owners hosters.</disclaimer>
+        <website>https://bugatsinho.github.io/</website>
+        <twitter>https://twitter.com/bugatsinho</twitter>
+        <repo>https://bugatsinho.github.io/repo/</repo>
+        <email>bugatsinho@protonmail.com</email>
+        <news>1.0.5</news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
       </extension>
     </addon>
     <addon id="plugin.video.seren" version="4.0.1" name="Seren" provider-name="Nixgates">
@@ -3420,6 +2996,78 @@
         </assets>
       </extension>
     </addon>
+    <addon id="plugin.video.skylinecctv" name="Skyline WebCams" version="0.2.5" provider-name="Bugatsinho">
+      <requires>
+        <import addon="xbmc.addon" version="16.1.000" />
+        <import addon="script.module.kodi-six" version="0.0.2" />
+        <import addon="script.module.six" />
+        <import addon="script.module.requests" version="2.19.1" />
+      </requires>
+      <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en">Skyline webcams</summary>
+        <description lang="en">Skyline webcams</description>
+    	<disclaimer lang="en">Skyline webcams</disclaimer>
+    	<language>en es</language>
+        <license>GNU GPL, version 2</license>
+        <twitter>https://twitter.com/Bugatsinho</twitter>
+        <website>https://bugatsinho.github.io</website>
+        <news>+0.2.3 16/01/2023 - compatible with Kodi20</news>
+        <assets>
+          <icon>icon.png</icon>
+          <fanart>fanart.jpg</fanart>
+        </assets>
+      </extension>
+    </addon>
+    <addon id="plugin.video.smr_link_tester" version="1.1.22" name="SMR Link Tester" provider-name="gujal">
+        <requires>
+            
+            <import addon="script.module.resolveurl" />
+            <import addon="script.module.resolveurl.xxx" />
+            <import addon="script.module.six" version="0.0.1" />
+            <import addon="script.module.kodi-six" version="0.0.1" />
+        </requires>
+        <extension point="xbmc.python.pluginsource" library="default.py">
+            <provides>video</provides>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>SMR Link Tester Addon</summary>
+            <description />
+            <platform>all</platform>
+            <assets>
+                <icon>icon.png</icon>
+            </assets>
+    	</extension>
+    </addon>
+    <addon id="plugin.video.sporthdme" name="SportHD" version="0.1.89.4" provider-name="Bugatsinho">
+      <requires>
+        
+        <import addon="script.module.dateutil" />
+        <import addon="script.module.six" />
+        <import addon="script.module.requests" version="2.19.1" />
+      </requires>
+      <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en">SportHD by Bugatsinho</summary>
+        <description lang="en">Sport Streams from SportHD.me</description>
+        <disclaimer lang="en">All the streams on this add-on are hosted on the third party site and uploaded by other people. We are not responsible for any content that hosted on on the third-party sites. If you have any legal issues please contact appropriate video owners hosters.</disclaimer>
+    	  <language>EN</language>
+        <license>GNU GPL, version 2</license>
+        <twitter>https://twitter.com/Bugatsinho</twitter>
+        <news>
+          Fix Eventos En Vivo still crashing on accented event/server titles (e.g. Senal, Auto suffix) plus latent Python 2 unicode/ascii-codec issues found in a full encoding audit: server-name labels, the built-in LIVE EVENTS time label, and channel/language labels
+        </news>
+    
+        <assets>
+          <icon>icon.png</icon>
+          <fanart>fanart.jpg</fanart>
+        </assets>
+      </extension>
+    </addon>
     <addon id="plugin.video.sstv" name="[B][COLOR blue]SSTV[/COLOR][/B]" version="4.2" provider-name="THE CREW">
         <requires>
             <import addon="script.module.requests" />
@@ -3757,52 +3405,6 @@
             </assets>
         </extension>
     </addon>
-    <addon id="plugin.video.themoviedb.helper" version="6.16.5" name="TMDb Helper" provider-name="jurialmunkey">
-    <requires>
-      <import addon="xbmc.python" version="3.0.1" />
-      <import addon="script.module.requests" version="2.9.1" />
-      <import addon="script.module.pil" version="1.1.7" />
-      <import addon="script.module.addon.signals" version="0.0.6" />
-      <import addon="script.module.jurialmunkey" version="0.2.35" />
-      <import addon="script.module.infotagger" version="0.0.5" />
-      <import addon="script.module.qrcode" version="6.1.0" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="resources/plugin.py">
-      <provides>video</provides>
-    </extension>
-    <extension point="xbmc.python.script" library="resources/script.py" />
-    <extension point="xbmc.service" library="resources/service.py" />
-    <extension point="xbmc.python.module" library="resources/modules" />
-    <extension point="xbmc.addon.metadata">
-      <reuselanguageinvoker>false</reuselanguageinvoker>
-      <summary lang="de_DE">TMDb Helfer</summary>
-      <summary lang="en_GB">TMDb Helper</summary>
-      <summary lang="es_ES">Asistente TMDb</summary>
-      <summary lang="zh_CN">TMDb 助手</summary>
-      <description lang="de_DE">TMDb Helper liefert Details über Filme, Fernsehsendungen und Schauspieler aus TMDb. Benutzer können auf eine Vielzahl von Listen aus TMDb TVDb MDbList und Trakt zugreifen.</description>
-      <description lang="en_GB">TMDb Helper provides details about movies, tvshows and actors from TMDb. Users can access a variety of lists from TMDb TVDb MDbList and Trakt.</description>
-      <description lang="es_ES">TMDb Helper proporciona detalles sobre películas, series y actores de TMDb. Los usuarios pueden acceder a una variedad de listas de TMDb, TVDb, MDbList y Trakt.</description>
-      <description lang="pl_PL">TMDb Helper dostarcza szczegółowych informacji o filmach, serialach i aktorach z serwisu TMDb. Użytkownicy mają dostęp do szeregu list z serwisów TMDb, TVDb, MDbList i Trakt.</description>
-      <description lang="sv_SE">TMDb Helper tillhandahåller information om filmer, tv-serier och skådespelare från TMDb. Användare kan få tillgång till en mängd olika listor från TMDb, TVDb, MDbList och Trakt.</description>
-      <description lang="zh_CN">TMDb 助手从 TMDb（影视数据库） 获取电影、电视剧及演员的详细信息。用户可访问来自 TMDb、TVDb、MDbList 和 Trakt 的各类影视列表。</description>
-      <disclaimer lang="de_DE">Daten bereitgestellt von TMDb TVDb MDbList OMDb FanartTV und Trakt. Einige der Informationen werden von TheTVDB.com bereitgestellt. Bitte erwäge sie zu unterstützen. https://thetvdb.com/subscribe</disclaimer>
-      <disclaimer lang="en_GB">Data provided by TMDb TVDb MDbList OMDb FanartTV and Trakt. Some of the information is provided by TheTVDB.com. Please consider supporting them. https://thetvdb.com/subscribe</disclaimer>
-      <disclaimer lang="es_ES">Datos proporcionados por TMDb, TVDb, MDbList, OMDb, FanartTV y Trakt. Parte de la información es suministrada por TheTVDB.com. Por favor, considera apoyarles. https://thetvdb.com/subscribe</disclaimer>
-      <disclaimer lang="pl_PL">Dane dostarczane przez TMDb TVDb MDbList OMDb FanartTV i Trakt. Niektóre informacje pochodzą z serwisu TheTVDB.com. Prosimy o rozważenie wsparcia tych serwisów. https://thetvdb.com/subscribe</disclaimer>
-      <disclaimer lang="sv_SE">Data tillhandahållen av TMDb TVDb MDbList OMDb FanartTV och Trakt. En del av informationen tillhandahålls av TheTVDB.com. Stöd dem gärna. https://thetvdb.com/subscribe</disclaimer>
-      <disclaimer lang="zh_CN">数据由 TMDb、TVDb、MDbList、OMDb、FanartTV 和 Trakt 提供。部分信息由 TheTVDB.com 提供，建议您支持他们。订阅链接：https://thetvdb.com/subscribe</disclaimer>
-      <license>GPL-3.0-or-later</license>
-      <website>https://github.com/jurialmunkey/plugin.video.themoviedb.helper</website>
-      <forum>https://forum.kodi.tv/showthread.php?tid=345847</forum>
-      <assets>
-        <icon>icon.png</icon>
-        <fanart>fanart.jpg</fanart>
-        <clearlogo>clearlogo.png</clearlogo>
-        <screenshot>resources/screenshot-01.jpg</screenshot>
-        <screenshot>resources/screenshot-02.jpg</screenshot>
-      </assets>
-    </extension>
-    </addon>
     <addon id="plugin.video.three.now" name="ThreeNow" provider-name="SlyGuy" version="0.14.4">
       <requires>
         <import addon="script.module.slyguy" version="0.84.0" />
@@ -3890,70 +3492,6 @@
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
         </assets>
-      </extension>
-    </addon>
-    <addon id="plugin.video.tvone" name="tvOne" version="26+matrix.1" provider-name="RACC">
-      <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.pycryptodome" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.kodi-six" />
-        <import addon="script.module.future" />
-        <import addon="script.module.routing" />
-      </requires>
-      <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>video</provides>
-      </extension>
-      <extension point="xbmc.addon.metadata">
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-        <summary lang="en_gb">tvOne</summary>
-        <description lang="en_gb">tvOne</description>
-        <license>GPL-3.0</license>
-        <platform>all</platform>
-      </extension>
-    </addon>
-    <addon id="plugin.video.tvone111" name="tvOne111" version="25+matrix.1" provider-name="RACC">
-      <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.pycryptodome" />
-        <import addon="script.module.pyamf" />
-        <import addon="script.module.kodi-six" />
-        <import addon="script.module.future" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.routing" />
-      </requires>
-      <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>video</provides>
-      </extension>
-      <extension point="xbmc.addon.metadata">
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-        <summary lang="en_gb">tvOne111</summary>
-        <description lang="en_gb">tvOne111</description>
-        <disclaimer lang="en_gb" />
-        <platform>all</platform>
-        <license>GPL-3.0-only</license>
-      </extension>
-    </addon>
-    <addon id="plugin.video.tvone112" name="tvOne112" version="3+matrix.1" provider-name="RACC">
-      <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.pycryptodome" />
-        <import addon="script.module.pyamf" />
-        <import addon="script.module.kodi-six" />
-        <import addon="script.module.future" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.routing" />
-      </requires>
-      <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>video</provides>
-      </extension>
-      <extension point="xbmc.addon.metadata">
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-        <summary lang="en_gb">tvOne112</summary>
-        <description lang="en_gb">tvOne112</description>
-        <disclaimer lang="en_gb" />
-        <platform>all</platform>
-        <license>GPL-3.0-only</license>
       </extension>
     </addon>
     <addon id="plugin.video.udemy" name="Udemy" provider-name="SlyGuy" version="0.12.5">
@@ -4409,6 +3947,84 @@
         <platform>all</platform>
       </extension>
     </addon>
+    <addon id="repository.slyguy" name="SlyGuy Repository" provider-name="SlyGuy" version="0.0.9">
+      <extension point="xbmc.addon.repository" name="SlyGuy Repository">
+        <dir>
+          <info compressed="false">https://slyguy.uk/.repo/repository.slyguy/addons.xml</info>
+          <checksum>https://slyguy.uk/.repo/repository.slyguy/addons.xml.md5</checksum>
+          <datadir zip="true">https://slyguy.uk/.repo/repository.slyguy/</datadir>
+        </dir>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <description lang="en">Addons by SlyGuy (slyguy.uk)</description>
+        <license />
+        <language />
+        <website />
+        <news />
+        <assets>
+          <icon>icon.png</icon>
+          <fanart>fanart.jpg</fanart>
+        </assets>
+      </extension>
+    </addon>
+    <addon id="repository.slyguy.inputstreamhelper" name="SlyGuy InputStream Helper Wrapper Repository" provider-name="SlyGuy" version="0.0.1">
+      <extension point="xbmc.addon.repository" name="SlyGuy InputStream Helper Wrapper Repository">
+        <dir>
+          <info compressed="false">https://slyguy.uk/.repo/repository.slyguy.inputstreamhelper/addons.xml</info>
+          <checksum>https://slyguy.uk/.repo/repository.slyguy.inputstreamhelper/addons.xml.md5</checksum>
+          <datadir zip="true">https://slyguy.uk/.repo/repository.slyguy.inputstreamhelper/</datadir>
+        </dir>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <description lang="en">InputStream Helper Wrapper add-on by SlyGuy Repository</description>
+        <license />
+        <language />
+        <website />
+        <news />
+        <assets>
+          <icon>icon.png</icon>
+          <fanart>fanart.jpg</fanart>
+        </assets>
+      </extension>
+    </addon>
+    <addon id="repository.slyguy.youtube" name="SlyGuy Trailers Redirects Repository" provider-name="SlyGuy" version="0.0.7">
+      <extension point="xbmc.addon.repository" name="SlyGuy Trailers Redirects Repository">
+        <dir>
+          <info compressed="false">https://slyguy.uk/.repo/repository.slyguy.youtube/addons.xml</info>
+          <checksum>https://slyguy.uk/.repo/repository.slyguy.youtube/addons.xml.md5</checksum>
+          <datadir zip="true">https://slyguy.uk/.repo/repository.slyguy.youtube/</datadir>
+        </dir>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <description lang="en">This repo contains various addons that redirect to the SlyGuy Trailers addon</description>
+        <license />
+        <language />
+        <website />
+        <news />
+        <assets>
+          <icon>icon.png</icon>
+        </assets>
+      </extension>
+    </addon>
+    <addon id="repository.universalscrapers" name="universalscrapers-repository" version="1.0.0" provider-name="universalscrapers">
+            <requires>
+                <import addon="xbmc.addon" version="12.0.0" />
+            </requires>
+            <extension point="xbmc.addon.repository" name="universalscrapers">
+                <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+                <hashes>false</hashes>
+            </extension>
+            <extension point="xbmc.addon.metadata">
+                <summary>Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
+                <description>carrying on the dream</description>
+                <platform>all</platform>
+            </extension>
+        </addon>
     <addon id="repository.watchame" name="WatchaMe" version="1.0.0" provider-name="StrainBrainOfficial">
       <extension point="xbmc.addon.repository" name="WatchaMe">
         <dir>
@@ -5168,6 +4784,45 @@
     		<news>1.0.2 - Quieter logs, Comet/Torrentio guards, TGX/PirateBay noise cut</news>
     	</extension>
     </addon>
+    <addon id="script.module.cloudrequest" name="CloudRequest" version="1.0.2" provider-name="oneplay team">
+    
+        <requires>
+            <import addon="xbmc.python" version="3.0.0" />
+            <import addon="script.module.requests" />
+        </requires>
+    
+        <extension point="xbmc.python.module" library="." />
+    
+        <extension point="xbmc.addon.metadata">
+            <summary lang="en">HTTP library with Cloudflare bypass</summary>
+            <description lang="en">Provides a CloudScraper session with automatic bypass for Cloudflare IUAM challenges.</description>
+            <platform>all</platform>
+            <assets>
+                <icon>icon.png</icon>
+            </assets>
+        </extension>
+    
+    </addon>
+    <addon id="script.module.cloudscraper" name="CloudScraper2" version="1.2.44" provider-name="venomous">
+      <requires>
+        
+        <import addon="script.module.requests" />
+      </requires>
+      <extension point="xbmc.python.module" library="lib" />
+      <extension point="xbmc.python.pluginsource" library="lib" />
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en_gb">cloudscraper</summary>
+        <description lang="en_gb">cloudscraper</description>
+        <disclaimer lang="en_gb" />
+        <language />
+        <platform>all</platform>
+        <license />
+        <forum />
+        <website />
+        <email />
+        <source />
+      </extension>
+    </addon>
     <addon id="script.module.cocoscrapers" name="CocoScrapers Module" version="1.0.39" provider-name="CocoJoe">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
@@ -5230,6 +4885,18 @@
         <license />
        </extension>
     </addon>
+    <addon id="script.module.futures" name="Futures dummy" version="0.0.0.2" provider-name="Twilight0">
+      <requires>
+        <import addon="xbmc.addon" version="16.1.000" />
+      </requires>
+      <extension point="xbmc.python.module" library="lib" />
+      <extension point="xbmc.addon.metadata">
+        <summary>Futures dummy</summary>
+        <description>Futures dummy</description>
+        <platform>all</platform>
+        <license>BSD</license>
+      </extension>
+    </addon>
     <addon id="script.module.gearsscrapers" version="1.5.7" name="Gears Scrapers" provider-name="gearsscrapers">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
@@ -5276,6 +4943,26 @@
     		</assets>
     		<news />
     	</extension>
+    </addon>
+    <addon id="script.module.idna" name="idna" version="2.8" provider-name="Kim Davies">
+      <requires>
+        <import addon="xbmc.python" version="2.25.0" />
+      </requires>
+      <extension point="xbmc.python.module" library="lib" />
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Internationalized Domain Names for Python</summary>
+        <description lang="en_GB">Packed for KODI from https://github.com/kjd/idna</description>
+        <platform>all</platform>
+        <language />
+        <license>BSD</license>
+        <forum />
+        <website>https://github.com/kjd/idna</website>
+        <source>https://github.com/Freso/script.module.idna</source>
+        <email>freso.dk AT gmail.com</email>
+        <assets>
+          <icon>resources/icon.png</icon>
+        </assets>
+      </extension>
     </addon>
     <addon id="script.module.infotagger" name="InfoTagger" provider-name="jurialmunkey" version="0.0.8">
       <requires>
@@ -5404,42 +5091,6 @@
         <source>https://github.com/DiMartinoXBMC/script.module.libtorrent</source>
       </extension>
       <extension point="xbmc.python.module" />
-    </addon>
-    <addon id="script.module.liveresolver" name="LiveResolver" version="0.1.50.a" provider-name="natko1412">
-      <requires>
-        <import addon="xbmc.python" version="2.1.0" />
-        <import addon="script.module.beautifulsoup" version="3.2.1" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.addon.common" version="2.0.0" />
-    
-      </requires>
-      <extension point="xbmc.python.module" library="lib" />
-      <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-        <summary lang="en">Resolve common live video host URL's to be playable in XBMC/Kodi + find links embeded in sites.</summary>
-        <description lang="en" />    
-      </extension>
-    </addon>
-    <addon id="script.module.metahandler" name="metahandler" version="3.0.3" provider-name="Eldorado, jsergio">
-      <requires>
-        <import addon="xbmc.python" version="2.1.0" />
-        <import addon="script.module.simplejson" version="3.3.0" />
-        <import addon="script.module.addon.common" version="2.0.0" />
-        <import addon="script.module.myconnpy" version="1.1.6" />
-      </requires>
-      <extension point="xbmc.python.module" library="lib" />
-      <extension point="xbmc.addon.metadata">
-        <summary lang="en">Downloads Artwork for TV shows, Movies and Music videos for addons and stores them in a local SQLITE database</summary>
-        <description lang="en">Queries, stores, and returns metadata for TV shows, Movies and Musicvideos. [CR]Sources:[CR]www.thetvdb.com[CR]www.themoviedb.org[CR]www.imdb.com[CR]www.omdbapi.com[CR]This product uses the TMDb API but is not endorsed or certified by TMDb.</description>
-        <disclaimer lang="en" />
-        <language />
-        <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-        <forum />
-        <website />
-        <email />
-        <source />
-      </extension>
     </addon>
     <addon id="script.module.microjenscrapers" name="MicroJen Scraper Module" version="1.8" provider-name="MicroJen Community">
         <requires>
@@ -5641,28 +5292,6 @@
         <source>https://github.com/mongodb/mongo-python-driver</source>
       </extension>  
     </addon>
-    <addon id="script.module.python.koding.aio.alt" name="Python Koding AIO Alternate" version="1.1" provider-name="Total Revolution">
-        <requires>
-            <import addon="xbmc.python" version="2.25.0" />
-            <import addon="script.module.resolveurl" />
-            <import addon="script.module.requests" />
-            <import addon="script.module.beautifulsoup" />
-            <import addon="script.module.unidecode" />
-        </requires>
-        <extension point="xbmc.python.module" library="lib" />
-        <extension point="xbmc.addon.metadata">
-            <platform>all</platform>
-            <summary lang="en">Python Koding All In One</summary>
-            <description lang="en">Python Koding AIO contains a bunch of time saving modules that allows for quick and simple development. This is an alterrnate fork that uses ResolveURL instead of URL Resolver.</description>
-            <disclaimer lang="en" />
-            <language />
-            <license>Creative Commons 4.0-NC-ND</license>
-            <forum>http://totalrevolution.tv/forum</forum>
-            <website>http://totalrevolution.tv</website>
-            <news>1.0 Stable release</news>
-            <source>https://github.com/totalrevolution/python-koding/tree/master/script.module.python.koding.aio</source>
-        </extension>
-    </addon>
     <addon id="script.module.requests" name="requests" version="2.31.0" provider-name="Python Software Foundation">
       <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -5683,6 +5312,52 @@
           <icon>resources/icon.png</icon>
         </assets>
       </extension>
+    </addon>
+    <addon id="script.module.resolveurl" name="ResolveURL" version="5.1.207" provider-name="gujal">
+        <requires>
+            
+            <import addon="script.module.six" />
+            <import addon="script.module.kodi-six" />
+            <import addon="script.module.pyqrcode" />
+            <import addon="script.module.cloudrequest" optional="true" />
+            <import addon="plugin.video.youtube" optional="true" />
+            <import addon="script.module.python.twitch" optional="true" />
+            <import addon="plugin.googledrive" optional="true" />
+        </requires>
+        <extension point="xbmc.python.module" library="lib" />
+        <extension point="xbmc.python.pluginsource" library="lib/default.py" />
+        <extension point="xbmc.addon.metadata">
+            <platform>all</platform>
+            <summary lang="en_GB">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
+            <summary lang="es_ES">Resolver enlaces a videos de sitios populares para poder reproducirlos en XBMC/Kodi.</summary>
+            <summary lang="hr_HR">Prilagodi najčešće URL-ove video izvora kako bi radili u XBMC/Kodiju.</summary>
+            <summary lang="el_GR">Επίλυση συνδέσμων κοινών εξυπηρετητών σε μορφή βίντεο ικανό για αναπαραγωγή στο XBMC/Kodi.</summary>
+            <description lang="en_GB">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
+            <description lang="el_GR">Επίλυση συνδέσμων κοινών εξυπηρετητών σε μορφή βίντεο ικανό για αναπαραγωγή στο XBMC/Kodi, απλοποίηση της ανάπτυξης των προσθέτων που χρησιμοποιούν πολλαπλούς εξυπηρετητές για υλικό βίντεο</description>
+            <description lang="hr_HR">Prilagodi najčešće URL-ove video izvora kako bi radili u XBMC/Kodiju, pojednostavnjuje razvoj priključaka za video dodatke koji zahtjevaju višestruke video izvore.</description>
+            <disclaimer lang="en_GB">This script only resolves video content from legitimate file lockers without prejudice. If this script is being used by 3rd parties to resolve content that you feel infringes upon your Intellectual Property then please take your complaints to the actual website or developer linking to such content and not here. This script in no way searches for any content whatsoever.</disclaimer>
+            <disclaimer lang="el_GR">Το ανωτέρο σενάριο το μόνο που κάνει είναι να επιλύει οπτικοακουστικό περιεχόμενο από νόμιμες πηγές χωρίς προκατάληψη. Εάν το ανωτέρο σενάριο χρησιμοποιηθεί από τρίτους ώστε να επιλύσει περιεχόμενο το οποίο σας προκαλεί αντίδραση ότι παραβιάζει την πνευματική σας ιδιοκτησία παρακαλώ μεταφέρετε τα παραπονά σας στον ιστότοπο τον οποίο βρίσκεται το εν λόγω περιεχόμενο η τον δημιουργό ο οποίος πραγματοποιεί την σύνδεση και όχι εδω. Το σενάριο αυτό ουδεμία περίπτωση πραγματοποιεί αναζήτηση περιεχομένου.</disclaimer>
+            <assets>
+                <icon>icon.png</icon>
+                <fanart>fanart.jpg</fanart>
+            </assets>
+        </extension>
+    </addon>
+    <addon id="script.module.resolveurl.xxx" version="2.1.44" name="Adult Resolver SMR Extension" provider-name="gujal">
+        <requires>
+            
+            <import addon="script.module.resolveurl" version="5.1.0" />
+        </requires>
+        <extension point="xbmc.python.module" library="lib" />
+        <extension point="xbmc.addon.metadata">
+            <summary lang="en_GB">Resolve adult video host URL's to be playable in XBMC/Kodi.</summary>
+            <description lang="en_GB">Resolve adult video host URL's to be playable in XBMC/Kodi.</description>
+            <platform>all</platform>
+            <assets>
+                <icon>icon.png</icon>
+                <fanart>fanart.jpg</fanart>
+            </assets>
+        </extension>
     </addon>
     <addon id="script.module.simpleplugin" name="SimplePlugin" version="2.3.2" provider-name="Roman V.M.">
       <requires>
@@ -5801,6 +5476,17 @@
           &gt; USTVNOW plugin has been removed due to improper crypto library imports (due to backwards compatibility)</news>
       </extension>
     </addon>
+    <addon id="script.module.t0mm0.common" name="t0mm0's common stuff" version="3.0.1" provider-name="t0mm0">
+      <requires>
+    	<import addon="script.module.six" />
+      </requires>
+      <extension point="xbmc.python.module" library="lib" />
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Collection of commonly used addon routines</summary>
+        <description lang="en">Collection of commonly used addon routines to simplify addon development.</description>
+      </extension>
+    </addon>
     <addon id="script.module.tabulate" name="Tabulate" version="0.9.1.2">
       <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -5851,55 +5537,19 @@
     		<source>https://github.com/Twilight0/script.module.tulip</source>
     	</extension>
     </addon>
-    <addon id="script.module.universaldebrid" name="Universal Debrid" version="1.2.3" provider-name="Team Universal">
-        <requires>
-            <import addon="xbmc.python" version="2.1.0" />
-            <import addon="script.module.beautifulsoup" version="3.2.1" />
-            <import addon="script.module.futures" version="2.2.0" />
-            <import addon="script.module.requests" />
-            <import addon="script.module.six" />
-            <import addon="repository.universalscrapers" />
-    	<import addon="script.module.resolveurl" version="5.0.00" optional="true" />
-    
-                    
-        </requires>
-        <extension point="xbmc.python.module" library="lib" />
-        <extension point="xbmc.python.pluginsource" library="lib/default.py">
-            <provides>executable</provides>
-        </extension>
-            <extension point="xbmc.addon.metadata">
-                <platform>all</platform>
-                <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-                <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
-                </description>
-                <license>GPL v3</license>
-                <source>https://</source>
-            </extension>
-    </addon>
-    <addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.2.3" provider-name="Team Universal">
-        <requires>
-            <import addon="xbmc.python" version="2.1.0" />
-            <import addon="script.module.beautifulsoup" version="3.2.1" />
-            <import addon="script.module.futures" version="2.2.0" />
-            <import addon="script.module.requests" />
-            <import addon="script.module.six" />
-            <import addon="repository.universalscrapers" />
-    	<import addon="script.module.resolveurl" version="5.0.00" optional="true" />
-    
-                    
-        </requires>
-        <extension point="xbmc.python.module" library="lib" />
-        <extension point="xbmc.python.pluginsource" library="lib/default.py">
-            <provides>executable</provides>
-        </extension>
-            <extension point="xbmc.addon.metadata">
-                <platform>all</platform>
-                <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-                <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
-                </description>
-                <license>GPL v3</license>
-                <source>https://</source>
-            </extension>
+    <addon id="script.module.unshortenit" name="Unshortenit Module" version="0.3.1.a" provider-name="Jeff Kehler, Twilight0">
+    	<requires>
+    		<import addon="xbmc.python" version="2.1.0" />
+    		<import addon="script.module.requests" version="2.12.4" />
+    	</requires>
+    	<extension point="xbmc.python.module" library="lib" />
+    	<extension point="xbmc.addon.metadata">
+    		<summary lang="en">Unshortenit Module</summary>
+    		<description lang="en">Unshortenit Module to reveal links from popular url shortener services</description>
+    		<platform>all</platform>
+    		<license>MIT</license>
+    		<source>https://pypi.python.org/pypi/unshortenit/0.3.0</source>
+    	</extension>
     </addon>
     <addon id="script.module.urlresolver" name="URLResolver" version="2.10.0" provider-name="Eldorado">
       <requires>
@@ -6238,27 +5888,6 @@
       </assets>
     </extension>
     </addon>
-    <addon id="script.texturemaker" version="0.2.11" name="Texture Maker" provider-name="jurialmunkey">
-    <requires>
-      <import addon="xbmc.python" version="3.0.0" />
-      <import addon="script.module.pil" version="1.1.7" />
-      <import addon="script.module.jurialmunkey" version="0.2.28" />
-    </requires>
-    <extension point="xbmc.python.script" library="script.py" />
-    <extension point="xbmc.python.pluginsource" library="plugin.py">
-      <provides>image</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-      <summary lang="en_GB">Texture Maker helps skinners build gradient based textures</summary>
-      <description lang="en_GB">Texture Maker helps skinners build gradient based textures</description>
-      <disclaimer lang="en_GB">For skinners</disclaimer>
-      <license>GPL-3.0-or-later</license>
-      <assets>
-        <icon>icon.png</icon>
-        <fanart>fanart.jpg</fanart>
-      </assets>
-    </extension>
-    </addon>
     <addon id="script.thecrew.artwork" version="3.2.0" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
         <requires>
             <import addon="xbmc.python" version="3.0.1" />
@@ -6338,7 +5967,22 @@
             <description lang="en_US">Umbrestuary Helper for the Umbrestuary Skin.</description>
         </extension>
     </addon>
-    <addon id="script.watchame.toolbox" name="WatchaMe Toolbox" version="1.2.3" provider-name="StrainBrainOfficial">
+    <addon id="script.video.F4mProxy" name="F4mProxy" version="2.8.8" provider-name="Shani">
+        <requires>
+            <import addon="xbmc.python" version="2.1.0" />
+            <import addon="script.module.requests" />
+        </requires>
+        <extension point="xbmc.python.module" library="lib" />
+        <extension point="xbmc.python.pluginsource" library="addon.py">
+            <provides>executable</provides>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <platform>all</platform>
+            <summary lang="en">Proxy for f4m</summary>
+            <description lang="en">Use this addon to play F4m v1 and v2 streams</description>
+        </extension>
+    </addon>
+    <addon id="script.watchame.toolbox" name="WatchaMe Toolbox" version="1.2.5" provider-name="StrainBrainOfficial">
       <requires>
         <import addon="xbmc.python" version="3.0.0" />
       </requires>
@@ -6866,6 +6510,46 @@
       <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
     </addon>
+    <addon id="service.subtitles.greeksubs" name="Greek Subs" version="2.0.14" provider-name="Bugatsinho">
+    	<requires>
+    		<import addon="xbmc.addon" version="16.1.000" />
+    		<import addon="script.module.requests" version="2.8.1" />
+    		<import addon="script.module.six" />
+    		<import addon="script.module.kodi-six" version="0.0.2" />
+    		<import addon="script.module.futures" version="0.0.0.2" optional="true" />
+    	</requires>
+    	<extension point="xbmc.subtitle.module" library="service.py">
+    	</extension>
+    	<extension point="xbmc.addon.metadata">
+    		<reuselanguageinvoker>false</reuselanguageinvoker>
+    		<summary lang="en_GB">Greek Subs addon for subtitles</summary>
+    		<summary lang="en_GB">Πρόσθετο υποτίτλων Greek Subs</summary>
+            <description lang="en_GB">Search and download subtitles from yifisubs, subs4free/subs4series and subztv.club</description>
+    		<description lang="el_GR">Εύρεση και λήψη υποτίτλων από τα yifisubs, subs4free/subs4series και subztv.club</description>
+    		<disclaimer lang="en_GB">This service is only for Greek subtitles and not published nor endorsed by subs4free/subs4series and subztv.club</disclaimer>
+    		<disclaimer lang="el_GR">Υπηρεσία μόνο ελληνικών υποτίτλων που δεν έχει δημοσιευθεί ούτε εγκριθεί από τα subs4free/subs4series και subztv.club</disclaimer>
+    		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    		<website>https://subztv.club/</website>
+    		<platform>all</platform>
+    		<language>el</language>
+    		<news>[B]2.0.13[/B] 14/01/2026
+    			-Fixed RAR subtitle extraction with multi-method fallback
+    			-Improved compatibility across all platforms (Windows, Linux, CoreELEC)
+    			-Better error handling and user feedback for failed extractions
+    			-Fixed regex FutureWarning in cleantitle module
+    		[B]2.0.12[/B] 27/12/2024
+    			-Python 3.13+ compatibility fix (URLopener removed)
+    			-Fixed regex escape sequence warning
+    			-Now compatible with Kodi 22+ (Python 3.14.2)
+    		[B]2.0.10[/B] 26/01/2024
+    			-fix downloading issue for S4F subtitles credits to Gkobu
+    		</news>
+    		<assets>
+    	      <icon>icon.png</icon>
+    	      <fanart>fanart.jpg</fanart>
+        	</assets>
+    	</extension>
+    </addon>
     <addon id="service.time.monitor" name="Time Change Monitor" provider-name="SlyGuy" version="0.4.1">
       <requires>
         <import addon="script.module.slyguy" version="0.84.0" />
@@ -7087,68 +6771,6 @@
     		</assets>
     		<news>[I][COLOR FFFF9800]v2.0[/COLOR][/I][CR]- Intial Version now compatible with Kodi 19.[I][COLOR FFFF9800]v2.1[/COLOR][/I][CR]- Changed the Power menu to use my custom panels (thanks to TerroizeKodi), Widgets now use my custom panels (can be turned off in Skin Settings (Thanks to Atom1c for the idea)</news>
     	</extension>
-    </addon>
-    <addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.7.39~omega">
-        <requires>
-            <import addon="xbmc.gui" version="5.17.0" />
-            <import addon="script.skinvariables" version="2.1.14" />
-            <import addon="script.texturemaker" version="0.2.9" />
-            <import addon="plugin.video.themoviedb.helper" version="5.2.31" />
-            <import addon="resource.images.weathericons.white" version="0.0.1" />
-            <import addon="resource.images.studios.coloured" version="0.0.1" />
-            <import addon="resource.font.robotocjksc" version="0.0.1" />
-        </requires>
-        <extension debugging="false" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
-            <res aspect="16:9" default="true" folder="1080i" width="1920" height="1080" />
-            <res aspect="3:2" default="false" folder="1080i" width="1620" height="1080" />
-            <res aspect="4:3" default="false" folder="1080i" width="1440" height="1080" />
-            <res aspect="16:10" default="false" folder="1080i" width="1728" height="1080" />
-            <res aspect="17:9" default="false" folder="1080i" width="2040" height="1080" />
-            <res aspect="21:9" default="false" folder="1080i" width="2520" height="1080" />
-            <res aspect="19.5:9" default="false" folder="1080i" width="2340" height="1080" />
-            <res aspect="18:9" default="false" folder="1080i" width="2160" height="1080" />
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary lang="en">A minimalist row based skin</summary>
-            <summary lang="fr">Un habillage minimaliste basé sur des lignes</summary>
-            <description lang="en">Arctic Fuse is a minimalist row based skin providing a vertical quick nav menu and customisable widgets</description>
-            <description lang="fr">Arctic Fuse est un hablillage minimaliste basé sur des lignes offrant un menu vertical pour une navigation rapide ainsi que des widgets personnalisables</description>
-            <platform>all</platform>
-            <license>Creative Commons Attribution Non-Commercial Share-Alike 4.0</license>
-            <forum />
-            <source />
-            <assets>
-                <icon>icon.png</icon>
-                <fanart>fanart.jpg</fanart>
-            </assets>
-        </extension>
-    </addon>
-    <addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.8.30~omega">
-        <requires>
-            <import addon="xbmc.gui" version="5.17.0" />
-            <import addon="script.skinshortcuts" version="0.4.0" />
-            <import addon="script.skinvariables" version="1.0.0" />
-            <import addon="script.texturemaker" version="0.2.8" />
-            <import addon="plugin.video.themoviedb.helper" version="5.1.11~nexus" />
-            <import addon="resource.images.weathericons.white" version="0.0.1" />
-            <import addon="resource.images.studios.coloured" version="0.0.1" />
-            <import addon="resource.font.robotocjksc" version="0.0.1" />
-        </requires>
-        <extension debugging="false" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
-            <res aspect="16:9" default="true" folder="1080i" height="1080" width="1920" />
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary lang="en">Minimal. Classic. Gradients. Widgets.</summary>
-            <description lang="en">Arctic Horizon 2</description>
-            <platform>all</platform>
-            <license>Creative Commons Attribution Non-Commercial Share-Alike 4.0</license>
-            <forum />
-            <source />
-            <assets>
-                <icon>icon.png</icon>
-                <fanart>fanart.jpg</fanart>
-            </assets>
-        </extension>
     </addon>
     <addon id="skin.blackglassnova" version="7.0.1" name="Black Glass Nova" provider-name="Tgx">
         <requires>
