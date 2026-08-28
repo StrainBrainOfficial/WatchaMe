@@ -445,6 +445,9 @@ def write_addons_xml(entries):
 
 def write_index(cfg, entries):
     base = base_url(cfg)
+    # GitHub Pages runs Jekyll unless this exists, which is slow over a few
+    # hundred zip folders and drops any path beginning with an underscore.
+    (DOCS / ".nojekyll").touch()
     rows = "\n".join(
         f"      <tr><td><code>{aid}</code></td><td>{ver}</td>"
         f'<td><a href="zips/{aid}/{aid}-{ver}.zip">zip</a></td></tr>'
