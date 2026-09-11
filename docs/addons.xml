@@ -1555,7 +1555,7 @@
             <reuselanguageinvoker>true</reuselanguageinvoker>
         </extension>
     </addon>
-    <addon id="plugin.video.jet_guide" name="TV Guide - Beta" version="0.0.20" provider-name="JetJet">
+    <addon id="plugin.video.jet_guide" name="TV Guide - Beta" version="0.0.21" provider-name="JetJet">
         <requires>
             <import addon="xbmc.python" version="3.0.0" />
             <import addon="script.module.requests" />
@@ -1575,6 +1575,9 @@
         </requires>
         <extension point="xbmc.python.pluginsource" library="addon.py">
             <provides>video</provides>
+        </extension>
+        <extension point="xbmc.python.script" library="gui_launcher.py">
+            <provides>executable</provides>
         </extension>
         <extension point="xbmc.service" library="service.py" />
         <extension point="xbmc.addon.metadata">
@@ -1818,7 +1821,7 @@
         </news>
       </extension>
     </addon>
-    <addon id="plugin.video.madtitansports" name="Mad Titan [COLORyellow]Sports[/COLOR] V2.0" version="2.0.37" provider-name="Titans Team">
+    <addon id="plugin.video.madtitansports" name="Mad Titan [COLORyellow]Sports[/COLOR] V2.0" version="2.0.38" provider-name="Titans Team">
       <requires>
     <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -1843,6 +1846,9 @@
         <provides>video</provides>
       </extension>
       <extension point="xbmc.service" library="service.py" />
+      <extension point="xbmc.python.script" library="gui_launcher.py">
+        <provides>executable</provides>
+      </extension>
       <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Sports,Live tv,Movies,TV Shows. Thanks to The Jen Team for all the hard work.</summary>
         <platform>all</platform>
