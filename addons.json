@@ -973,6 +973,20 @@
       "repo_url": "https://slyguy.uk/.repo/repository.slyguy"
     },
     {
+      "id": "script.module.starfleetresolve",
+      "name": "Starfleet Resolver",
+      "category": "tools",
+      "why": "Hard dependency of plugin.video.starfleet; not in the official repo.",
+      "repo_url": "https://hazmat77.github.io/repository.starfleet"
+    },
+    {
+      "id": "script.module.starfleetscrapers",
+      "name": "Starfleet Scrapers",
+      "category": "tools",
+      "why": "Hard dependency of plugin.video.starfleet; not in the official repo.",
+      "repo_url": "https://hazmat77.github.io/repository.starfleet"
+    },
+    {
       "id": "script.module.t0mm0.common",
       "name": "Common",
       "category": "tools",
@@ -1044,13 +1058,6 @@
       "repo_url": "https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/master/nexus/zips"
     },
     {
-      "id": "service.mdblist-scrobbler",
-      "name": "Mdblist-Scrobbler",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips"
-    },
-    {
       "id": "service.recently.added.refresh",
       "name": "Refresh",
       "category": "tools",
@@ -1088,27 +1095,6 @@
       "github": "Zomboided/service.vpn.manager",
       "track": "release",
       "optional": true
-    },
-    {
-      "id": "skin.aeon.nox.barroni",
-      "name": "Barroni",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "http://funstersplace.net/19repo"
-    },
-    {
-      "id": "skin.aeon.terror",
-      "name": "Terror",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "http://funstersplace.net/19repo"
-    },
-    {
-      "id": "skin.aeon.terror.k21",
-      "name": "K21",
-      "category": "tools",
-      "why": "TODO: one sentence on why this earned a slot.",
-      "repo_url": "http://funstersplace.net/19repo"
     },
     {
       "id": "skin.aeon.viper",
@@ -1644,6 +1630,12 @@
       "category": "skin",
       "why": "Fast, clean, actively maintained modern skin.",
       "optional": true
+    },
+    {
+      "id": "service.mdblist-scrobbler",
+      "name": "MDBList Scrobbler",
+      "category": "tools",
+      "why": "Maintained in the official repo, which is ahead of the old third-party mirror."
     }
   ],
   "external": [
