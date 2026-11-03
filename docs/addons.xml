@@ -1170,7 +1170,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.cartoonsgr" name="CartoonsGR" version="1.0.59" provider-name="Bugatsinho">
+    <addon id="plugin.video.cartoonsgr" name="CartoonsGR" version="1.0.60" provider-name="Bugatsinho">
       <requires>
         <import addon="xbmc.addon" version="17.0.000" />
         <import addon="script.module.six" />
@@ -1199,10 +1199,9 @@
         <repo>https://bugatsinho.github.io/repo/</repo>
         <email>bugatsinho@protonmail.com</email>
         <news>
-          [B]v1.0.59[/B] 16/06/2026
-          - Fixed gmteam.best host not redirecting to embedded player
-          - Fixed coverapi.store resolver (site switched to new player API)
-          - Coverapi requests now send a browser User-Agent to avoid Cloudflare block
+          [B]v1.0.60[/B] 25/10/2026
+          - Fix gamatotv links not playing: resolver handles gtv4/gtv5+ mirror domains and any future mirror via URL path pattern
+          - Show SUBS / MET tag on links when the site marks subtitled vs dubbed sources
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -1234,7 +1233,7 @@
             <news />
         </extension>
     </addon>
-    <addon id="plugin.video.cumination" name="Cumination" provider-name="Cumination" version="1.1.198">
+    <addon id="plugin.video.cumination" name="Cumination" provider-name="Cumination" version="1.1.206">
         <requires>
             <import addon="script.module.six" />
             <import addon="script.module.kodi-six" />
@@ -1508,9 +1507,9 @@
     	</assets>
       </extension>
     </addon>
-    <addon id="plugin.video.jacktook" name="Jacktook" version="1.20.0" provider-name="Sam-Max">
+    <addon id="plugin.video.jacktook" name="Jacktook" version="1.22.0" provider-name="Sam-Max">
       <requires>
-        <import addon="xbmc.python" version="3.00.0" />
+        <import addon="xbmc.python" version="3.0.1" />
         <import addon="script.module.requests" version="2.25.1" />
         <import addon="script.module.routing" version="0.2.3" />
       </requires>
@@ -1533,7 +1532,7 @@
         </assets>
      </extension>
     </addon>
-    <addon id="plugin.video.jacktorr" name="JackTorr" provider-name="Sam-Max" version="1.2.2">
+    <addon id="plugin.video.jacktorr" name="JackTorr" provider-name="Sam-Max" version="1.3.0">
         <requires>
             <import addon="script.module.requests" version="2.22.0" />
             <import addon="script.module.routing" version="0.2.3" />
@@ -1555,7 +1554,7 @@
             <reuselanguageinvoker>true</reuselanguageinvoker>
         </extension>
     </addon>
-    <addon id="plugin.video.jet_guide" name="TV Guide - Beta" version="0.0.21" provider-name="JetJet">
+    <addon id="plugin.video.jet_guide" name="TV Guide - Beta" version="0.0.22" provider-name="JetJet">
         <requires>
             <import addon="xbmc.python" version="3.0.0" />
             <import addon="script.module.requests" />
@@ -1590,7 +1589,7 @@
             </assets>
         </extension>
     </addon>
-    <addon id="plugin.video.jetproxy" version="1.0.7" name="JetProxy" provider-name="t4ils">
+    <addon id="plugin.video.jetproxy" version="1.1.2" name="JetProxy" provider-name="t4ils">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
       <import addon="script.module.routing" />
@@ -1601,8 +1600,8 @@
     </extension>
     <extension point="xbmc.service" library="service.py" />
     <extension point="xbmc.addon.metadata">
-      <summary lang="en">JetProxy</summary>
-      <description lang="en_GB">JetProxy</description>
+      <summary lang="en">Local HLS proxy for IPTV streams</summary>
+      <description lang="en_GB">JetProxy proxies HLS manifests and segments locally with controlled headers, playlist normalization, and a stall watchdog so dead live streams fail fast instead of freezing playback.</description>
       <assets>
         <icon>icon.png</icon>
         <fanart>fanart.jpg</fanart>  
@@ -1821,7 +1820,7 @@
         </news>
       </extension>
     </addon>
-    <addon id="plugin.video.madtitansports" name="Mad Titan [COLORyellow]Sports[/COLOR] V2.0" version="2.0.38" provider-name="Titans Team">
+    <addon id="plugin.video.madtitansports" name="Mad Titan [COLORyellow]Sports[/COLOR] V2.0" version="2.0.48" provider-name="Titans Team">
       <requires>
     <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -2051,7 +2050,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.3.2">
+    <addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.3.4">
       <requires>
         <import addon="xbmc.python" version="3.0.1" />
         <import addon="script.module.beautifulsoup4" />
@@ -2085,7 +2084,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.3.2">
+    <addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.3.4">
       <requires>
         <import addon="xbmc.python" version="3.0.1" />
         <import addon="script.module.beautifulsoup4" />
@@ -2167,7 +2166,7 @@
     		<website />
     	</extension>
     </addon>
-    <addon id="plugin.video.rlsbb" version="1.0.1" name="[COLOR orange][B]RLSBB[/B][/COLOR]" provider-name="Bugatsinho">
+    <addon id="plugin.video.rlsbb" version="1.1.0" name="[COLOR orange][B]RLSBB[/B][/COLOR]" provider-name="Bugatsinho">
       <requires>
         <import addon="xbmc.python" version="3.0.1" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -2191,8 +2190,8 @@
         <repo>https://bugatsinho.github.io/repo/</repo>
         <email>bugatsinho@protonmail.com</email>
         <news>
-          [B][COLOR lime]v1.0.1[/COLOR][/B]
-          - Movies/TV Shows menu now shows "All Movies"/"All TV Shows" at the top, browse everything without picking a subcategory first
+          [B]v1.1.0[/B]
+          - New optional EZTV menu (enable in Settings &gt; EZTV): Latest + Search via EZTV API, debrid playback, MDBList/Trakt scrobble, auto domain refresh from eztvstatus.org
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -2936,7 +2935,7 @@
             </assets>
     	</extension>
     </addon>
-    <addon id="plugin.video.sporthdme" name="SportHD" version="0.1.89.7" provider-name="Bugatsinho">
+    <addon id="plugin.video.sporthdme" name="SportHD" version="0.1.92" provider-name="Bugatsinho">
       <requires>
         
         <import addon="script.module.dateutil" />
@@ -2954,9 +2953,7 @@
         <license>GNU GPL, version 2</license>
         <twitter>https://twitter.com/Bugatsinho</twitter>
         <news>
-          - Fix Futbol Libre servers stuck on 'could not resolve stream' (tarjetarojita.xyz and similar multi-hop wrappers): resolve() now follows ?get= redirects and nested iframes, tries the existing _econfig decoder plus plain playbackURL, and returns the real page origin for correct Referer/Origin headers
-          - Fix playback still failing after resolve: some CDNs blackhole FFmpeg's TLS client (works via curl/browser, hangs 30s via Kodi's ffmpeg) - route inputstream.ffmpegdirect through open_mode=curl instead
-          - inputstream.ffmpegdirect is now used only when present at runtime (System.HasAddon check), not as a hard addon.xml dependency - it doesn't exist for Kodi 18/Leia, so requiring it would have blocked the whole addon from installing there
+          Update Windows user-agent to Chrome 156 for stream resolution (nexa/vertex/kora + resolved hosts)
         </news>
     
         <assets>
@@ -3355,7 +3352,7 @@
       </extension>
     
     </addon>
-    <addon id="plugin.video.superview" name="SuperView" provider-name="SlyGuy" version="0.9.1">
+    <addon id="plugin.video.superview" name="SuperView" provider-name="SlyGuy" version="0.10.0">
       <requires>
         <import addon="script.module.slyguy" version="0.84.0" />
       </requires>
@@ -3370,7 +3367,7 @@
         <license />
         <language />
         <website />
-        <news>Fix live</news>
+        <news>Big rework with event names. 1080p vod. Fix missing events</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
@@ -3421,7 +3418,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.thechains" name="The Chains" version="6.0.0" provider-name="Chains">
+    <addon id="plugin.video.thechains" name="The Chains" version="6.0.1" provider-name="Chains">
       <requires>
     	<import addon="script.module.requests" /> 
     	<import addon="script.module.chainscrapers" />
@@ -3533,7 +3530,7 @@
             <reuselanguageinvoker>true</reuselanguageinvoker>
         </extension>
     </addon>
-    <addon id="plugin.video.tvnz.ondemand" name="TVNZ+" provider-name="SlyGuy" version="0.25.1">
+    <addon id="plugin.video.tvnz.ondemand" name="TVNZ+" provider-name="SlyGuy" version="0.25.2">
       <requires>
         <import addon="script.module.slyguy" version="0.86.81" />
       </requires>
@@ -3542,18 +3539,18 @@
       </extension>
       <extension point="xbmc.addon.metadata">
         <description lang="en">Watch free movies &amp; TV shows &amp; Live TV online. Enjoy local, international and popular entertainment.</description>
-        <reuselanguageinvoker>true</reuselanguageinvoker>
+        
         <license />
         <language />
         <website />
-        <news>Add support for recent live episodes</news>
+        <news>Add setting to fix faulty manifests</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.udemy" name="Udemy" provider-name="SlyGuy" version="0.12.5">
+    <addon id="plugin.video.udemy" name="Udemy" provider-name="SlyGuy" version="0.12.6">
       <requires>
         <import addon="script.module.slyguy" version="0.84.64" />
       </requires>
@@ -3566,14 +3563,14 @@
         <license />
         <language />
         <website />
-        <news>Add keepalive support</news>
+        <news>Fix playback of Widevine encrypted lectures</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.87">
+    <addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.99">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
     		<import addon="script.module.requests" />
@@ -3678,6 +3675,15 @@
     				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]Scrob Manager</label>
     				<visible>
     					!String.IsEmpty(Window(home).Property(context.umbrella.scrobManager)) +
+    					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
+    					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
+    					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,movie)]
+    				</visible>
+    			</item>
+    			<item library="resources\lib\context\punchplayManager.py">
+    				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]PunchPlay Manager</label>
+    				<visible>
+    					!String.IsEmpty(Window(home).Property(context.umbrella.punchplayManager)) +
     					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
     					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
     					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,movie)]
@@ -3836,16 +3842,25 @@
     			<screenshot>resources/screenshots/screenshot003.jpg</screenshot>
     		</assets>
     		<news>
-    [B]Update - v6.7.87 - Sept 9th, 2026 [/B]
-    --[Fix] Removed guard for scrobble in first 3 minutes so immediate stops no longer continue to show as playing.
-    --[Fix] Fix for progress episodes refreshing episodes with duplicates or none.
-    --[Fix] Fix for mdblist getting out of sync on multiple device environments.
-    --[Fix] Reduced container refreshes to improve performance.
+    [B]Update - v6.7.99 - Oct 30th, 2026[/B]
+    --[Fix] Fixed continuous playback stopping after multiple episodes and improved automatic Play Next reliability.
+    --[Fix] Fixed episode queue issues, including duplicate episodes, interrupted playback, and manually queued episodes being lost.
+    --[Fix] Fixed artwork and loading spinner overlapping during source resolution.
+    --[Fix] Fixed occasional episode scraping errors.
+    --[Feature] Added Floppy OAuth login with QR code authorization and automatic token renewal. API keys are still supported.
+    --[Fix] Improved Floppy watched history syncing, including skipped episodes, specials, and rewatched shows.
+    --[Enhancement] Improved Floppy syncing speed, reliability, and handling of connection failures.
+    --[Feature] Added IMDb TV show browsing by year and improved TMDb year browsing, with new sorting and rating options.
+    --[Feature] Added IMDb movie browsing by year and improved movie year sorting for IMDb and TMDb.
+    --[Fix] Fixed stopping a scrape early incorrectly showing "No Sources Found" when sources were already available.
+    --[Enhancement] Added optional Prefer Dolby Audio setting to prioritize Atmos, TrueHD, Dolby Digital Plus, and Dolby Digital sources.
+    --[Fix] Improved Kodi 22 compatibility and reduced metadata warnings.
+    --[Fix] Additional Floppy authorization, caching, synchronization, and error-handling improvements.
     		</news>
     	</extension>
     
     </addon>
-    <addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.14.23" provider-name="WNT2">
+    <addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.14.24" provider-name="WNT2">
         <requires>
             <import addon="script.module.requests" />
             <import addon="script.module.six" />
@@ -3869,6 +3884,10 @@
             <language>en</language>
             <platform lang="en">all</platform>
             <news>[COLOR orange][B]WatchNixtoons2[/B][/COLOR] - Cartoons &amp; Anime
+    [B]0.14.24:[/B]
+    - Update Thumbnail Hashes
+    - Update User Agent
+    
     [B]0.14.23:[/B]
     - Fix Premium Detection
     
@@ -3885,13 +3904,7 @@
     - Update Thumbnail Hashes
     
     [B]0.14.20:[/B]
-    - Change to new thumbnail domain
-    
-    [B]0.14.19:[/B]
-    - Remove m3u8 resolving
-    - Change how delay on requests work to make feel more responsive
-    - Update Thumbnail Hashes
-    - Update User Agent</news>
+    - Change to new thumbnail domain</news>
             <assets>
                 <icon>icon.png</icon>
             </assets>
@@ -3919,7 +3932,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="plugin.video.zoro" version="1.1.8" name="Zoro" provider-name="Ghost">
+    <addon id="plugin.video.zoro" version="1.1.9" name="Zoro" provider-name="Ghost">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
     		<import addon="script.module.requests" />
@@ -4473,13 +4486,12 @@
             </assets>
         </extension>
     </addon>
-    <addon id="script.jacktook.burst" name="Jacktook [COLOR FFFF6B00]Burst[/COLOR]" version="0.0.92" provider-name="Sam-Max">
+    <addon id="script.jacktook.burst" name="Jacktook [COLOR FFFF6B00]Burst[/COLOR]" version="0.0.101" provider-name="Sam-Max">
         <requires>
-            <import addon="xbmc.addon" version="16.0.0" />
+            <import addon="xbmc.python" version="3.0.1" />
             <import addon="plugin.video.jacktook" optional="true" />
             <import addon="script.module.kodi-six" />
             <import addon="script.module.requests" />
-            <import addon="script.module.future" version="0.16.0.4" />
             <import addon="script.module.pycryptodome" optional="true" />
         </requires>
         <extension point="xbmc.python.script" library="burst.py">
@@ -4489,7 +4501,7 @@
             <summary lang="en">Jacktook Burst a torrents provider, fork of Elementum Burst</summary>
             <description lang="en">Jacktook Burst is a lean and mean multi-provider for Jacktook.</description>
             <disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
-            <license>WTFPL, Version 2, December 2004. See included LICENSE.</license>
+            <license>MIT, see included LICENSE file.</license>
             <source>https://github.com/Sam-Max/script.jacktook.burst</source>
             <forum>TODO</forum>
             <assets>
@@ -4625,7 +4637,7 @@
     		</assets>
     	</extension>
     </addon>
-    <addon id="script.module.classyscrapers" name="Classy Scrapers" version="1.0.2" provider-name="Classy">
+    <addon id="script.module.classyscrapers" name="Classy Scrapers" version="1.0.3" provider-name="Classy">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
     		<import addon="script.module.requests" />
@@ -4688,7 +4700,7 @@
         <source />
       </extension>
     </addon>
-    <addon id="script.module.cocoscrapers" name="CocoScrapers Module" version="1.0.39" provider-name="CocoJoe">
+    <addon id="script.module.cocoscrapers" name="CocoScrapers Module" version="1.0.45" provider-name="CocoJoe">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
     		<import addon="script.module.requests" />
@@ -4713,7 +4725,7 @@
     			<fanart>fanart.png</fanart>
     			<screenshot />
     		</assets>
-    		<news />
+    		<news>Avoid strptime failures during episode air-date validation that can abort provider searches.</news>
     	</extension>
     </addon>
     <addon id="script.module.futures" name="Futures dummy" version="0.0.0.2" provider-name="Twilight0">
@@ -4728,7 +4740,7 @@
         <license>BSD</license>
       </extension>
     </addon>
-    <addon id="script.module.gearsscrapers" version="1.5.9" name="Gears Scrapers" provider-name="gearsscrapers">
+    <addon id="script.module.gearsscrapers" version="1.6.4" name="Gears Scrapers" provider-name="gearsscrapers">
     	<requires>
     		<import addon="xbmc.python" version="3.0.0" />
     		<import addon="script.module.requests" />
@@ -4775,7 +4787,7 @@
     		<news />
     	</extension>
     </addon>
-    <addon id="script.module.jetextractors" name="JetExtractors" version="3.3.19" provider-name="THE TEAM">
+    <addon id="script.module.jetextractors" name="JetExtractors" version="3.3.31" provider-name="THE TEAM">
     	<requires>
     		<import addon="script.module.requests" />
     		<import addon="script.module.beautifulsoup4" />
@@ -4785,6 +4797,7 @@
     		<import addon="script.module.pyamf" />
     		<import addon="script.module.pycryptodome" optional="true" />
     		<import addon="script.module.pyjsparser" />
+    		<import addon="script.module.go" optional="true" />
     	</requires>
     	<extension point="xbmc.python.module" library="lib" />
     	<extension point="xbmc.addon.metadata">
@@ -4916,7 +4929,7 @@
         <email />
       </extension>
     </addon>
-    <addon id="script.module.resolveurl" name="ResolveURL" version="5.1.208" provider-name="gujal">
+    <addon id="script.module.resolveurl" name="ResolveURL" version="5.1.212" provider-name="gujal">
         <requires>
             
             <import addon="script.module.six" />
@@ -4962,7 +4975,7 @@
             </assets>
         </extension>
     </addon>
-    <addon id="script.module.slyguy" name="SlyGuy Common" provider-name="SlyGuy" version="0.86.96">
+    <addon id="script.module.slyguy" name="SlyGuy Common" provider-name="SlyGuy" version="0.87.6">
       <requires>
         <import addon="slyguy.dependencies" version="0.0.30" />
         <import addon="repository.slyguy" version="0.0.9" />
@@ -4978,7 +4991,7 @@
         <license />
         <language />
         <website />
-        <news>Fix session recursion errors. thanks @mcinteerj</news>
+        <news>Report the real position once playback has started</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
@@ -5057,7 +5070,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="3.2.9" provider-name="The Crew">
+    <addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="3.2.28" provider-name="The Crew">
         <requires>
             <import addon="xbmc.python" version="3.0.1" />
             <import addon="script.module.beautifulsoup4" />
@@ -6338,7 +6351,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.7plus" name="7plus" provider-name="SlyGuy" version="0.5.7">
+    <addon id="slyguy.7plus" name="7plus" provider-name="SlyGuy" version="0.5.8">
       <requires>
         <import addon="script.module.slyguy" version="0.86.21" />
       </requires>
@@ -6358,7 +6371,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.9now" name="9Now" provider-name="SlyGuy" version="0.4.5">
+    <addon id="slyguy.9now" name="9Now" provider-name="SlyGuy" version="0.4.6">
       <requires>
         <import addon="script.module.slyguy" version="0.86.23" />
       </requires>
@@ -6371,7 +6384,7 @@
         <license />
         <language />
         <website />
-        <news>Better error when refresh token fails</news>
+        <news>Better search</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
@@ -6609,7 +6622,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.nebula" name="Nebula" provider-name="SlyGuy" version="0.3.6">
+    <addon id="slyguy.nebula" name="Nebula" provider-name="SlyGuy" version="0.3.7">
       <requires>
         <import addon="script.module.slyguy" version="0.84.0" />
       </requires>
@@ -6651,7 +6664,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.paramount.plus" name="Paramount+" provider-name="SlyGuy" version="0.9.20">
+    <addon id="slyguy.paramount.plus" name="Paramount+" provider-name="SlyGuy" version="0.9.21">
       <requires>
         <import addon="script.module.slyguy" version="0.85.92" />
       </requires>
@@ -6713,9 +6726,9 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.pluto.tv.provider" name="Pluto TV" provider-name="SlyGuy" version="0.7.8">
+    <addon id="slyguy.pluto.tv.provider" name="Pluto TV" provider-name="SlyGuy" version="0.7.13">
       <requires>
-        <import addon="script.module.slyguy" version="0.84.0" />
+        <import addon="script.module.slyguy" version="0.87.5" />
       </requires>
       <extension point="xbmc.python.pluginsource" library="default.py" provides="video">
         <provides>video</provides>
@@ -6726,7 +6739,7 @@
         <license />
         <language />
         <website />
-        <news>Migrate to new settings!</news>
+        <news>Fix some channel playback</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
@@ -6855,7 +6868,7 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.skygo.nz" name="Sky Go" provider-name="SlyGuy" version="0.3.6">
+    <addon id="slyguy.skygo.nz" name="Sky Go" provider-name="SlyGuy" version="0.3.7">
       <requires>
         <import addon="script.module.slyguy" version="0.86.50" />
       </requires>
@@ -6870,7 +6883,7 @@
         <license />
         <language />
         <website />
-        <news>Support profiles</news>
+        <news>Fix VOD</news>
         <assets>
           <icon>icon.png</icon>
           <fanart>fanart.jpg</fanart>
@@ -6897,9 +6910,9 @@
         </assets>
       </extension>
     </addon>
-    <addon id="slyguy.trailers" name="SlyGuy Trailers" provider-name="SlyGuy" version="0.2.0">
+    <addon id="slyguy.trailers" name="SlyGuy Trailers" provider-name="SlyGuy" version="0.2.2">
         <requires>
-            <import addon="script.module.slyguy" version="0.86.96" />
+            <import addon="script.module.slyguy" version="0.87.4" />
         </requires>
         <extension point="xbmc.python.script" library="default.py">
             <provides>executable</provides>
@@ -6925,7 +6938,7 @@
             <license />
             <language />
             <website />
-            <news>New scanned trailer update feature!</news>
+            <news>Add background play setting</news>
             <assets>
             <icon>icon.png</icon>
             </assets>
